@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="W:\AuthoServer\EventHub.EventManagement\EventHub.EventManagement.API\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="W:\AuthoServer\EventHub.EventManagement\EventHub.EventManagement.API\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EventHub.EventManagement.Application\EventHub.EventManagement.Application.csproj" />
+    <ProjectReference Include="..\EventHub.EventManagement.Infrastructure\EventHub.EventManagement.Infrastructure.csproj" />
+    <ProjectReference Include="..\EventHub.EventManagement.Logging\EventHub.EventManagement.Logging.csproj" />
+    <ProjectReference Include="..\EventHub.EventManagement.Persistance\EventHub.EventManagement.Persistance.csproj" />
+    <ProjectReference Include="..\EventHub.EventManagement.Presentation\EventHub.EventManagement.Presentation.csproj" />
+  </ItemGroup>
+
+</Project>

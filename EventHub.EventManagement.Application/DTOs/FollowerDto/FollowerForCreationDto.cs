@@ -1,0 +1,14 @@
+﻿using EventHub.EventManagement.Domain.Entities;
+
+namespace EventHub.EventManagement.Application.DTOs.FollowerDto
+{
+   public record FollowerForCreationDto
+   {
+      public string? FirstName { get; init; }
+      public string? LastName { get; init; }
+      public Genre Genre { get; init; }
+      public int Age { get; set; }
+      public string? LiveIn { get; init; }
+
+   }
+}
