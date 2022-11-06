@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EventHub.EventManagement.Presentation.Controllers.EventControllers
 {
    [ApiVersion("1.0")]
-   [Route("api/mediums")]
+   [Route("api/v{v:apiversion}/mediums")]
    [ApiController]
    public class MediumsControllers : ControllerBase
    {

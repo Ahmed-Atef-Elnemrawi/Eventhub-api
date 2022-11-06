@@ -9,7 +9,7 @@ using System.Text.Json;
 namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControllers
 {
    [ApiVersion("1.0")]
-   [Route("api/organizations")]
+   [Route("api/v{v:apiversion}/organizations")]
    [ApiController]
    public class OrganizationsController : ControllerBase
    {

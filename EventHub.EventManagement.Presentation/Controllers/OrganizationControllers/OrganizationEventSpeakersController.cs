@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControllers
 {
    [ApiVersion("1.0")]
-   [Route("api/organizations/{organizationId}/events/{eventId}/speakers")]
+   [Route("api/v{v:apiversion}/organizations/{organizationId}/events/{eventId}/speakers")]
    [ApiController]
    public class OrganizationEventSpeakersController : ControllerBase
    {

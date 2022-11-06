@@ -9,7 +9,7 @@ using System.Text.Json;
 namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
 {
    [ApiVersion("1.0")]
-   [Route("api/producers/{v:apiversion}")]
+   [Route("api/v{v:apiversion}/producers")]
    [ApiController]
    public class ProducersController : ControllerBase
    {

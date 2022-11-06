@@ -9,7 +9,7 @@ using System.Text.Json;
 namespace EventHub.EventManagement.Presentation.Controllers.EventControllers
 {
    [ApiVersion("1.0")]
-   [Route("api/mediums/{mediumId}/categories")]
+   [Route("api/v{v:apiversion}/mediums/{mediumId}/categories")]
    [ApiController]
    public class CategoriesController : ControllerBase
    {

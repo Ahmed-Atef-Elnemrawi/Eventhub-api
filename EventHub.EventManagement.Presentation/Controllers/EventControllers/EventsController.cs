@@ -7,7 +7,7 @@ using System.Text.Json;
 namespace EventHub.EventManagement.Presentation.Controllers.EventControllers
 {
    [ApiVersion("1.0")]
-   [Route("api/events")]
+   [Route("api/v{v:apiversion}/events")]
    [ApiController]
    public class EventsController : ControllerBase
    {

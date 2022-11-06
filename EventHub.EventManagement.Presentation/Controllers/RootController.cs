@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Routing;
 namespace EventHub.EventManagement.Presentation.Controllers
 {
    [ApiVersion("1.0")]
-   [Route("api/{v:apiversion}")]
+   [Route("api/v{v:apiversion}")]
    [ApiController]
    public class RootController : ControllerBase
    {
