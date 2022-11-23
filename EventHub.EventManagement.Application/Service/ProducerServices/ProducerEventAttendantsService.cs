@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using EventHub.EventManagement.Application.Contracts.Infrastructure;
 using EventHub.EventManagement.Application.Contracts.links;
-using EventHub.EventManagement.Application.Contracts.Logging;
 using EventHub.EventManagement.Application.Contracts.Persistance;
 using EventHub.EventManagement.Application.Contracts.Service.ProducerServices;
 using EventHub.EventManagement.Application.DTOs.AttendantDto;

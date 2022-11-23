@@ -25,7 +25,6 @@
   <ItemGroup>
     <ProjectReference Include="..\EventHub.EventManagement.Application\EventHub.EventManagement.Application.csproj" />
     <ProjectReference Include="..\EventHub.EventManagement.Infrastructure\EventHub.EventManagement.Infrastructure.csproj" />
-    <ProjectReference Include="..\EventHub.EventManagement.Logging\EventHub.EventManagement.Logging.csproj" />
     <ProjectReference Include="..\EventHub.EventManagement.Persistance\EventHub.EventManagement.Persistance.csproj" />
     <ProjectReference Include="..\EventHub.EventManagement.Presentation\EventHub.EventManagement.Presentation.csproj" />
   </ItemGroup>

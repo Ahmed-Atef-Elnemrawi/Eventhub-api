@@ -1,4 +1,4 @@
-﻿using EventHub.EventManagement.Application.Contracts.Logging;
+﻿using EventHub.EventManagement.Application.Contracts.Infrastructure;
 using EventHub.EventManagement.Application.ErrorModels;
 using EventHub.EventManagement.Application.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;

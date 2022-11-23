@@ -1,9 +1,9 @@
 using EventHub.EventManagement.API.Extensions;
 using EventHub.EventManagement.API.Utility;
+using EventHub.EventManagement.Application.Contracts.Infrastructure;
 using EventHub.EventManagement.Application.Contracts.links;
-using EventHub.EventManagement.Application.Contracts.Logging;
 using EventHub.EventManagement.Application.Service;
-using EventHub.EventManagement.Logging;
+using EventHub.EventManagement.Infrastructure;
 using EventHub.EventManagement.Presentation.ActionFilter;
 using EventHub.EventManagement.Presistence;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -17,7 +17,7 @@ LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nl
 // Add services to the container.
 builder.Services.ConfigureCors();
 builder.Services.ConfigureIISIntergration();
-builder.Services.ConfigureLoggingService();
+builder.Services.ConfigureLoggerService();
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
