@@ -109,7 +109,7 @@ namespace EventHub.EventManagement.Application.Service.OrganizationServices
             .GetOrganizationAsync(organizationId, trackChanges);
 
          if (organization is null)
-            throw new OrganizationNotFoundException("id", organizationId);
+            throw new OrganizationNotFound("id", organizationId);
 
          return organization;
       }

@@ -6,6 +6,8 @@ namespace EventHub.EventManagement.Application.Contracts.Service
 {
    public interface IServiceManager
    {
+      IAuthenticationService AuthenticationService { get; }
+
       ICategoryService CategoryService { get; }
       IEventService EventService { get; }
       IMediumService MediumService { get; }

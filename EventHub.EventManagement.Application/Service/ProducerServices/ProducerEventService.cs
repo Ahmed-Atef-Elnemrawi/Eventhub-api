@@ -125,7 +125,7 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
             .GetProducerAsync(producerId, trackChanges: false);
 
          if (producer is null)
-            throw new ProducerNotFoundException("id", producerId);
+            throw new ProducerNotFound("id", producerId);
       }
 
       private async Task<ProducerEvent> GetProducerEventAndCheckIfItExists(Guid producerId, Guid eventId,
@@ -136,7 +136,7 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
            .GetProducerEventAsync(producerId, eventId, trackChanges);
 
          if (@event is null)
-            throw new EventNotFoundException("id", eventId);
+            throw new EventNotFound("id", eventId);
 
          return @event;
       }

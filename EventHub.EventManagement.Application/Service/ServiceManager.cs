@@ -10,11 +10,16 @@ using EventHub.EventManagement.Application.Contracts.Service.ProducerServices;
 using EventHub.EventManagement.Application.Service.EventServices;
 using EventHub.EventManagement.Application.Service.OrganizationServices;
 using EventHub.EventManagement.Application.Service.ProducerServices;
+using EventHub.EventManagement.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 
 namespace EventHub.EventManagement.Application.Service
 {
    internal sealed class ServiceManager : IServiceManager
    {
+      private readonly Lazy<IAuthenticationService> _authenticationService;
+
       private readonly Lazy<ICategoryService> _categoryService;
       private readonly Lazy<IEventService> _eventService;
       private readonly Lazy<IMediumService> _mediumService;
@@ -37,8 +42,15 @@ namespace EventHub.EventManagement.Application.Service
          ILoggerManager logger,
          IMapper mapper,
          IDataShaperManager dataShaper,
-         IEntitiesLinkGeneratorManager entitiesLinkGenerator)
+         IEntitiesLinkGeneratorManager entitiesLinkGenerator,
+         IConfiguration configuration,
+         UserManager<User> userManager)
       {
+
+         _authenticationService =
+            new Lazy<IAuthenticationService>(() =>
+            new AuthenticationService(userManager, logger, mapper, configuration));
+
          _organizationService =
             new Lazy<IOrganizationService>(() =>
             new OrganizationService(repository, logger, mapper, entitiesLinkGenerator));
@@ -93,6 +105,9 @@ namespace EventHub.EventManagement.Application.Service
             new EventService(repository, logger, mapper, entitiesLinkGenerator, dataShaper));
       }
 
+
+      public IAuthenticationService AuthenticationService =>
+         _authenticationService.Value;
 
       public IOrganizationService OrganizationService =>
          _organizationService.Value;

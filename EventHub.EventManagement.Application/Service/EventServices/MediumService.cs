@@ -35,7 +35,7 @@ namespace EventHub.EventManagement.Application.Service.EventServices
             .GetMediumAsync(mediumId, trackChanges);
 
          if (mediumEntity is null)
-            throw new MediumNotFoundException("id", mediumId);
+            throw new MediumNotFound("id", mediumId);
 
          var mediumToDto = _mapper
             .Map<MediumDto>(mediumEntity);

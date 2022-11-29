@@ -132,7 +132,7 @@ namespace EventHub.EventManagement.Application.Service.OrganizationServices
             .GetOrganizationAsync(organizationId, trackChanges);
 
          if (organization is null)
-            throw new OrganizationNotFoundException("id", organizationId);
+            throw new OrganizationNotFound("id", organizationId);
       }
 
 
@@ -144,7 +144,7 @@ namespace EventHub.EventManagement.Application.Service.OrganizationServices
             .GetSpeakerByOrganizationAsync(organizationId, speakerId, trackChanges);
 
          if (speaker is null)
-            throw new SpeakerNotFoundException("id", speakerId);
+            throw new SpeakerNotFound("id", speakerId);
 
          return speaker;
       }
@@ -156,7 +156,7 @@ namespace EventHub.EventManagement.Application.Service.OrganizationServices
             .GetOrganizationEventAsync(organizationId, eventId, trackChanges);
 
          if (organizationEvent is null)
-            throw new EventNotFoundException("id", eventId);
+            throw new EventNotFound("id", eventId);
       }
 
    }

@@ -7,6 +7,7 @@ using EventHub.EventManagement.Application.DTOs.MediumDto;
 using EventHub.EventManagement.Application.DTOs.OrganizationDto;
 using EventHub.EventManagement.Application.DTOs.ProducerDto;
 using EventHub.EventManagement.Application.DTOs.SpeakerDto;
+using EventHub.EventManagement.Application.DTOs.UserDto;
 using EventHub.EventManagement.Domain.Entities;
 using EventHub.EventManagement.Domain.Entities.EventEntities;
 using EventHub.EventManagement.Domain.Entities.OrganizationEntities;
@@ -18,6 +19,7 @@ namespace EventHub.EventManagement.Application.Profiles
    {
       public MappingProfile()
       {
+         CreateMap<User, UserForRegistrationDto>().ReverseMap();
 
          CreateMap<Attendant, AttendantDto>();
          CreateMap<Attendant, AttendantForCreationDto>().ReverseMap();

@@ -119,7 +119,7 @@ namespace EventHub.EventManagement.Application.Service.OrganizationServices
             GetEventAndCheckIfItExists(organizationId, eventId, trackChanges);
 
          if (eventEntity is null)
-            throw new EventNotFoundException("id", eventId);
+            throw new EventNotFound("id", eventId);
 
          _repository
             .OrganizationEventsRepository
@@ -149,7 +149,7 @@ namespace EventHub.EventManagement.Application.Service.OrganizationServices
             .GetOrganizationAsync(organizationId, trackChanges: false);
 
          if (organization is null)
-            throw new OrganizationNotFoundException("id", organizationId);
+            throw new OrganizationNotFound("id", organizationId);
       }
 
       private async Task<OrganizationEvent> GetEventAndCheckIfItExists(Guid organizationId,
@@ -160,7 +160,7 @@ namespace EventHub.EventManagement.Application.Service.OrganizationServices
             .GetOrganizationEventAsync(organizationId, eventId, trackChanges);
 
          if (eventEntity is null)
-            throw new EventNotFoundException("id", eventId);
+            throw new EventNotFound("id", eventId);
 
          return eventEntity;
       }

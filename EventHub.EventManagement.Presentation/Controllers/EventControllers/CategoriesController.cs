@@ -3,6 +3,7 @@ using EventHub.EventManagement.Application.DTOs.CategoryDto;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
 using EventHub.EventManagement.Presentation.ActionFilter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
@@ -66,11 +67,17 @@ namespace EventHub.EventManagement.Presentation.Controllers.EventControllers
       }
 
       [HttpPost(Name = "CreateCategory")]
+      [Authorize(Roles = "Organization, Producer")]
       public async Task<IActionResult> CreateCategory
          (Guid mediumId, [FromBody] CategoryForCreationDto categoryForCreationDto)
       {
-         if (categoryForCreationDto is null)
-            return BadRequest("categoryForCreation object is null.");
+         //if (categoryForCreationDto is null)
+         //   return BadRequest("categoryForCreation object is null.");
+
+         if (!ModelState.IsValid)
+         {
+            return BadRequest(ModelState);
+         }
 
          var createdCategory = await _service
             .CategoryService
@@ -85,6 +92,7 @@ namespace EventHub.EventManagement.Presentation.Controllers.EventControllers
 
 
       [HttpDelete("{id:guid}")]
+      [Authorize(Roles = "Organization, Producer")]
       public async Task<IActionResult> RemoveCategory(Guid mediumId, Guid id)
       {
          await _service
@@ -95,6 +103,7 @@ namespace EventHub.EventManagement.Presentation.Controllers.EventControllers
       }
 
       [HttpPut("{id:guid}")]
+      [Authorize(Roles = "Organization, Producer")]
       public async Task<IActionResult> UpdateCategory
          (Guid mediumId, Guid id, [FromBody] CategoryForUpdateDto categoryForUpdateDto)
       {

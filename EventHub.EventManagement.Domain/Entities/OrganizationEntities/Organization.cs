@@ -10,6 +10,7 @@ namespace EventHub.EventManagement.Domain.Entities.OrganizationEntities
       public string? BusinessDescription { get; set; }
       public string? Country { get; set; }
       public string? City { get; set; }
+      public string? PhoneNumber { get; set; }
       public string? Email { get; set; }
       public ICollection<OrganizationEvent> OrganizationEvents { get; set; }
       public ICollection<Speaker> Speakers { get; set; }

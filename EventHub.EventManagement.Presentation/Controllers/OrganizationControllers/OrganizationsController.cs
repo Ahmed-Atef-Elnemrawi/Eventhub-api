@@ -3,6 +3,7 @@ using EventHub.EventManagement.Application.DTOs.OrganizationDto;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
 using EventHub.EventManagement.Presentation.ActionFilter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
@@ -23,6 +24,7 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
 
 
       [HttpGet(Name = "GetOrganizations")]
+      [Authorize]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
       public async Task<IActionResult> GetAllOrganizations([FromQuery] OrganizationParams organizationParams)
       {
@@ -76,7 +78,8 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
 
 
 
-      [HttpDelete("{id:guid}")]
+      [HttpDelete("{id:guid}", Name = "RemoveOrganization")]
+      [Authorize(Roles = "Administrator,Organization")]
       public async Task<IActionResult> RemoveOrganization(Guid id)
       {
          await _service
@@ -89,6 +92,7 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
 
 
       [HttpPut("{id:guid}")]
+      [Authorize(Roles = "Organization")]
       public async Task<IActionResult> UpdateOrganization
          (Guid id, [FromBody] OrganizationForUpdateDto organizationForUpdateDto)
       {

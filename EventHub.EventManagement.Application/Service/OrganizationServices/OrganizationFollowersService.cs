@@ -116,7 +116,7 @@ namespace EventHub.EventManagement.Application.Service.OrganizationServices
             .GetOrganizationAsync(organizationId, trackChanges);
 
          if (organizationEntity is null)
-            throw new OrganizationNotFoundException("id", organizationId);
+            throw new OrganizationNotFound("id", organizationId);
       }
 
       private async Task<Follower> GetFollowerAndCheckIfItExists(Guid organizationId,
@@ -127,7 +127,7 @@ namespace EventHub.EventManagement.Application.Service.OrganizationServices
            .GetFollowerAsync(organizationId, followerId, trackChanges);
 
          if (follower is null)
-            throw new FollowerNotFoundException("id", followerId);
+            throw new FollowerNotFound("id", followerId);
 
          return follower;
       }

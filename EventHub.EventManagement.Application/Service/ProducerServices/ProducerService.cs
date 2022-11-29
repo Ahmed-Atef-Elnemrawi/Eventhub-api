@@ -106,7 +106,7 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
             .GetProducerAsync(producerId, trackChanges);
 
          if (producer is null)
-            throw new ProducerNotFoundException("id", producerId);
+            throw new ProducerNotFound("id", producerId);
 
          return producer;
       }

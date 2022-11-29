@@ -16,60 +16,60 @@ namespace EventHub.EventManagement.Application.Exceptions
       }
    }
 
-   public class CategoryNotFoundException : EntityNotFoundException<Category>
+   public sealed class CategoryNotFound : EntityNotFoundException<Category>
    {
-      public CategoryNotFoundException(string keyName, object keyValue)
+      public CategoryNotFound(string keyName, object keyValue)
          : base(keyName, keyValue)
       {
       }
    }
 
-   public class EventNotFoundException : EntityNotFoundException<Event>
+   public sealed class EventNotFound : EntityNotFoundException<Event>
    {
-      public EventNotFoundException(string keyName, object keyValue)
+      public EventNotFound(string keyName, object keyValue)
          : base(keyName, keyValue)
       {
       }
    }
 
-   public class OrganizationNotFoundException : EntityNotFoundException<Organization>
+   public sealed class OrganizationNotFound : EntityNotFoundException<Organization>
    {
-      public OrganizationNotFoundException(string keyName, object keyValue) : base(keyName, keyValue)
+      public OrganizationNotFound(string keyName, object keyValue) : base(keyName, keyValue)
       {
       }
    }
 
-   public class ProducerNotFoundException : EntityNotFoundException<Producer>
+   public sealed class ProducerNotFound : EntityNotFoundException<Producer>
    {
-      public ProducerNotFoundException(string keyName, object keyValue) : base(keyName, keyValue)
+      public ProducerNotFound(string keyName, object keyValue) : base(keyName, keyValue)
       {
       }
    }
 
-   public class MediumNotFoundException : EntityNotFoundException<Medium>
+   public sealed class MediumNotFound : EntityNotFoundException<Medium>
    {
-      public MediumNotFoundException(string keyName, object keyValue) : base(keyName, keyValue)
+      public MediumNotFound(string keyName, object keyValue) : base(keyName, keyValue)
       {
       }
    }
 
-   public class FollowerNotFoundException : EntityNotFoundException<Follower>
+   public sealed class FollowerNotFound : EntityNotFoundException<Follower>
    {
-      public FollowerNotFoundException(string keyName, object keyValue) : base(keyName, keyValue)
+      public FollowerNotFound(string keyName, object keyValue) : base(keyName, keyValue)
       {
       }
    }
 
-   public class AttendantNotFoundException : EntityNotFoundException<Attendant>
+   public sealed class AttendantNotFound : EntityNotFoundException<Attendant>
    {
-      public AttendantNotFoundException(string keyName, object keyValue) : base(keyName, keyValue)
+      public AttendantNotFound(string keyName, object keyValue) : base(keyName, keyValue)
       {
       }
    }
 
-   public class SpeakerNotFoundException : EntityNotFoundException<OrganizationEventSpeaker>
+   public sealed class SpeakerNotFound : EntityNotFoundException<OrganizationEventSpeaker>
    {
-      public SpeakerNotFoundException(string keyName, object keyValue) : base(keyName, keyValue)
+      public SpeakerNotFound(string keyName, object keyValue) : base(keyName, keyValue)
       {
       }
    }

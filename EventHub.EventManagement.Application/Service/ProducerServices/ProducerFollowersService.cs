@@ -113,7 +113,7 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
             .GetProducerAsync(producerId, trackChanges);
 
          if (producer is null)
-            throw new ProducerNotFoundException("id", producerId);
+            throw new ProducerNotFound("id", producerId);
       }
 
       private async Task<Follower> GetFollowerAndCheckIfItExists(Guid producerId, Guid followerId,
@@ -124,7 +124,7 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
            .GetFollowerAsync(producerId, followerId, trackChanges);
 
          if (follower is null)
-            throw new FollowerNotFoundException("id", followerId);
+            throw new FollowerNotFound("id", followerId);
 
          return follower;
 

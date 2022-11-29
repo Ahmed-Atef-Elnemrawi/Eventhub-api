@@ -66,7 +66,7 @@ namespace EventHub.EventManagement.Application.Service.OrganizationServices
             .GetSpeakerByEventAsync(eventId, speakerId, trackChanges);
 
          if (speaker is null)
-            throw new SpeakerNotFoundException("id", speakerId);
+            throw new SpeakerNotFound("id", speakerId);
 
          var speakerDto = _mapper
             .Map<SpeakerDto>(speaker);
@@ -133,7 +133,7 @@ namespace EventHub.EventManagement.Application.Service.OrganizationServices
             .GetOrganizationAsync(organizationId, trackChanges: false);
 
          if (organization is null)
-            throw new OrganizationNotFoundException("id", organizationId);
+            throw new OrganizationNotFound("id", organizationId);
 
       }
 
@@ -145,7 +145,7 @@ namespace EventHub.EventManagement.Application.Service.OrganizationServices
             .GetOrganizationEventAsync(organizationId, eventId, trackChanges: false);
 
          if (organizationEvent is null)
-            throw new EventNotFoundException("id", eventId);
+            throw new EventNotFound("id", eventId);
       }
 
       private async Task CheckIfEventSpeakerExists
@@ -155,7 +155,7 @@ namespace EventHub.EventManagement.Application.Service.OrganizationServices
             .GetSpeakerByEventAsync(eventId, speakerId, trackChanges);
 
          if (speaker is null)
-            throw new SpeakerNotFoundException("id", speakerId);
+            throw new SpeakerNotFound("id", speakerId);
 
       }
 
@@ -166,7 +166,7 @@ namespace EventHub.EventManagement.Application.Service.OrganizationServices
             GetSpeakerByOrganizationAsync(organizationId, speakerId, trackChanges);
 
          if (speaker is null)
-            throw new SpeakerNotFoundException("id", speakerId);
+            throw new SpeakerNotFound("id", speakerId);
 
       }
 

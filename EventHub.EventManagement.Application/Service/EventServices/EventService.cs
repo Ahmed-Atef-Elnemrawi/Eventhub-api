@@ -61,7 +61,7 @@ namespace EventHub.EventManagement.Application.Service.EventServices
             .GetCategoryAsync(categoryId, trackChanges);
 
          if (category is null)
-            throw new CategoryNotFoundException("id", categoryId);
+            throw new CategoryNotFound("id", categoryId);
 
          var producerEvent = await _repository
             .EventRepository
@@ -72,7 +72,7 @@ namespace EventHub.EventManagement.Application.Service.EventServices
             .GetCategoryOrganizationEventAsync(categoryId, eventId, trackChanges);
 
          if (producerEvent is null && organizationEvent is null)
-            throw new EventNotFoundException("id", eventId);
+            throw new EventNotFound("id", eventId);
 
          var producerEventDto = _mapper.Map<ProducerEventDto>(producerEvent);
          var organizationEventDto = _mapper.Map<OrganizationEventDto>(organizationEvent);
@@ -102,7 +102,7 @@ namespace EventHub.EventManagement.Application.Service.EventServices
             .GetEventAsync(eventId, trackChanges);
 
          if (eventEntity is null)
-            throw new EventNotFoundException("id", eventId);
+            throw new EventNotFound("id", eventId);
 
          var eventToReturn = _mapper
             .Map<EventDto>(eventEntity);

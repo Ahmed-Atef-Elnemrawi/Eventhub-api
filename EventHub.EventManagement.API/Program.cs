@@ -38,6 +38,9 @@ builder.Services.AddControllers(config =>
 
 builder.Services.AddCustomMediaTypes();
 builder.Services.ConfiugerVersioningService();
+builder.Services.AddAuthentication();
+builder.Services.ConfigureIdentity();
+builder.Services.ConfigureJWT(builder.Configuration);
 
 var app = builder.Build();
 var logger = app.Services.GetRequiredService<ILoggerManager>();
@@ -55,6 +58,7 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 });
 app.UseCors("CorsPolicy");
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endPoint =>
 {

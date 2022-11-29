@@ -4,11 +4,12 @@ using EventHub.EventManagement.Domain.Entities.EventEntities;
 using EventHub.EventManagement.Domain.Entities.OrganizationEntities;
 using EventHub.EventManagement.Domain.Entities.ProducerEntities;
 using EventHub.EventManagement.Persistance.Configurations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventHub.EventManagement.Presistence
 {
-   public sealed class RepositoryContext : DbContext
+   public sealed class RepositoryContext : IdentityDbContext<User>
    {
       public RepositoryContext(DbContextOptions<RepositoryContext> options)
          : base(options)
@@ -40,6 +41,9 @@ namespace EventHub.EventManagement.Presistence
          builder.ApplyConfiguration(new CategoryConfiguration());
          builder.ApplyConfiguration(new SpeakerConfiguration());
          builder.ApplyConfiguration(new MediumConfiguration());
+         builder.ApplyConfiguration(new RoleConfiguration());
+
+         base.OnModelCreating(builder);
 
       }
 

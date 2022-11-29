@@ -1,5 +1,7 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Persistance;
+using EventHub.EventManagement.Domain.Entities;
 using EventHub.EventManagement.Persistance.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +15,21 @@ namespace EventHub.EventManagement.Presistence
       {
          services.AddDbContext<RepositoryContext>(options
             => options.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
+      }
 
+      public static void ConfigureIdentity(this IServiceCollection services)
+      {
+         var identityBuilder = services.AddIdentityCore<User>(opt =>
+         {
+            opt.Password.RequireDigit = true;
+            opt.Password.RequireLowercase = false;
+            opt.Password.RequireUppercase = false;
+            opt.Password.RequireNonAlphanumeric = false;
+            opt.Password.RequiredLength = 10;
+            opt.User.RequireUniqueEmail = true;
+         })
+         .AddRoles<IdentityRole>()
+         .AddEntityFrameworkStores<RepositoryContext>();
       }
 
       public static void ConfigureRepositoryManager(this IServiceCollection services) =>

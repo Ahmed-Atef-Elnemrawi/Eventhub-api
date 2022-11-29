@@ -3,6 +3,7 @@ using EventHub.EventManagement.Application.DTOs.AttendantDto;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
 using EventHub.EventManagement.Presentation.ActionFilter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
@@ -18,8 +19,10 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
       public OrganizationEventAttendantsController(IServiceManager serviceManager) =>
          _serviceManager = serviceManager ?? throw new ArgumentNullException(nameof(serviceManager));
 
+
       [HttpGet(Name = "GetOrganizationEventAttendants")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [Authorize(Roles = "Organization")]
       public async Task<IActionResult> GetAllOrganizationEventAttendants
          (Guid organizationId, Guid eventId, [FromQuery] AttendantParams attendantParams)
       {
@@ -39,6 +42,7 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
 
       [HttpGet("{id:guid}", Name = "GetOrganizationEventAttendant")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [Authorize(Roles = "Organization")]
       public async Task<IActionResult> GetOrganizationEventAttendant
          (Guid organizationId, Guid eventId, Guid id, [FromQuery] AttendantParams attendantParams)
       {

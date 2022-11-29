@@ -120,7 +120,7 @@ namespace EventHub.EventManagement.Application.Service.EventServices
             .GetMediumAsync(mediumId, trackChanges);
 
          if (medium is null)
-            throw new MediumNotFoundException("id", mediumId);
+            throw new MediumNotFound("id", mediumId);
       }
       private async Task<Category> GetCategoryAndCheckIfItExist(Guid mediumId, Guid categoryId, bool trackChanges)
       {
@@ -129,7 +129,7 @@ namespace EventHub.EventManagement.Application.Service.EventServices
            .GetMediumCategoryAsync(mediumId, categoryId, trackChanges);
 
          if (category is null)
-            throw new CategoryNotFoundException("id", categoryId);
+            throw new CategoryNotFound("id", categoryId);
 
          return category;
       }

@@ -70,13 +70,13 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
 
          return CreatedAtRoute(
             "GetProducerFollower",
-            new { producerId, Id = followerDto.Id }
+            new { producerId, followerDto.Id }
             , followerDto);
       }
 
 
 
-      [HttpDelete("{id:guid}")]
+      [HttpDelete("{id:guid}", Name = "RemoveProducerFollower")]
       public async Task<IActionResult> RemoveProducerFollower(Guid producerId, Guid id)
       {
          await _service

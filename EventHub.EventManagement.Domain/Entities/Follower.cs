@@ -4,9 +4,16 @@ using EventHub.EventManagement.Domain.Entities.ProducerEntities;
 
 namespace EventHub.EventManagement.Domain.Entities
 {
-   public class Follower : User, ISortableEntity, ISearchableEntity
+   public class Follower : ISortableEntity, ISearchableEntity
    {
       public Guid FollowerId { get; set; }
+      public string? FirstName { get; set; }
+      public string? LastName { get; set; }
+      public Genre? Genre { get; set; }
+      public int Age { get; set; }
+      public string? City { get; set; }
+      public string? PhoneNumber { get; set; }
+      public string? Email { get; set; }
       public ICollection<Producer> Producers { get; set; }
       public ICollection<Organization> Organizations { get; set; }
 
