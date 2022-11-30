@@ -2,11 +2,11 @@ using EventHub.EventManagement.API.Extensions;
 using EventHub.EventManagement.API.Utility;
 using EventHub.EventManagement.Application.Contracts.Infrastructure;
 using EventHub.EventManagement.Application.Contracts.links;
+using EventHub.EventManagement.Application.Models.ConfigurationModels;
 using EventHub.EventManagement.Application.Service;
 using EventHub.EventManagement.Infrastructure;
 using EventHub.EventManagement.Presentation.ActionFilter;
 using EventHub.EventManagement.Presistence;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.HttpOverrides;
 using NLog;
 
@@ -25,7 +25,7 @@ builder.Services.ConfigureServiceManager();
 builder.Services.ConfigureDataShaperServiceManager();
 builder.Services.AddScoped<ValidateMediaTypeAttribute>();
 builder.Services.AddScoped<IEntitiesLinkGeneratorManager, EntitiesLinkGeneratorManager>();
-builder.Services.AddFluentValidationAutoValidation();
+builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("JwtSettings"));
 
 builder.Services.AddAutoMapper(typeof(EventHub.EventManagement.Application.Profiles.MappingProfile).Assembly);
 
@@ -43,6 +43,7 @@ builder.Services.ConfiugerVersioningService();
 builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
 builder.Services.ConfigureJWT(builder.Configuration);
+
 
 var app = builder.Build();
 var logger = app.Services.GetRequiredService<ILoggerManager>();

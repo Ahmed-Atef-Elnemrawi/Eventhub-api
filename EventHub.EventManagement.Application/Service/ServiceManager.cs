@@ -7,12 +7,14 @@ using EventHub.EventManagement.Application.Contracts.Service.DataShaperService;
 using EventHub.EventManagement.Application.Contracts.Service.EventServices;
 using EventHub.EventManagement.Application.Contracts.Service.OrganizationServices;
 using EventHub.EventManagement.Application.Contracts.Service.ProducerServices;
+using EventHub.EventManagement.Application.Models.ConfigurationModels;
 using EventHub.EventManagement.Application.Service.EventServices;
 using EventHub.EventManagement.Application.Service.OrganizationServices;
 using EventHub.EventManagement.Application.Service.ProducerServices;
 using EventHub.EventManagement.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace EventHub.EventManagement.Application.Service
 {
@@ -44,12 +46,13 @@ namespace EventHub.EventManagement.Application.Service
          IDataShaperManager dataShaper,
          IEntitiesLinkGeneratorManager entitiesLinkGenerator,
          IConfiguration configuration,
-         UserManager<User> userManager)
+         UserManager<User> userManager,
+         IOptions<JwtConfiguration> jwtConfiguration)
       {
 
          _authenticationService =
             new Lazy<IAuthenticationService>(() =>
-            new AuthenticationService(userManager, logger, mapper, configuration));
+            new AuthenticationService(userManager, logger, mapper, jwtConfiguration));
 
          _organizationService =
             new Lazy<IOrganizationService>(() =>

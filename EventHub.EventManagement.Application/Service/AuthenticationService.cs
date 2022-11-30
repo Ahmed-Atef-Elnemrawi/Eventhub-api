@@ -3,9 +3,10 @@ using EventHub.EventManagement.Application.Contracts.Infrastructure;
 using EventHub.EventManagement.Application.Contracts.Service;
 using EventHub.EventManagement.Application.DTOs.UserDto;
 using EventHub.EventManagement.Application.Exceptions;
+using EventHub.EventManagement.Application.Models.ConfigurationModels;
 using EventHub.EventManagement.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -19,16 +20,16 @@ namespace EventHub.EventManagement.Application.Service
       private readonly UserManager<User> _userManager;
       private readonly ILoggerManager _logger;
       private readonly IMapper _mapper;
-      private readonly IConfiguration _configuration;
+      private readonly JwtConfiguration _jwtConfiguration;
       private User? _user;
 
       public AuthenticationService(UserManager<User> userManager,
-         ILoggerManager logger, IMapper mapper, IConfiguration configuration)
+         ILoggerManager logger, IMapper mapper, IOptions<JwtConfiguration> jwtConfiguration)
       {
          _userManager = userManager;
          _logger = logger;
          _mapper = mapper;
-         _configuration = configuration;
+         _jwtConfiguration = jwtConfiguration.Value;
       }
 
       public async Task<TokenDto> CreateToken(bool populateExp)
@@ -73,11 +74,10 @@ namespace EventHub.EventManagement.Application.Service
 
       private JwtSecurityToken GenerateSecurityToken(List<Claim> claims, SigningCredentials signingCredentials)
       {
-         var jwtSettings = _configuration.GetSection("JwtSettings");
          return new JwtSecurityToken(
-            issuer: jwtSettings["validIssuer"],
-            audience: jwtSettings["validAudience"],
-            expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings["expires"])),
+            issuer: _jwtConfiguration.ValidIssuer,
+            audience: _jwtConfiguration.ValidAudience,
+            expires: DateTime.Now.AddMinutes(Convert.ToDouble(_jwtConfiguration.Expires)),
             claims: claims,
             signingCredentials: signingCredentials);
       }
@@ -114,21 +114,17 @@ namespace EventHub.EventManagement.Application.Service
          return Convert.ToBase64String(randomNumber);
       }
 
-      //principal: a container for a related subject Identities
-      //identities: a container for a relatd subject claims
-      //claim: a piece of information about a subject
+
       private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
       {
-         var jwtSettings = _configuration.GetSection("JwtSettings");
-
          var tokenValidationParameters = new TokenValidationParameters
          {
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateIssuerSigningKey = true,
             ValidateLifetime = true,
-            ValidIssuer = jwtSettings["validIssuer"],
-            ValidAudience = jwtSettings["validAudience"],
+            ValidIssuer = _jwtConfiguration.ValidIssuer,
+            ValidAudience = _jwtConfiguration.ValidAudience,
             IssuerSigningKey = new SymmetricSecurityKey(
                Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("secret")!))
          };
