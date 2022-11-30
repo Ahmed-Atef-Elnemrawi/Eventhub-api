@@ -2,7 +2,9 @@
 using EventHub.EventManagement.Application.DTOs.FollowerDto;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
+using EventHub.EventManagement.Application.Validation;
 using EventHub.EventManagement.Presentation.ActionFilter;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
@@ -39,6 +41,7 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
             Ok(linkResponse.LinkedEntities) : Ok(linkResponse.ShapedEntities);
       }
 
+
       [HttpGet("{id:guid}", Name = "GetOrganizationFollower")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
       public async Task<IActionResult> GetOrganizationFollower
@@ -60,8 +63,12 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
       public async Task<IActionResult> CreateOrganizationFollower
          (Guid organizationId, [FromBody] FollowerForCreationDto followerForCreationDto)
       {
-         if (followerForCreationDto is null)
-            return BadRequest("followerForCreation object is null.");
+         var result = await new FollowerValidator().ValidateAsync(followerForCreationDto);
+         if (!result.IsValid)
+         {
+            result.AddToModelState(ModelState);
+            return BadRequest(ModelState);
+         }
 
          var followerDto = await _service
             .OrganizationFollowersService

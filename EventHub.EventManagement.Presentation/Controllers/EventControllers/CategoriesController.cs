@@ -67,12 +67,12 @@ namespace EventHub.EventManagement.Presentation.Controllers.EventControllers
       }
 
       [HttpPost(Name = "CreateCategory")]
-      [Authorize(Roles = "Organization, Producer")]
+      [Authorize(Roles = "Administrator")]
       public async Task<IActionResult> CreateCategory
          (Guid mediumId, [FromBody] CategoryForCreationDto categoryForCreationDto)
       {
-         //if (categoryForCreationDto is null)
-         //   return BadRequest("categoryForCreation object is null.");
+         if (categoryForCreationDto is null)
+            return BadRequest("categoryForCreation object is null.");
 
          if (!ModelState.IsValid)
          {

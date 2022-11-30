@@ -6,6 +6,7 @@ using EventHub.EventManagement.Application.Service;
 using EventHub.EventManagement.Infrastructure;
 using EventHub.EventManagement.Presentation.ActionFilter;
 using EventHub.EventManagement.Presistence;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.HttpOverrides;
 using NLog;
 
@@ -24,6 +25,7 @@ builder.Services.ConfigureServiceManager();
 builder.Services.ConfigureDataShaperServiceManager();
 builder.Services.AddScoped<ValidateMediaTypeAttribute>();
 builder.Services.AddScoped<IEntitiesLinkGeneratorManager, EntitiesLinkGeneratorManager>();
+builder.Services.AddFluentValidationAutoValidation();
 
 builder.Services.AddAutoMapper(typeof(EventHub.EventManagement.Application.Profiles.MappingProfile).Assembly);
 

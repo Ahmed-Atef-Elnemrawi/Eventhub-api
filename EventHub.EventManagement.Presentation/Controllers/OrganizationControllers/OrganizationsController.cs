@@ -2,7 +2,9 @@
 using EventHub.EventManagement.Application.DTOs.OrganizationDto;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
+using EventHub.EventManagement.Application.Validation;
 using EventHub.EventManagement.Presentation.ActionFilter;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -19,6 +21,7 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
       public OrganizationsController(IServiceManager service)
       {
          _service = service ?? throw new ArgumentNullException(nameof(service));
+
       }
 
 
@@ -59,13 +62,16 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
       }
 
 
-
       [HttpPost(Name = "CreateOrganization")]
       public async Task<IActionResult> CreateOrgnization
          ([FromBody] OrganizationForCreationDto organizationForCreationDto)
       {
-         if (organizationForCreationDto is null)
-            return BadRequest("organizationForCreation object is null.");
+         var result = await new OrganizationValidator().ValidateAsync(organizationForCreationDto);
+         if (!result.IsValid)
+         {
+            result.AddToModelState(ModelState);
+            return BadRequest(ModelState);
+         }
 
          var organizationDto = await _service
             .OrganizationService
@@ -96,8 +102,12 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
       public async Task<IActionResult> UpdateOrganization
          (Guid id, [FromBody] OrganizationForUpdateDto organizationForUpdateDto)
       {
-         if (organizationForUpdateDto is null)
-            return BadRequest("organizationForUpdate object is null.");
+         var result = await new OrganizationValidator().ValidateAsync(organizationForUpdateDto);
+         if (!result.IsValid)
+         {
+            result.AddToModelState(ModelState);
+            return BadRequest(ModelState);
+         }
 
          await _service
             .OrganizationService
