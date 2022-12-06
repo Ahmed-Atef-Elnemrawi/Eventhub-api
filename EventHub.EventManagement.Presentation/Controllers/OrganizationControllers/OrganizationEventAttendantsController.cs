@@ -1,5 +1,6 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Service;
 using EventHub.EventManagement.Application.DTOs.AttendantDto;
+using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
 using EventHub.EventManagement.Application.Validation;
@@ -21,10 +22,20 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
       public OrganizationEventAttendantsController(IServiceManager serviceManager) =>
          _serviceManager = serviceManager ?? throw new ArgumentNullException(nameof(serviceManager));
 
-
+      /// <summary>
+      /// Gets the list of all organization event attendants
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="eventId"></param>
+      /// <param name="attendantParams"></param>
+      /// <returns></returns>
       [HttpGet(Name = "GetOrganizationEventAttendants")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
       [Authorize(Roles = "Organization")]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetAllOrganizationEventAttendants
          (Guid organizationId, Guid eventId, [FromQuery] AttendantParams attendantParams)
       {
@@ -41,10 +52,21 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
             Ok(linkRsponse.LinkedEntities) : Ok(linkRsponse.ShapedEntities);
       }
 
-
+      /// <summary>
+      /// Gets the event attendant
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="eventId"></param>
+      /// <param name="id"></param>
+      /// <param name="attendantParams"></param>
+      /// <returns></returns>
       [HttpGet("{id:guid}", Name = "GetOrganizationEventAttendant")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
       [Authorize(Roles = "Organization")]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetOrganizationEventAttendant
          (Guid organizationId, Guid eventId, Guid id, [FromQuery] AttendantParams attendantParams)
       {
@@ -58,8 +80,17 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
            Ok(linkResponse.LinkedEntity) : Ok(linkResponse.ShapedEntity);
       }
 
-
+      /// <summary>
+      /// Creates a new event attendant
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="eventId"></param>
+      /// <param name="attendantForCreationDto"></param>
+      /// <returns></returns>
       [HttpPost(Name = "CreateOrganizationEventAttendant")]
+      [ProducesResponseType(201)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> CreateOrganizationEventAttendant
          (Guid organizationId, Guid eventId, [FromBody] AttendantForCreationDto attendantForCreationDto)
       {
@@ -79,8 +110,17 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
             attendant);
       }
 
-
+      /// <summary>
+      /// Removes the event attendant
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="eventId"></param>
+      /// <param name="id"></param>
+      /// <returns></returns>
       [HttpDelete("{id:guid}", Name = "DeleteOrganizationEventAttendant")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> RemoveOrganizationEventAttendant
          (Guid organizationId, Guid eventId, Guid id)
       {

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 namespace EventHub.EventManagement.API.Extensions
@@ -38,6 +39,53 @@ namespace EventHub.EventManagement.API.Extensions
             config.ReportApiVersions = true;
             config.AssumeDefaultVersionWhenUnspecified = true;
             config.DefaultApiVersion = new ApiVersion(1, 0);
+         });
+      }
+
+      public static void ConfigureSwagger(this IServiceCollection services)
+      {
+         services.AddSwaggerGen(opt =>
+         {
+            opt.SwaggerDoc("v1", new OpenApiInfo
+            {
+               Title = "EventHub API",
+               Version = "v1",
+               Description = "EventHub API by Ahmed Atef",
+               Contact = new OpenApiContact
+               {
+                  Name = "Ahmed Atef",
+                  Email = "ah.at.elnemrawi@gmail.com",
+                  Url = new Uri("https://www.twitter.com/Ahmed_Elnemrawi")
+               }
+            });
+
+            var xmlFile = $"{typeof(Presentation.AssemblyReference).Assembly.GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            opt.IncludeXmlComments(xmlPath);
+
+            opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+               In = ParameterLocation.Header,
+               Description = "Place to add JWT with Bearer",
+               Name = "Authorization",
+               Type = SecuritySchemeType.ApiKey,
+               Scheme = "Bearer"
+            });
+            opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+               {
+                  new OpenApiSecurityScheme
+               {
+                Reference = new OpenApiReference
+                {
+                   Type = ReferenceType.SecurityScheme,
+                   Id = "Bearer",
+                 },
+                 Name = "Bearer",
+                 },
+                 new List<string>()
+                 }
+            });
          });
       }
 

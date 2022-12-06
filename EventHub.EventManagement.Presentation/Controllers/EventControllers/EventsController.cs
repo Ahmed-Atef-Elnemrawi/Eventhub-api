@@ -1,4 +1,5 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Service;
+using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
 using EventHub.EventManagement.Presentation.ActionFilter;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +19,15 @@ namespace EventHub.EventManagement.Presentation.Controllers.EventControllers
          _service = service;
       }
 
+      /// <summary>
+      /// Gets the list of all events
+      /// </summary>
+      /// <param name="eventParams"></param>
+      /// <returns></returns>
       [HttpGet(Name = "GetEvents")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetEvents([FromQuery] EventParams eventParams)
       {
          var (events, metaData) = await _service
@@ -31,15 +39,22 @@ namespace EventHub.EventManagement.Presentation.Controllers.EventControllers
 
          return Ok(events);
       }
-
+      /// <summary>
+      /// Gets the event
+      /// </summary>
+      /// <param name="id"></param>
+      /// <param name="fields">comma separated string fields</param>
+      /// <returns></returns>
       [HttpGet("{id:guid}")]
-      public async Task<IActionResult> GetEvent(Guid id)
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
+      public async Task<IActionResult> GetEvent(Guid id, [FromQuery] string fields)
       {
-         var eventDto = await _service
+         var eventToReturn = await _service
             .EventService
-            .GetEventAsync(id, trackChanges: false);
+            .GetEventAsync(id, fields, trackChanges: false);
 
-         return Ok(eventDto);
+         return Ok(eventToReturn);
       }
    }
 }

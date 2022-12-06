@@ -1,5 +1,6 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Service;
 using EventHub.EventManagement.Application.DTOs.EventDto;
+using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
 using EventHub.EventManagement.Application.Validation;
@@ -22,9 +23,16 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
       {
          _service = service;
       }
-
+      /// <summary>
+      /// Gets the list of all producer events
+      /// </summary>
+      /// <param name="producerId"></param>
+      /// <param name="eventParams"></param>
+      /// <returns></returns>
       [HttpGet(Name = "GetProducerEvents")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetAllProducerEvents
          (Guid producerId, [FromQuery] EventParams eventParams)
       {
@@ -40,9 +48,17 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
             Ok(linkResponse.LinkedEntities) : Ok(linkResponse.ShapedEntities);
       }
 
-
+      /// <summary>
+      /// Gets the producer event
+      /// </summary>
+      /// <param name="producerId"></param>
+      /// <param name="id"></param>
+      /// <param name="eventParams"></param>
+      /// <returns></returns>
       [HttpGet("{id:guid}", Name = "GetProducerEvent")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetProducerEvent
          (Guid producerId, Guid id, [FromQuery] EventParams eventParams)
       {
@@ -56,9 +72,19 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
            Ok(linkResponse.LinkedEntity) : Ok(linkResponse.ShapedEntity);
       }
 
-
+      /// <summary>
+      /// Creates a new producer event
+      /// </summary>
+      /// <param name="producerId"></param>
+      /// <param name="eventForCreationDto"></param>
+      /// <returns></returns>
       [HttpPost(Name = "CreateProducerEvent")]
       [Authorize(Roles = "Producer")]
+      [ProducesResponseType(201)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
       public async Task<IActionResult> CreateProducerEvent
          (Guid producerId, [FromBody] EventForCreationDto eventForCreationDto)
       {
@@ -80,8 +106,19 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
       }
 
 
+      /// <summary>
+      /// Removes the producer event
+      /// </summary>
+      /// <param name="producerId"></param>
+      /// <param name="id"></param>
+      /// <returns></returns>
       [HttpDelete("{id:guid}")]
       [Authorize(Roles = "Producer")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
       public async Task<IActionResult> RemoveProducerEvent(Guid producerId, Guid id)
       {
          await _service
@@ -91,9 +128,20 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
          return NoContent();
       }
 
-
+      /// <summary>
+      /// Updates the producer event
+      /// </summary>
+      /// <param name="producerId"></param>
+      /// <param name="id"></param>
+      /// <param name="eventForUpdateDto"></param>
+      /// <returns></returns>
       [HttpPut("{id:guid}")]
       [Authorize(Roles = "Producer")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
       public async Task<IActionResult> UpdateProducerEvent
          (Guid producerId, Guid id, [FromBody] EventForUpdateDto eventForUpdateDto)
       {

@@ -1,5 +1,6 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Service;
 using EventHub.EventManagement.Application.DTOs.AttendantDto;
+using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
 using EventHub.EventManagement.Application.Validation;
@@ -21,9 +22,20 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
       public ProducerEventAttendantsController(IServiceManager serviceManager) =>
          _serviceManager = serviceManager ?? throw new ArgumentNullException(nameof(serviceManager));
 
+      /// <summary>
+      /// Gets the list of all producer event attendants
+      /// </summary>
+      /// <param name="producerId"></param>
+      /// <param name="eventId"></param>
+      /// <param name="attendantParams"></param>
+      /// <returns></returns>
       [HttpGet(Name = "GetProducerEventAttendants")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
       [Authorize(Roles = "Producer")]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetProducerEventAllAttendants
          (Guid producerId, Guid eventId, [FromQuery] AttendantParams attendantParams)
       {
@@ -40,10 +52,21 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
             Ok(linkResponse.LinkedEntities) : Ok(linkResponse.ShapedEntities);
       }
 
-
+      /// <summary>
+      /// Gets the event attendants
+      /// </summary>
+      /// <param name="producerId"></param>
+      /// <param name="eventId"></param>
+      /// <param name="id"></param>
+      /// <param name="attendantParams"></param>
+      /// <returns></returns>
       [HttpGet("{id:guid}", Name = "GetProducerEventAttendant")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
       [Authorize(Roles = "Producer")]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetProducerEventAttendant
          (Guid producerId, Guid eventId, Guid id, [FromQuery] AttendantParams attendantParams)
       {
@@ -57,8 +80,17 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
             Ok(linkResponse.LinkedEntity) : Ok(linkResponse.ShapedEntity);
       }
 
-
+      /// <summary>
+      /// Creates a new event attendant
+      /// </summary>
+      /// <param name="producerId"></param>
+      /// <param name="eventId"></param>
+      /// <param name="attendantForCreationDto"></param>
+      /// <returns></returns>
       [HttpPost(Name = "CreateProducerEventAttendant")]
+      [ProducesResponseType(201)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> CreateProducerEventAttendant
          (Guid producerId, Guid eventId, [FromBody] AttendantForCreationDto attendantForCreationDto)
       {
@@ -78,8 +110,17 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
             attendant);
       }
 
-
+      /// <summary>
+      /// Removes the event attendant
+      /// </summary>
+      /// <param name="producerId"></param>
+      /// <param name="eventId"></param>
+      /// <param name="id"></param>
+      /// <returns></returns>
       [HttpDelete("{id:guid}", Name = "DeleteProducerEventAttendant")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> RemoveProducerEventAttendant
          (Guid producerId, Guid eventId, Guid id)
       {

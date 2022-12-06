@@ -16,7 +16,15 @@ namespace EventHub.EventManagement.Presentation.Controllers
          _linkGenerator = linkGenerator;
       }
 
+      /// <summary>
+      /// Gets the starting point of our EventHub API.
+      /// </summary>
+      /// <param name="mediaType"></param>
+      /// <returns></returns>
       [HttpGet(Name = "GetRoot")]
+      [ProducesResponseType(200, Type = typeof(IEnumerable<Link>))]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(404)]
       public IActionResult GetRoot([FromHeader(Name = "Accept")] string mediaType)
       {
          if (mediaType.Contains("application/vnd.api.apiroot"))

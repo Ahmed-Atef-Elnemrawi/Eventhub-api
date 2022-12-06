@@ -1,5 +1,6 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Service;
 using EventHub.EventManagement.Application.DTOs.FollowerDto;
+using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
 using EventHub.EventManagement.Application.Validation;
@@ -22,9 +23,16 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
          _service = service ?? throw new ArgumentNullException(nameof(service));
       }
 
-
+      /// <summary>
+      /// Gets the list of organization followers
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="followerParams"></param>
+      /// <returns></returns>
       [HttpGet(Name = "GetOrganizationFollowers")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetAllOrganizationFollowers
          (Guid organizationId, [FromQuery] FollowerParams followerParams)
       {
@@ -41,9 +49,17 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
             Ok(linkResponse.LinkedEntities) : Ok(linkResponse.ShapedEntities);
       }
 
-
+      /// <summary>
+      /// Gets the organization follower
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="id"></param>
+      /// <param name="followerParams"></param>
+      /// <returns></returns>
       [HttpGet("{id:guid}", Name = "GetOrganizationFollower")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetOrganizationFollower
          (Guid organizationId, Guid id, [FromQuery] FollowerParams followerParams)
       {
@@ -58,8 +74,16 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
       }
 
 
-
+      /// <summary>
+      /// Creates a new organization follower
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="followerForCreationDto"></param>
+      /// <returns></returns>
       [HttpPost(Name = "CreateOrganizationFollower")]
+      [ProducesResponseType(201)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> CreateOrganizationFollower
          (Guid organizationId, [FromBody] FollowerForCreationDto followerForCreationDto)
       {
@@ -80,8 +104,16 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
       }
 
 
-
+      /// <summary>
+      /// Removes the organization follower
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="id"></param>
+      /// <returns></returns>
       [HttpDelete("{id:guid}")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> RemoveOrganizationFollower(Guid organizationId, Guid id)
       {
          await _service

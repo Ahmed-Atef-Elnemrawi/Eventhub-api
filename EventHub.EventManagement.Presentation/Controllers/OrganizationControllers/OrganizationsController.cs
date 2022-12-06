@@ -1,5 +1,6 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Service;
 using EventHub.EventManagement.Application.DTOs.OrganizationDto;
+using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
 using EventHub.EventManagement.Application.Validation;
@@ -25,10 +26,15 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
       }
 
 
-
+      /// <summary>
+      /// Gets the list of events organizations
+      /// </summary>
+      /// <param name="organizationParams"></param>
+      /// <returns></returns>
       [HttpGet(Name = "GetOrganizations")]
-      [Authorize]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetAllOrganizations([FromQuery] OrganizationParams organizationParams)
       {
          var linkParams = new OrganizationLinkParams(organizationParams, HttpContext: HttpContext);
@@ -45,9 +51,16 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
       }
 
 
-
+      /// <summary>
+      /// Gets the organization
+      /// </summary>
+      /// <param name="id"></param>
+      /// <param name="organizationParams"></param>
+      /// <returns></returns>
       [HttpGet("{id:guid}", Name = "GetOrganization")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetOrganization
          (Guid id, [FromQuery] OrganizationParams organizationParams)
       {
@@ -61,8 +74,15 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
             Ok(linkResponse.LinkedEntity) : Ok(linkResponse.ShapedEntity);
       }
 
-
+      /// <summary>
+      /// Creates a new organization
+      /// </summary>
+      /// <param name="organizationForCreationDto"></param>
+      /// <returns></returns>
       [HttpPost(Name = "CreateOrganization")]
+      [ProducesResponseType(201)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> CreateOrgnization
          ([FromBody] OrganizationForCreationDto organizationForCreationDto)
       {
@@ -83,9 +103,18 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
       }
 
 
-
+      /// <summary>
+      /// Removes the organization
+      /// </summary>
+      /// <param name="id"></param>
+      /// <returns></returns>
       [HttpDelete("{id:guid}", Name = "RemoveOrganization")]
       [Authorize(Roles = "Administrator,Organization")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
       public async Task<IActionResult> RemoveOrganization(Guid id)
       {
          await _service
@@ -96,9 +125,19 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
       }
 
 
-
+      /// <summary>
+      /// Updates the organization
+      /// </summary>
+      /// <param name="id"></param>
+      /// <param name="organizationForUpdateDto"></param>
+      /// <returns></returns>
       [HttpPut("{id:guid}")]
       [Authorize(Roles = "Organization")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
       public async Task<IActionResult> UpdateOrganization
          (Guid id, [FromBody] OrganizationForUpdateDto organizationForUpdateDto)
       {

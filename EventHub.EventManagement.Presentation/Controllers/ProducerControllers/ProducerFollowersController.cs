@@ -1,5 +1,6 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Service;
 using EventHub.EventManagement.Application.DTOs.FollowerDto;
+using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
 using EventHub.EventManagement.Application.Validation;
@@ -22,9 +23,16 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
          _service = service;
       }
 
-
+      /// <summary>
+      /// Gets the list of producer followers
+      /// </summary>
+      /// <param name="producerId"></param>
+      /// <param name="followerParams"></param>
+      /// <returns></returns>
       [HttpGet(Name = "GetProducerFollowers")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetAllProducerFollowers
          (Guid producerId, [FromQuery] FollowerParams followerParams)
       {
@@ -41,9 +49,17 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
             Ok(linkResponse.LinkedEntities) : Ok(linkResponse.ShapedEntities);
       }
 
-
+      /// <summary>
+      /// Gets the producer follower
+      /// </summary>
+      /// <param name="producerId"></param>
+      /// <param name="id"></param>
+      /// <param name="followerParams"></param>
+      /// <returns></returns>
       [HttpGet("{id:guid}", Name = "GetProducerFollower")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetProducerFollower
          (Guid producerId, Guid id, [FromQuery] FollowerParams followerParams)
       {
@@ -58,8 +74,16 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
       }
 
 
-
+      /// <summary>
+      /// Creates a new producer follower
+      /// </summary>
+      /// <param name="producerId"></param>
+      /// <param name="followerForCreationDto"></param>
+      /// <returns></returns>
       [HttpPost(Name = "CreateProducerFollower")]
+      [ProducesResponseType(201)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> CreateProducerFollower
          (Guid producerId, [FromBody] FollowerForCreationDto followerForCreationDto)
       {
@@ -81,8 +105,16 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
       }
 
 
-
+      /// <summary>
+      /// Removes the producer follower
+      /// </summary>
+      /// <param name="producerId"></param>
+      /// <param name="id"></param>
+      /// <returns></returns>
       [HttpDelete("{id:guid}", Name = "RemoveProducerFollower")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> RemoveProducerFollower(Guid producerId, Guid id)
       {
          await _service
