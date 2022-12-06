@@ -1,5 +1,6 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Service;
 using EventHub.EventManagement.Application.DTOs.EventDto;
+using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
 using EventHub.EventManagement.Application.Validation;
@@ -23,8 +24,16 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
          _service = service ?? throw new ArgumentNullException(nameof(service));
       }
 
+      /// <summary>
+      /// Get the list of all organizatin events
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="eventParameters"></param>
+      /// <returns></returns>
       [HttpGet(Name = "GetOrganizationEvents")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
       public async Task<IActionResult>
          GetAllOrganizationEvents(Guid organizationId, [FromQuery] EventParams eventParameters)
       {
@@ -41,9 +50,17 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
             Ok(linkResponse.LinkedEntities) : Ok(linkResponse.ShapedEntities);
       }
 
-
+      /// <summary>
+      /// Gets the organization event
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="id"></param>
+      /// <param name="eventParams"></param>
+      /// <returns></returns>
       [HttpGet("{id:guid}", Name = "GetOrganizationEvent")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetOrganizationEvent
          (Guid organizationId, Guid id, [FromQuery] EventParams eventParams)
       {
@@ -57,8 +74,19 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
            Ok(linkResponse.LinkedEntity) : Ok(linkResponse.ShapedEntity);
       }
 
+      /// <summary>
+      /// Creates a new organization event
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="eventForCreationDto"></param>
+      /// <returns></returns>
       [HttpPost(Name = "CreateOrganizationEvent")]
       [Authorize(Roles = "Organization")]
+      [ProducesResponseType(201)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
       public async Task<IActionResult> CreateOrganizationEvent
          (Guid organizationId, [FromBody] OrganizationEventForCreationDto eventForCreationDto)
       {
@@ -78,8 +106,19 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
             , eventDto);
       }
 
+      /// <summary>
+      /// Removes the organization event
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="id"></param>
+      /// <returns></returns>
       [HttpDelete("{id:guid}")]
       [Authorize(Roles = "Organization")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
       public async Task<IActionResult> RemoveOrganizationEvent(Guid organizationId, Guid id)
       {
          await _service
@@ -89,9 +128,20 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
          return NoContent();
       }
 
-
+      /// <summary>
+      /// Updates the organization event
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="id"></param>
+      /// <param name="eventForUpdateDto"></param>
+      /// <returns></returns>
       [HttpPut("{id:guid}")]
       [Authorize(Roles = "Organization")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
       public async Task<IActionResult> UpdateOrganizationEvent
          (Guid organizationId, Guid id, [FromBody] EventForUpdateDto eventForUpdateDto)
       {

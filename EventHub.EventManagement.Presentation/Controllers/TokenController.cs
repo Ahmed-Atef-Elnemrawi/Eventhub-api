@@ -16,7 +16,14 @@ namespace EventHub.EventManagement.Presentation.Controllers
          _serviceManager = serviceManager;
       }
 
+      /// <summary>
+      /// creates a new access token and refresh token
+      /// </summary>
+      /// <param name="tokenDto"></param>
+      /// <returns></returns>
       [HttpPost("refresh")]
+      [ProducesResponseType(200)]
+      [ProducesResponseType(400)]
       public async Task<IActionResult> Refresh([FromBody] TokenDto tokenDto)
       {
          var tokenToReturn = await _serviceManager.AuthenticationService.RefreshToken(tokenDto);

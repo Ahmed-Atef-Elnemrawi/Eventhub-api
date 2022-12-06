@@ -1,0 +1,475 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EventHub.EventManagement.Presentation</name>
+    </assembly>
+    <members>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.AuthenticationController.Register(EventHub.EventManagement.Application.DTOs.UserDto.UserForRegistrationDto)">
+            <summary>
+            Provides user register
+            </summary>
+            <param name="userForRegistration"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.AuthenticationController.Login(EventHub.EventManagement.Application.DTOs.UserDto.UserForAuthenticationDto)">
+            <summary>
+            provides user login
+            </summary>
+            <param name="userForAuthentication"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.EventControllers.CategoriesController.GetAllCategories(System.Guid)">
+            <summary>
+            Gets the list of all categoryies of the medium
+            </summary>
+            <param name="mediumId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.EventControllers.CategoriesController.GetCategory(System.Guid,System.Guid)">
+            <summary>
+            Gets the category of the medium
+            </summary>
+            <param name="mediumId"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.EventControllers.CategoriesController.GetAllCategoryEvents(System.Guid,System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.EventParams)">
+            <summary>
+            Gets the list of category events
+            </summary>
+            <param name="mediumId"></param>
+            <param name="categoryId"></param>
+            <param name="eventParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.EventControllers.CategoriesController.GetCategoryEvent(System.Guid,System.Guid,System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.EventParams)">
+            <summary>
+            Gets the category event
+            </summary>
+            <param name="mediumId"></param>
+            <param name="categoryId"></param>
+            <param name="id"></param>
+            <param name="eventParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.EventControllers.EventsController.GetEvents(EventHub.EventManagement.Application.RequestFeatures.Params.EventParams)">
+            <summary>
+            Gets the list of all events
+            </summary>
+            <param name="eventParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.EventControllers.EventsController.GetEvent(System.Guid,System.String)">
+            <summary>
+            Gets the event
+            </summary>
+            <param name="id"></param>
+            <param name="fields">comma separated string fields</param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.EventControllers.MediumsController.GetAllMediums">
+            <summary>
+            Gets the list of mediums
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.EventControllers.MediumsController.GetMedium(System.Guid)">
+            <summary>
+            Gets the medium
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventAttendantsController.GetAllOrganizationEventAttendants(System.Guid,System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.AttendantParams)">
+            <summary>
+            Gets the list of all organization event attendants
+            </summary>
+            <param name="organizationId"></param>
+            <param name="eventId"></param>
+            <param name="attendantParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventAttendantsController.GetOrganizationEventAttendant(System.Guid,System.Guid,System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.AttendantParams)">
+            <summary>
+            Gets the event attendant
+            </summary>
+            <param name="organizationId"></param>
+            <param name="eventId"></param>
+            <param name="id"></param>
+            <param name="attendantParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventAttendantsController.CreateOrganizationEventAttendant(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.AttendantDto.AttendantForCreationDto)">
+            <summary>
+            Creates a new event attendant
+            </summary>
+            <param name="organizationId"></param>
+            <param name="eventId"></param>
+            <param name="attendantForCreationDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventAttendantsController.RemoveOrganizationEventAttendant(System.Guid,System.Guid,System.Guid)">
+            <summary>
+            Removes the event attendant
+            </summary>
+            <param name="organizationId"></param>
+            <param name="eventId"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventController.GetAllOrganizationEvents(System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.EventParams)">
+            <summary>
+            Get the list of all organizatin events
+            </summary>
+            <param name="organizationId"></param>
+            <param name="eventParameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventController.GetOrganizationEvent(System.Guid,System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.EventParams)">
+            <summary>
+            Gets the organization event
+            </summary>
+            <param name="organizationId"></param>
+            <param name="id"></param>
+            <param name="eventParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventController.CreateOrganizationEvent(System.Guid,EventHub.EventManagement.Application.DTOs.EventDto.OrganizationEventForCreationDto)">
+            <summary>
+            Creates a new organization event
+            </summary>
+            <param name="organizationId"></param>
+            <param name="eventForCreationDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventController.RemoveOrganizationEvent(System.Guid,System.Guid)">
+            <summary>
+            Removes the organization event
+            </summary>
+            <param name="organizationId"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventController.UpdateOrganizationEvent(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.EventDto.EventForUpdateDto)">
+            <summary>
+            Updates the organization event
+            </summary>
+            <param name="organizationId"></param>
+            <param name="id"></param>
+            <param name="eventForUpdateDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventSpeakersController.GetAllOrganizationEventSpeakers(System.Guid,System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.SpeakerParams)">
+            <summary>
+            Gets the list of event speakrs
+            </summary>
+            <param name="organizationId"></param>
+            <param name="eventId"></param>
+            <param name="speakerParam"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventSpeakersController.GetOrganizationEventSpeaker(System.Guid,System.Guid,System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.SpeakerParams)">
+            <summary>
+            Gets the event speaker
+            </summary>
+            <param name="organizationId"></param>
+            <param name="eventId"></param>
+            <param name="Id"></param>
+            <param name="speakerParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventSpeakersController.AddOrganizationEventSpeaker(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.SpeakerDto.EventSpeakerForCreationDto)">
+            <summary>
+            Links an speaker to the event
+            </summary>
+            <param name="organizationId"></param>
+            <param name="eventId"></param>
+            <param name="eventSpeakerForCreationDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventSpeakersController.RemoveOrganizationEventSpeaker(System.Guid,System.Guid,System.Guid)">
+            <summary>
+            Unlinks an speaker from the event
+            </summary>
+            <param name="organizationId"></param>
+            <param name="eventId"></param>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationFollowersController.GetAllOrganizationFollowers(System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.FollowerParams)">
+            <summary>
+            Gets the list of organization followers
+            </summary>
+            <param name="organizationId"></param>
+            <param name="followerParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationFollowersController.GetOrganizationFollower(System.Guid,System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.FollowerParams)">
+            <summary>
+            Gets the organization follower
+            </summary>
+            <param name="organizationId"></param>
+            <param name="id"></param>
+            <param name="followerParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationFollowersController.CreateOrganizationFollower(System.Guid,EventHub.EventManagement.Application.DTOs.FollowerDto.FollowerForCreationDto)">
+            <summary>
+            Creates a new organization follower
+            </summary>
+            <param name="organizationId"></param>
+            <param name="followerForCreationDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationFollowersController.RemoveOrganizationFollower(System.Guid,System.Guid)">
+            <summary>
+            Removes the organization follower
+            </summary>
+            <param name="organizationId"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationsController.GetAllOrganizations(EventHub.EventManagement.Application.RequestFeatures.Params.OrganizationParams)">
+            <summary>
+            Gets the list of events organizations
+            </summary>
+            <param name="organizationParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationsController.GetOrganization(System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.OrganizationParams)">
+            <summary>
+            Gets the organization
+            </summary>
+            <param name="id"></param>
+            <param name="organizationParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationsController.CreateOrgnization(EventHub.EventManagement.Application.DTOs.OrganizationDto.OrganizationForCreationDto)">
+            <summary>
+            Creates a new organization
+            </summary>
+            <param name="organizationForCreationDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationsController.RemoveOrganization(System.Guid)">
+            <summary>
+            Removes the organization
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationsController.UpdateOrganization(System.Guid,EventHub.EventManagement.Application.DTOs.OrganizationDto.OrganizationForUpdateDto)">
+            <summary>
+            Updates the organization
+            </summary>
+            <param name="id"></param>
+            <param name="organizationForUpdateDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationSpeakersController.GetAllOrganizationSpeakers(System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.SpeakerParams)">
+            <summary>
+            Gets the list of organization speakers
+            </summary>
+            <param name="organizationId"></param>
+            <param name="speakerParam"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationSpeakersController.GetOrganizationSpeaker(System.Guid,System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.SpeakerParams)">
+            <summary>
+            Gets the speaker
+            </summary>
+            <param name="organizationId"></param>
+            <param name="speakerId"></param>
+            <param name="speakerParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationSpeakersController.CreateOrganizationSpeaker(System.Guid,EventHub.EventManagement.Application.DTOs.SpeakerDto.SpeakerForCreationDto)">
+            <summary>
+            Creates a new speaker
+            </summary>
+            <param name="organizationId"></param>
+            <param name="speakerForCreation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationSpeakersController.UpdateOrganizationSpeaker(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.SpeakerDto.SpeakerForUpdateDto)">
+            <summary>
+            Updates the speaker
+            </summary>
+            <param name="organizationId"></param>
+            <param name="Id"></param>
+            <param name="speakerForUpdate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationSpeakersController.RemoveOrganizationSpeaker(System.Guid,System.Guid)">
+            <summary>
+            Removes the speaker
+            </summary>
+            <param name="organizationId"></param>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerEventAttendantsController.GetProducerEventAllAttendants(System.Guid,System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.AttendantParams)">
+            <summary>
+            Gets the list of all producer event attendants
+            </summary>
+            <param name="producerId"></param>
+            <param name="eventId"></param>
+            <param name="attendantParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerEventAttendantsController.GetProducerEventAttendant(System.Guid,System.Guid,System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.AttendantParams)">
+            <summary>
+            Gets the event attendants
+            </summary>
+            <param name="producerId"></param>
+            <param name="eventId"></param>
+            <param name="id"></param>
+            <param name="attendantParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerEventAttendantsController.CreateProducerEventAttendant(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.AttendantDto.AttendantForCreationDto)">
+            <summary>
+            Creates a new event attendant
+            </summary>
+            <param name="producerId"></param>
+            <param name="eventId"></param>
+            <param name="attendantForCreationDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerEventAttendantsController.RemoveProducerEventAttendant(System.Guid,System.Guid,System.Guid)">
+            <summary>
+            Removes the event attendant
+            </summary>
+            <param name="producerId"></param>
+            <param name="eventId"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerEventsController.GetAllProducerEvents(System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.EventParams)">
+            <summary>
+            Gets the list of all producer events
+            </summary>
+            <param name="producerId"></param>
+            <param name="eventParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerEventsController.GetProducerEvent(System.Guid,System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.EventParams)">
+            <summary>
+            Gets the producer event
+            </summary>
+            <param name="producerId"></param>
+            <param name="id"></param>
+            <param name="eventParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerEventsController.CreateProducerEvent(System.Guid,EventHub.EventManagement.Application.DTOs.EventDto.EventForCreationDto)">
+            <summary>
+            Creates a new producer event
+            </summary>
+            <param name="producerId"></param>
+            <param name="eventForCreationDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerEventsController.RemoveProducerEvent(System.Guid,System.Guid)">
+            <summary>
+            Removes the producer event
+            </summary>
+            <param name="producerId"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerEventsController.UpdateProducerEvent(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.EventDto.EventForUpdateDto)">
+            <summary>
+            Updates the producer event
+            </summary>
+            <param name="producerId"></param>
+            <param name="id"></param>
+            <param name="eventForUpdateDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerFollowersController.GetAllProducerFollowers(System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.FollowerParams)">
+            <summary>
+            Gets the list of producer followers
+            </summary>
+            <param name="producerId"></param>
+            <param name="followerParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerFollowersController.GetProducerFollower(System.Guid,System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.FollowerParams)">
+            <summary>
+            Gets the producer follower
+            </summary>
+            <param name="producerId"></param>
+            <param name="id"></param>
+            <param name="followerParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerFollowersController.CreateProducerFollower(System.Guid,EventHub.EventManagement.Application.DTOs.FollowerDto.FollowerForCreationDto)">
+            <summary>
+            Creates a new producer follower
+            </summary>
+            <param name="producerId"></param>
+            <param name="followerForCreationDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerFollowersController.RemoveProducerFollower(System.Guid,System.Guid)">
+            <summary>
+            Removes the producer follower
+            </summary>
+            <param name="producerId"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducersController.GetAllProducers(EventHub.EventManagement.Application.RequestFeatures.Params.ProducerParams)">
+            <summary>
+            Gets the list of all events producers
+            </summary>
+            <param name="producerParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducersController.GetProducer(System.Guid,EventHub.EventManagement.Application.RequestFeatures.Params.ProducerParams)">
+            <summary>
+            Gets the producer
+            </summary>
+            <param name="id"></param>
+            <param name="producerParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducersController.CreateProducer(EventHub.EventManagement.Application.DTOs.ProducerDto.ProducerForCreationDto)">
+            <summary>
+            Creates a new producer
+            </summary>
+            <param name="producerForCreationDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducersController.RemoveProducer(System.Guid)">
+            <summary>
+            Removes a created producer
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducersController.UpdateProducer(System.Guid,EventHub.EventManagement.Application.DTOs.ProducerDto.ProducerForUpdateDto)">
+            <summary>
+            Updates the organization
+            </summary>
+            <param name="id"></param>
+            <param name="producerForUpdateDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.RootController.GetRoot(System.String)">
+            <summary>
+            Gets the starting point of our EventHub API.
+            </summary>
+            <param name="mediaType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.TokenController.Refresh(EventHub.EventManagement.Application.DTOs.UserDto.TokenDto)">
+            <summary>
+            creates a new access token and refresh token
+            </summary>
+            <param name="tokenDto"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

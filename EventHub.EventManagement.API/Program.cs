@@ -43,6 +43,7 @@ builder.Services.ConfiugerVersioningService();
 builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
 builder.Services.ConfigureJWT(builder.Configuration);
+builder.Services.ConfigureSwagger();
 
 
 var app = builder.Build();
@@ -55,6 +56,11 @@ if (app.Environment.IsProduction())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSwagger();
+app.UseSwaggerUI(opt =>
+{
+   opt.SwaggerEndpoint("/swagger/v1/swagger.json", "EventHub API v1");
+});
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
    ForwardedHeaders = ForwardedHeaders.All
@@ -63,8 +69,5 @@ app.UseCors("CorsPolicy");
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseEndpoints(endPoint =>
-{
-   endPoint.MapControllers();
-});
+app.MapControllers();
 app.Run();

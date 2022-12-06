@@ -1,5 +1,6 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Service;
 using EventHub.EventManagement.Application.DTOs.ProducerDto;
+using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
 using EventHub.EventManagement.Application.Validation;
@@ -23,8 +24,15 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
          _service = service;
       }
 
+      /// <summary>
+      /// Gets the list of all events producers
+      /// </summary>
+      /// <param name="producerParams"></param>
+      /// <returns></returns>
       [HttpGet(Name = "GetProducers")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetAllProducers
          ([FromQuery] ProducerParams producerParams)
       {
@@ -42,9 +50,16 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
             : Ok(linkResponse.ShapedEntities);
       }
 
-
+      /// <summary>
+      /// Gets the producer
+      /// </summary>
+      /// <param name="id"></param>
+      /// <param name="producerParams"></param>
+      /// <returns></returns>
       [HttpGet("{id:guid}", Name = "GetProducer")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetProducer(Guid id, [FromQuery] ProducerParams producerParams)
       {
          var linkParams = new ProducerLinkParams(producerParams, HttpContext);
@@ -57,12 +72,18 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
            Ok(linkResponse.LinkedEntity) : Ok(linkResponse.ShapedEntity);
       }
 
-
+      /// <summary>
+      /// Creates a new producer
+      /// </summary>
+      /// <param name="producerForCreationDto"></param>
+      /// <returns></returns>
       [HttpPost(Name = "CreateProducer")]
+      [ProducesResponseType(201)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> CreateProducer
          ([FromBody] ProducerForCreationDto producerForCreationDto)
       {
-
          var result = await new ProducerValidator().ValidateAsync(producerForCreationDto);
          if (!result.IsValid)
          {
@@ -79,9 +100,18 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
          producerDto);
       }
 
-
+      /// <summary>
+      /// Removes a created producer
+      /// </summary>
+      /// <param name="id"></param>
+      /// <returns></returns>
       [HttpDelete("{id:guid}", Name = "RemoveProducer")]
       [Authorize(Roles = "Administrator,Producer")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
       public async Task<IActionResult> RemoveProducer(Guid id)
       {
          await _service
@@ -91,9 +121,19 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
          return NoContent();
       }
 
-
+      /// <summary>
+      /// Updates the organization
+      /// </summary>
+      /// <param name="id"></param>
+      /// <param name="producerForUpdateDto"></param>
+      /// <returns></returns>
       [HttpPut("{id:guid}")]
       [Authorize(Roles = "Producer")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
       public async Task<IActionResult> UpdateProducer
          (Guid id, [FromBody] ProducerForUpdateDto producerForUpdateDto)
       {

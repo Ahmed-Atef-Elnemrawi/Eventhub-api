@@ -95,7 +95,10 @@ namespace EventHub.EventManagement.Application.Service.EventServices
 
       }
 
-      public async Task<EventDto?> GetEventAsync(Guid eventId, bool trackChanges)
+
+
+
+      public async Task<ShapedEntity> GetEventAsync(Guid eventId, string fields, bool trackChanges)
       {
          var eventEntity = await _repository
             .EventRepository
@@ -107,8 +110,12 @@ namespace EventHub.EventManagement.Application.Service.EventServices
          var eventToReturn = _mapper
             .Map<EventDto>(eventEntity);
 
-         return eventToReturn;
+
+         return _dataShaper.EventDataShaper.ShapeData(eventToReturn, fields);
       }
+
+
+
 
       public async Task<(IEnumerable<ShapedEntity> events, MetaData metaData)>
          GetAllEventsAsync(EventParams eventParams, bool trackChanges)

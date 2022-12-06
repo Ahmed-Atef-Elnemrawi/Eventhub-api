@@ -1,5 +1,6 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Service;
 using EventHub.EventManagement.Application.DTOs.SpeakerDto;
+using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
 using EventHub.EventManagement.Application.Validation;
@@ -20,9 +21,16 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
       public OrganizationSpeakersController(IServiceManager service) =>
          _service = service ?? throw new ArgumentNullException(nameof(service));
 
-
+      /// <summary>
+      /// Gets the list of organization speakers
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="speakerParam"></param>
+      /// <returns></returns>
       [HttpGet(Name = "GetOrganizationSpeakers")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetAllOrganizationSpeakers
          (Guid organizationId, [FromQuery] SpeakerParams speakerParam)
       {
@@ -37,8 +45,17 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
       }
 
 
+      /// <summary>
+      /// Gets the speaker
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="speakerId"></param>
+      /// <param name="speakerParams"></param>
+      /// <returns></returns>
       [HttpGet("{id:guid}", Name = "GetSpeaker")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> GetOrganizationSpeaker
          (Guid organizationId, Guid speakerId, [FromQuery] SpeakerParams speakerParams)
       {
@@ -52,9 +69,19 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
            Ok(linkResponse.LinkedEntity) : Ok(linkResponse.ShapedEntity);
       }
 
-
+      /// <summary>
+      /// Creates a new speaker
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="speakerForCreation"></param>
+      /// <returns></returns>
       [HttpPost(Name = "CreateOrganizationSpeaker")]
       [Authorize(Roles = "Organization")]
+      [ProducesResponseType(201)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
       public async Task<IActionResult> CreateOrganizationSpeaker
          (Guid organizationId, [FromBody] SpeakerForCreationDto speakerForCreation)
       {
@@ -72,8 +99,20 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
          return CreatedAtRoute("GetSpeaker", new { organizationId, Id = speaker.SpeakerId }, speaker);
       }
 
+      /// <summary>
+      /// Updates the speaker
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="Id"></param>
+      /// <param name="speakerForUpdate"></param>
+      /// <returns></returns>
       [HttpPut("{id:guid}")]
       [Authorize(Roles = "Organization")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
       public async Task<IActionResult> UpdateOrganizationSpeaker
          (Guid organizationId, Guid Id, [FromBody] SpeakerForUpdateDto speakerForUpdate)
       {
@@ -90,8 +129,19 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
          return NoContent();
       }
 
+      /// <summary>
+      /// Removes the speaker
+      /// </summary>
+      /// <param name="organizationId"></param>
+      /// <param name="Id"></param>
+      /// <returns></returns>
       [HttpDelete("{id:guid}")]
       [Authorize(Roles = "Organization")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
+      [ProducesResponseType(401)]
+      [ProducesResponseType(403)]
       public async Task<IActionResult> RemoveOrganizationSpeaker(Guid organizationId, Guid Id)
       {
          await _service.OrganizationSpeakerService
