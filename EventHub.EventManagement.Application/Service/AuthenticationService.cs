@@ -96,7 +96,7 @@ namespace EventHub.EventManagement.Application.Service
 
       public async Task<bool> ValidateUser(UserForAuthenticationDto userForAuthentication)
       {
-         _user = await _userManager.FindByNameAsync(userForAuthentication.UserName);
+         _user = await _userManager.FindByEmailAsync(userForAuthentication.Email);
          var result = (_user != null && await _userManager.CheckPasswordAsync(_user, userForAuthentication.Password));
 
          if (!result)
