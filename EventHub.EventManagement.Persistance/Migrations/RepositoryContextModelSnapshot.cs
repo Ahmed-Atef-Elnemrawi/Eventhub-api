@@ -406,6 +406,9 @@ namespace EventHub.EventManagement.Persistance.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<byte[]>("ProfilePicture")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("RefreshToken")
                         .HasColumnType("nvarchar(max)");
 
@@ -464,29 +467,25 @@ namespace EventHub.EventManagement.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4ba411aa-438d-4e83-aa69-d025944f26a3",
-                            ConcurrencyStamp = "c2ad2e71-ba69-40bf-b87f-9d883ecaa8da",
+                            Id = "98abd472-75fd-474d-9894-60f0c8c8b3c9",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "dc207af5-b9e9-4452-85f8-29a6091c3b81",
-                            ConcurrencyStamp = "1d2cc39b-87fb-4e9a-a556-d85e1248970e",
+                            Id = "14f89115-8c1e-41da-8219-77e1290d3bab",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "8bf2b1ec-6087-405d-b948-9a851e410d6e",
-                            ConcurrencyStamp = "5e3fa0ce-f4bd-4268-9bb6-35a2e099cc99",
+                            Id = "70418aa8-4c11-4123-8155-a2ff26d32da5",
                             Name = "Producer",
                             NormalizedName = "PRODUCER"
                         },
                         new
                         {
-                            Id = "d50bc62e-2168-44f3-ae24-4512f4be6351",
-                            ConcurrencyStamp = "9ff59123-6c96-4702-9de9-923679d936ba",
+                            Id = "a39cdc54-80d2-4442-bdda-161badfc4f2b",
                             Name = "Organization",
                             NormalizedName = "ORGANIZATION"
                         });

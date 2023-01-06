@@ -14,5 +14,6 @@ public record UserForRegistrationDto
    public int Age { get; init; }
    public Genre Genre { get; init; }
    public string? LiveIn { get; init; }
+   public byte[]? ProfilePicture { get; init; }
    public ICollection<string>? Roles { get; init; }
 }

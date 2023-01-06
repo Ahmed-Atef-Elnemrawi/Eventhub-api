@@ -9,6 +9,7 @@ namespace EventHub.EventManagement.Domain.Entities
       public int Age { get; set; }
       public Genre Genre { get; set; }
       public string? LiveIn { get; set; }
+      public byte[]? ProfilePicture { get; set; }
       public string? FullName => $"{FirstName}, {LastName}";
       public string? RefreshToken { get; set; }
       public DateTime? RefreshTokenExpiryTime { get; set; }

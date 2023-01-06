@@ -62,7 +62,8 @@ namespace EventHub.EventManagement.Application.Service
       {
          var claims = new List<Claim>
          {
-            new Claim(ClaimTypes.Name, _user!.UserName)
+            new Claim(ClaimTypes.Name, _user!.UserName),
+
          };
 
 
