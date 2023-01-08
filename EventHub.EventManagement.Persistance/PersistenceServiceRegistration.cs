@@ -29,7 +29,14 @@ namespace EventHub.EventManagement.Presistence
             opt.User.RequireUniqueEmail = true;
          })
          .AddRoles<IdentityRole>()
-         .AddEntityFrameworkStores<RepositoryContext>();
+         .AddEntityFrameworkStores<RepositoryContext>()
+         .AddDefaultTokenProviders();
+
+         //set token valid for two hours
+         services.Configure<DataProtectionTokenProviderOptions>(config =>
+         {
+            config.TokenLifespan = TimeSpan.FromHours(2);
+         });
       }
 
       public static void ConfigureRepositoryManager(this IServiceCollection services) =>
