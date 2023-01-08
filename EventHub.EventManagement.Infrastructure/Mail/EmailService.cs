@@ -2,6 +2,7 @@
 using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.ConfigurationModels;
 using MailKit.Net.Smtp;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using MimeKit.Text;
 
@@ -13,38 +14,39 @@ namespace EventHub.EventManagement.Infrastructure.Mail
       private readonly EmailConfiguration _emailConfiguration;
       private readonly ILoggerManager _logger;
 
-      public EmailService(EmailConfiguration emailConfiguration, ILoggerManager logger)
+      public EmailService(IOptions<EmailConfiguration> emailConfiguration, ILoggerManager logger)
       {
-         _emailConfiguration = emailConfiguration;
+         _emailConfiguration = emailConfiguration.Value;
          _logger = logger;
       }
-      public void SendEmail(Email email)
+      public async Task SendEmailAsync(Email email)
       {
          var emailMessage = CreateEmailMessage(email);
+         await SendAsync(emailMessage);
       }
 
       private MimeMessage CreateEmailMessage(Email email)
       {
          var emailMessage = new MimeMessage();
-         emailMessage.From.Add(new MailboxAddress("email", _emailConfiguration.From));
+         emailMessage.From.Add(new MailboxAddress("EventHub", _emailConfiguration.From));
          emailMessage.To.AddRange(email.To);
          emailMessage.Subject = email.Subject;
-         emailMessage.Body = new TextPart(TextFormat.Html);
+         emailMessage.Body = new TextPart(TextFormat.Text) { Text = email.Content };
 
          return emailMessage;
       }
 
-      private void Send(MimeMessage mailMessage)
+      private async Task SendAsync(MimeMessage mailMessage)
       {
          using (var client = new SmtpClient())
          {
             try
             {
-               client.Connect(_emailConfiguration.SmtpServer, _emailConfiguration.Port);
+               await client.ConnectAsync(_emailConfiguration.SmtpServer, _emailConfiguration.Port);
                client.AuthenticationMechanisms.Remove("XOAUTH2");
-               client.Authenticate(_emailConfiguration.UserName, _emailConfiguration.Password);
+               await client.AuthenticateAsync(_emailConfiguration.UserName, _emailConfiguration.Password);
 
-               client.Send(mailMessage);
+               await client.SendAsync(mailMessage);
             }
             catch
             {

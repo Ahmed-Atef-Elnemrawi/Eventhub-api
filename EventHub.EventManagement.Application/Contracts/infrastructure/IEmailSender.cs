@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EventHub.EventManagement.Application.Models;
 
 namespace EventHub.EventManagement.Application.Contracts.Infrastructure
 {
-   internal interface IEmailSender
+   public interface IEmailSender
    {
+      Task SendEmailAsync(Email email);
    }
 }
