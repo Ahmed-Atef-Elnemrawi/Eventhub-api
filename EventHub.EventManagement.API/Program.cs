@@ -27,6 +27,7 @@ builder.Services.AddScoped<ValidateMediaTypeAttribute>();
 builder.Services.AddScoped<IEntitiesLinkGeneratorManager, EntitiesLinkGeneratorManager>();
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("JwtSettings"));
 builder.Services.Configure<EmailConfiguration>(builder.Configuration.GetSection("EmailConfiguration"));
+builder.Services.ConfigureEmailService();
 
 builder.Services.AddAutoMapper(typeof(EventHub.EventManagement.Application.Profiles.MappingProfile).Assembly);
 
