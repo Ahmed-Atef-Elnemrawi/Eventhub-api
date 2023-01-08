@@ -1,4 +1,5 @@
-﻿namespace EventHub.EventManagement.Infrastructure.Mail
+﻿using MimeKit;
+namespace EventHub.EventManagement.Application.Models
 {
 #nullable disable
    public sealed class Email
@@ -10,7 +11,7 @@
       public Email(IEnumerable<string> to, string subject, string content)
       {
          To = new List<MailboxAddress>();
-         To.AddRange(to.Select(a => new MailboxAddress(null, a));
+         To.AddRange(to.Select(a => new MailboxAddress("EventHub", a)));
          Subject = subject;
          Content = content;
       }
