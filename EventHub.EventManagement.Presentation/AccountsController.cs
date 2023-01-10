@@ -30,7 +30,7 @@ namespace EventHub.EventManagement.Presentation
          var user = await _userManager.FindByEmailAsync(forgotPasswordDto.Email!);
          if (user is null)
          {
-            return NotFound();
+            return BadRequest();
          }
 
          var token = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -40,12 +40,37 @@ namespace EventHub.EventManagement.Presentation
             {"email", forgotPasswordDto.Email }
          };
 
-         var redirectURI = QueryHelpers.AddQueryString(forgotPasswordDto.ResetPasswordClientURI!, param);
-         var email = new Email(new List<string> { forgotPasswordDto.Email! }, "reset password token", redirectURI);
+         var redirectURI =
+            QueryHelpers.AddQueryString(forgotPasswordDto.ResetPasswordClientURI!, param);
+
+         var email =
+            new Email(new List<string> { forgotPasswordDto.Email! }, "reset password token", redirectURI);
+
          await _emailSender.SendEmailAsync(email);
 
          return Ok();
+      }
 
+      [HttpPost("resetPassword")]
+      public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
+      {
+         if (!ModelState.IsValid)
+            return BadRequest();
+
+         var user = await _userManager.FindByEmailAsync(resetPasswordDto.Email!);
+         if (user is null)
+            return BadRequest();
+
+         var resetPassword = await _userManager
+            .ResetPasswordAsync(user, resetPasswordDto.Token!, resetPasswordDto.Password!);
+
+         if (!resetPassword.Succeeded)
+         {
+            var errors = resetPassword.Errors.Select(err => err.Description);
+            return BadRequest(new { errors });
+         }
+
+         return Ok();
       }
    }
 }
