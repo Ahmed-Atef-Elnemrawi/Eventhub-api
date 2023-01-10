@@ -22,9 +22,9 @@ namespace EventHub.EventManagement.Presistence
          var identityBuilder = services.AddIdentityCore<User>(opt =>
          {
             opt.Password.RequireDigit = true;
-            opt.Password.RequireLowercase = false;
-            opt.Password.RequireUppercase = false;
-            opt.Password.RequireNonAlphanumeric = false;
+            opt.Password.RequireLowercase = true;
+            opt.Password.RequireUppercase = true;
+            opt.Password.RequireNonAlphanumeric = true;
             opt.Password.RequiredLength = 10;
             opt.User.RequireUniqueEmail = true;
          })
