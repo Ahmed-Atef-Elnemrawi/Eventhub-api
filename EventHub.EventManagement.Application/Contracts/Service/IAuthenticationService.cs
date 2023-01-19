@@ -9,4 +9,5 @@ public interface IAuthenticationService
    Task<bool> ValidateUser(UserForAuthenticationDto userForAuthentication);
    Task<TokenDto> CreateToken(bool populateExp);
    Task<TokenDto> RefreshToken(TokenDto tokenDto);
+   Task<AuthResponseDto> CreateAuthResponse(bool populateTokenExpiration);
 }

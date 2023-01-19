@@ -62,8 +62,9 @@ namespace EventHub.EventManagement.Application.Service
       {
          var claims = new List<Claim>
          {
-            new Claim(ClaimTypes.Name, _user!.UserName),
-
+            new Claim(ClaimTypes.NameIdentifier, _user?.Id!),
+            new Claim(ClaimTypes.Name, _user?.UserName!),
+            new Claim(ClaimTypes.Country, _user?.LiveIn!),
          };
 
 
@@ -149,7 +150,7 @@ namespace EventHub.EventManagement.Application.Service
 
       public async Task<TokenDto> RefreshToken(TokenDto tokenDto)
       {
-         var principal = GetPrincipalFromExpiredToken(tokenDto.AcessToken);
+         var principal = GetPrincipalFromExpiredToken(tokenDto.AccessToken);
          var user = await _userManager.FindByNameAsync(principal.Identity!.Name);
 
          if (user is null ||
@@ -159,6 +160,25 @@ namespace EventHub.EventManagement.Application.Service
 
          _user = user;
          return await CreateToken(populateExp: false);
+      }
+
+      public async Task<AuthResponseDto> CreateAuthResponse(bool populateTokenExpiration)
+      {
+         var token = await CreateToken(populateTokenExpiration);
+         var userProfile = new UserProfileDto
+         {
+            FirstName = _user?.FirstName!,
+            LastName = _user?.LastName,
+            UserName = _user?.UserName!,
+            Age = _user!.Age,
+            Email = _user?.Email!,
+            Country = _user?.LiveIn,
+            PhoneNumber = _user?.PhoneNumber,
+            Genre = _user!.Genre,
+            ProfilePicture = _user?.ProfilePicture!
+         };
+
+         return new AuthResponseDto { TokenDto = token, UserProfile = userProfile };
       }
    }
 }
