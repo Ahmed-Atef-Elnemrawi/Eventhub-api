@@ -50,8 +50,13 @@ namespace EventHub.EventManagement.Presentation.Controllers
             rel:"events", method:"GET"),
 
              new Link(_linkGenerator.GetUriByName(HttpContext,"GetMediums",new{}),
-             rel:"mediums", method:"GET")
+             rel:"mediums", method:"GET"),
 
+             new Link(_linkGenerator.GetUriByName(HttpContext,"Register", new{}),
+             rel:"register-user", method:"POST"),
+
+             new Link(_linkGenerator.GetUriByName(HttpContext, "Login   ", new{}),
+             rel:"login-user", method:"POST"),
          };
 
             return Ok(list);
