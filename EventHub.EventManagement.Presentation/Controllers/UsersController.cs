@@ -31,7 +31,7 @@ namespace EventHub.EventManagement.Presentation.Controllers
       /// </summary>
       /// <param name="userForRegistration"></param>
       /// <returns></returns>
-      [HttpPost(Name = "Register")]
+      [HttpPost("signup", Name = "Register")]
       [ProducesResponseType(201)]
       [ProducesResponseType(400)]
       public async Task<IActionResult> Register([FromBody] UserForRegistrationDto userForRegistration)
@@ -81,7 +81,9 @@ namespace EventHub.EventManagement.Presentation.Controllers
       /// </summary>
       /// <param name="forgotPasswordDto"></param>
       /// <returns></returns>
-      [HttpPost("ForgotPassword")]
+      [HttpPost("forgotPassword", Name = "ForgotPassword")]
+      [ProducesResponseType(200)]
+      [ProducesResponseType(400)]
       public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto forgotPasswordDto)
       {
          if (!ModelState.IsValid)
@@ -114,7 +116,9 @@ namespace EventHub.EventManagement.Presentation.Controllers
       /// </summary>
       /// <param name="resetPasswordDto"></param>
       /// <returns></returns>
-      [HttpPost("ResetPassword")]
+      [HttpPost("resetPassword", Name = "ResetPassword")]
+      [ProducesResponseType(200)]
+      [ProducesResponseType(400)]
       public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
       {
          if (!ModelState.IsValid)
@@ -142,7 +146,10 @@ namespace EventHub.EventManagement.Presentation.Controllers
       /// <param name="userName"></param>
       /// <param name="user"></param>
       /// <returns></returns>
-      [HttpPut("{userName}")]
+      [HttpPut("{userName}", Name = "UpdateUser")]
+      [ProducesResponseType(200)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> UpdateUser([FromRoute] string userName, [FromBody] UserProfileDto user)
       {
          if (!ModelState.IsValid)
@@ -175,6 +182,9 @@ namespace EventHub.EventManagement.Presentation.Controllers
       /// <param name="changePasswordDto"></param>
       /// <returns></returns>
       [HttpPut("{userName}/changePassword", Name = "ChangePassword")]
+      [ProducesResponseType(200)]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
       public async Task<IActionResult> ChangePassword([FromRoute] string userName, [FromBody] ChangePasswordDto changePasswordDto)
       {
          if (!ModelState.IsValid)

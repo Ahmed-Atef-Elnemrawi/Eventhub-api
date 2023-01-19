@@ -4,20 +4,6 @@
         <name>EventHub.EventManagement.Presentation</name>
     </assembly>
     <members>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.AuthenticationController.Register(EventHub.EventManagement.Application.DTOs.UserDto.UserForRegistrationDto)">
-            <summary>
-            Provides user register
-            </summary>
-            <param name="userForRegistration"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.AuthenticationController.Login(EventHub.EventManagement.Application.DTOs.UserDto.UserForAuthenticationDto)">
-            <summary>
-            provides user login
-            </summary>
-            <param name="userForAuthentication"></param>
-            <returns></returns>
-        </member>
         <member name="M:EventHub.EventManagement.Presentation.Controllers.EventControllers.CategoriesController.GetAllCategories(System.Guid)">
             <summary>
             Gets the list of all categoryies of the medium
@@ -469,6 +455,50 @@
             creates a new access token and refresh token
             </summary>
             <param name="tokenDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.Register(EventHub.EventManagement.Application.DTOs.UserDto.UserForRegistrationDto)">
+            <summary>
+            Provides signup function
+            </summary>
+            <param name="userForRegistration"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.Login(EventHub.EventManagement.Application.DTOs.UserDto.UserForAuthenticationDto)">
+            <summary>
+            Provides login function
+            </summary>
+            <param name="userForAuthentication"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.ForgotPassword(EventHub.EventManagement.Application.DTOs.ForgotPasswordDto)">
+            <summary>
+            Provide forgot password function 'emailing user with reset-token + client-redirect-url'
+            </summary>
+            <param name="forgotPasswordDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.ResetPassword(EventHub.EventManagement.Application.DTOs.ResetPasswordDto)">
+            <summary>
+            Provide reset password funtion using reset-token which emailed to the user
+            </summary>
+            <param name="resetPasswordDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.UpdateUser(System.String,EventHub.EventManagement.Application.DTOs.UserDto.UserProfileDto)">
+            <summary>
+            Provide update user function
+            </summary>
+            <param name="userName"></param>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.ChangePassword(System.String,EventHub.EventManagement.Application.DTOs.UserDto.ChangePasswordDto)">
+            <summary>
+            Provide change user password function
+            </summary>
+            <param name="userName"></param>
+            <param name="changePasswordDto"></param>
             <returns></returns>
         </member>
     </members>
