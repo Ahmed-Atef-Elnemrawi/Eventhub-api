@@ -3,6 +3,7 @@ using EventHub.EventManagement.Domain.Entities;
 using EventHub.EventManagement.Domain.Entities.EventEntities;
 using EventHub.EventManagement.Domain.Entities.OrganizationEntities;
 using EventHub.EventManagement.Domain.Entities.ProducerEntities;
+using EventHub.EventManagement.Domain.Entities.UserEntities;
 using EventHub.EventManagement.Persistance.Configurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,7 @@ namespace EventHub.EventManagement.Presistence
          builder.ApplyConfiguration(new SpeakerConfiguration());
          builder.ApplyConfiguration(new MediumConfiguration());
          builder.ApplyConfiguration(new RoleConfiguration());
+         builder.ApplyConfiguration(new UserPageConfiguration());
 
          base.OnModelCreating(builder);
 

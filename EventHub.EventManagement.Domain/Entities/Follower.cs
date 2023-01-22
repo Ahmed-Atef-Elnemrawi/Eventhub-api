@@ -1,10 +1,11 @@
 ﻿using EventHub.EventManagement.Domain.Common;
 using EventHub.EventManagement.Domain.Entities.OrganizationEntities;
 using EventHub.EventManagement.Domain.Entities.ProducerEntities;
+using EventHub.EventManagement.Domain.Entities.UserEntities;
 
 namespace EventHub.EventManagement.Domain.Entities
 {
-   public class Follower : ISortableEntity, ISearchableEntity
+    public class Follower : ISortableEntity, ISearchableEntity
    {
       public Guid FollowerId { get; set; }
       public string? FirstName { get; set; }

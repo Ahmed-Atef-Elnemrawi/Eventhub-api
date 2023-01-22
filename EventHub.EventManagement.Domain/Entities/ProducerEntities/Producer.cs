@@ -1,9 +1,10 @@
 ﻿using EventHub.EventManagement.Domain.Common;
+using EventHub.EventManagement.Domain.Entities.UserEntities;
 
 namespace EventHub.EventManagement.Domain.Entities.ProducerEntities
 {
 
-   public class Producer : ISortableEntity, ISearchableEntity
+    public class Producer : ISortableEntity, ISearchableEntity
    {
       public Guid ProducerId { get; set; }
       public string? FirstName { get; set; }

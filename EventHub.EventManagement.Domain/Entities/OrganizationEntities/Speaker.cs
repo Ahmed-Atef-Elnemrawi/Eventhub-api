@@ -1,6 +1,8 @@
-﻿namespace EventHub.EventManagement.Domain.Entities.OrganizationEntities
+﻿using EventHub.EventManagement.Domain.Entities.UserEntities;
+
+namespace EventHub.EventManagement.Domain.Entities.OrganizationEntities
 {
-   public class Speaker
+    public class Speaker
    {
       public Guid SpeakerId { get; set; }
       public string? FirstName { get; set; }

@@ -1,4 +1,4 @@
-﻿using EventHub.EventManagement.Domain.Entities;
+﻿using EventHub.EventManagement.Domain.Entities.UserEntities;
 
 namespace EventHub.EventManagement.Application.DTOs.UserDto;
 

@@ -349,7 +349,7 @@ namespace EventHub.EventManagement.Persistance.Migrations
                     b.ToTable("ProducersFollowers", (string)null);
                 });
 
-            modelBuilder.Entity("EventHub.EventManagement.Domain.Entities.User", b =>
+            modelBuilder.Entity("EventHub.EventManagement.Domain.Entities.UserEntities.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -425,6 +425,9 @@ namespace EventHub.EventManagement.Persistance.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<Guid?>("UserPageId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -435,7 +438,30 @@ namespace EventHub.EventManagement.Persistance.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("UserPageId");
+
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("EventHub.EventManagement.Domain.Entities.UserEntities.UserPage", b =>
+                {
+                    b.Property<Guid>("UserPageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("OrganizationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ProducerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserPageId");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("ProducerId");
+
+                    b.ToTable("UsersPages", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -467,25 +493,25 @@ namespace EventHub.EventManagement.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "98abd472-75fd-474d-9894-60f0c8c8b3c9",
+                            Id = "f4ed89e5-aa9b-424d-ab95-09a6c6970ea5",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "14f89115-8c1e-41da-8219-77e1290d3bab",
+                            Id = "4d5d0816-6282-46b4-a35f-5299de32fbd8",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "70418aa8-4c11-4123-8155-a2ff26d32da5",
+                            Id = "6e07b332-f7cb-4509-8a1d-8479ac6a8bf9",
                             Name = "Producer",
                             NormalizedName = "PRODUCER"
                         },
                         new
                         {
-                            Id = "a39cdc54-80d2-4442-bdda-161badfc4f2b",
+                            Id = "36f7e73d-25a5-4693-84fb-b9c7fae79297",
                             Name = "Organization",
                             NormalizedName = "ORGANIZATION"
                         });
@@ -710,6 +736,30 @@ namespace EventHub.EventManagement.Persistance.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EventHub.EventManagement.Domain.Entities.UserEntities.User", b =>
+                {
+                    b.HasOne("EventHub.EventManagement.Domain.Entities.UserEntities.UserPage", "UserPage")
+                        .WithMany()
+                        .HasForeignKey("UserPageId");
+
+                    b.Navigation("UserPage");
+                });
+
+            modelBuilder.Entity("EventHub.EventManagement.Domain.Entities.UserEntities.UserPage", b =>
+                {
+                    b.HasOne("EventHub.EventManagement.Domain.Entities.OrganizationEntities.Organization", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId");
+
+                    b.HasOne("EventHub.EventManagement.Domain.Entities.ProducerEntities.Producer", "Producer")
+                        .WithMany()
+                        .HasForeignKey("ProducerId");
+
+                    b.Navigation("Organization");
+
+                    b.Navigation("Producer");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -721,7 +771,7 @@ namespace EventHub.EventManagement.Persistance.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("EventHub.EventManagement.Domain.Entities.User", null)
+                    b.HasOne("EventHub.EventManagement.Domain.Entities.UserEntities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -730,7 +780,7 @@ namespace EventHub.EventManagement.Persistance.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("EventHub.EventManagement.Domain.Entities.User", null)
+                    b.HasOne("EventHub.EventManagement.Domain.Entities.UserEntities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -745,7 +795,7 @@ namespace EventHub.EventManagement.Persistance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EventHub.EventManagement.Domain.Entities.User", null)
+                    b.HasOne("EventHub.EventManagement.Domain.Entities.UserEntities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -754,7 +804,7 @@ namespace EventHub.EventManagement.Persistance.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("EventHub.EventManagement.Domain.Entities.User", null)
+                    b.HasOne("EventHub.EventManagement.Domain.Entities.UserEntities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

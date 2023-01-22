@@ -1,5 +1,5 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Persistance;
-using EventHub.EventManagement.Domain.Entities;
+using EventHub.EventManagement.Domain.Entities.UserEntities;
 using EventHub.EventManagement.Persistance.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EventHub.EventManagement.Presistence
 {
-   public static class PersistenceServiceRegistration
+    public static class PersistenceServiceRegistration
    {
       public static void ConfigureSqlContext(this IServiceCollection services,
          IConfiguration configuration)

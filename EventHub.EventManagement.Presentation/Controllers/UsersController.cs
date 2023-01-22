@@ -4,7 +4,7 @@ using EventHub.EventManagement.Application.DTOs;
 using EventHub.EventManagement.Application.DTOs.UserDto;
 using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Validation;
-using EventHub.EventManagement.Domain.Entities;
+using EventHub.EventManagement.Domain.Entities.UserEntities;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace EventHub.EventManagement.Presentation.Controllers
 {
-   [Route("api/users")]
+    [Route("api/users")]
    [ApiController]
    public class UsersController : ControllerBase
    {

@@ -1,8 +1,8 @@
-﻿using EventHub.EventManagement.Domain.Entities;
+﻿using EventHub.EventManagement.Domain.Entities.UserEntities;
 
 namespace EventHub.EventManagement.Application.DTOs.AttendantDto
 {
-   public record AttendantForCreationDto
+    public record AttendantForCreationDto
    {
       public string? FirstName { get; init; }
       public string? LastName { get; set; }

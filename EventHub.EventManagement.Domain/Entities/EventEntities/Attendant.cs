@@ -1,4 +1,5 @@
 ﻿using EventHub.EventManagement.Domain.Common;
+using EventHub.EventManagement.Domain.Entities.UserEntities;
 
 namespace EventHub.EventManagement.Domain.Entities.EventEntities;
 

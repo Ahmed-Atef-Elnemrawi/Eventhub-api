@@ -12,10 +12,11 @@ using EventHub.EventManagement.Domain.Entities;
 using EventHub.EventManagement.Domain.Entities.EventEntities;
 using EventHub.EventManagement.Domain.Entities.OrganizationEntities;
 using EventHub.EventManagement.Domain.Entities.ProducerEntities;
+using EventHub.EventManagement.Domain.Entities.UserEntities;
 
 namespace EventHub.EventManagement.Application.Profiles
 {
-   public class MappingProfile : Profile
+    public class MappingProfile : Profile
    {
       public MappingProfile()
       {

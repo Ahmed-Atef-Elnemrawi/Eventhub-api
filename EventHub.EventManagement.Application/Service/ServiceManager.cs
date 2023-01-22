@@ -11,14 +11,14 @@ using EventHub.EventManagement.Application.Models.ConfigurationModels;
 using EventHub.EventManagement.Application.Service.EventServices;
 using EventHub.EventManagement.Application.Service.OrganizationServices;
 using EventHub.EventManagement.Application.Service.ProducerServices;
-using EventHub.EventManagement.Domain.Entities;
+using EventHub.EventManagement.Domain.Entities.UserEntities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace EventHub.EventManagement.Application.Service
 {
-   internal sealed class ServiceManager : IServiceManager
+    internal sealed class ServiceManager : IServiceManager
    {
       private readonly Lazy<IAuthenticationService> _authenticationService;
 

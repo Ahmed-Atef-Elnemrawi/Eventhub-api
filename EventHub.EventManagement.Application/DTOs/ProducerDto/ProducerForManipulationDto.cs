@@ -1,8 +1,8 @@
-﻿using EventHub.EventManagement.Domain.Entities;
+﻿using EventHub.EventManagement.Domain.Entities.UserEntities;
 
 namespace EventHub.EventManagement.Application.DTOs.ProducerDto
 {
-   public record ProducerForManipulationDto
+    public record ProducerForManipulationDto
    {
       public string? FirstName { get; init; }
       public string? LastName { get; init; }
