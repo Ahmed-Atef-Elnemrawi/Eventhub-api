@@ -18,8 +18,4 @@
     <ProjectReference Include="..\EventHub.EventManagement.Domain\EventHub.EventManagement.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Contracts\Persistance\UserPagePersistence\" />
-  </ItemGroup>
-
 </Project>

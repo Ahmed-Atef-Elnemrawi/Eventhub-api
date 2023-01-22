@@ -452,6 +452,9 @@ namespace EventHub.EventManagement.Persistance.Migrations
                     b.Property<Guid?>("OrganizationId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("PageName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid?>("ProducerId")
                         .HasColumnType("uniqueidentifier");
 
@@ -493,25 +496,25 @@ namespace EventHub.EventManagement.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f4ed89e5-aa9b-424d-ab95-09a6c6970ea5",
+                            Id = "64f7fc36-5407-440d-a850-d10d313e2846",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "4d5d0816-6282-46b4-a35f-5299de32fbd8",
+                            Id = "8003c9ca-881d-4a8c-816c-615770183302",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "6e07b332-f7cb-4509-8a1d-8479ac6a8bf9",
+                            Id = "ca06138d-339a-40eb-9ebd-5647eb94e231",
                             Name = "Producer",
                             NormalizedName = "PRODUCER"
                         },
                         new
                         {
-                            Id = "36f7e73d-25a5-4693-84fb-b9c7fae79297",
+                            Id = "2085d9a9-7a6a-43b6-86ac-6f37562282f3",
                             Name = "Organization",
                             NormalizedName = "ORGANIZATION"
                         });
