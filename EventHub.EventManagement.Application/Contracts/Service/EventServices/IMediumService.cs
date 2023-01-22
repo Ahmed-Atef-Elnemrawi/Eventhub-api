@@ -1,5 +1,4 @@
-﻿using EventHub.EventManagement.Application.DTOs.MediumDto;
-using EventHub.EventManagement.Application.Models.LinkModels;
+﻿using EventHub.EventManagement.Application.Models.LinkModels;
 
 namespace EventHub.EventManagement.Application.Contracts.Service.EventServices
 {

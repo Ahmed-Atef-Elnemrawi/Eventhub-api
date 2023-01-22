@@ -1,4 +1,4 @@
-﻿using EventHub.EventManagement.Application.DTOs.AttendantDto;
+﻿using EventHub.EventManagement.Application.DTOs.AttendantDtos;
 using FluentValidation;
 
 namespace EventHub.EventManagement.Application.Validation

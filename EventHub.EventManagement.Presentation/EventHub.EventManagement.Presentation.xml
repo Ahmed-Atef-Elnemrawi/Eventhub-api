@@ -85,7 +85,7 @@
             <param name="attendantParams"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventAttendantsController.CreateOrganizationEventAttendant(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.AttendantDto.AttendantForCreationDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventAttendantsController.CreateOrganizationEventAttendant(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.AttendantDtos.AttendantForCreationDto)">
             <summary>
             Creates a new event attendant
             </summary>
@@ -120,7 +120,7 @@
             <param name="eventParams"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventController.CreateOrganizationEvent(System.Guid,EventHub.EventManagement.Application.DTOs.EventDto.OrganizationEventForCreationDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventController.CreateOrganizationEvent(System.Guid,EventHub.EventManagement.Application.DTOs.EventDtos.OrganizationEventForCreationDto)">
             <summary>
             Creates a new organization event
             </summary>
@@ -136,7 +136,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventController.UpdateOrganizationEvent(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.EventDto.EventForUpdateDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventController.UpdateOrganizationEvent(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.EventDtos.EventForUpdateDto)">
             <summary>
             Updates the organization event
             </summary>
@@ -164,7 +164,7 @@
             <param name="speakerParams"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventSpeakersController.AddOrganizationEventSpeaker(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.SpeakerDto.EventSpeakerForCreationDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationEventSpeakersController.AddOrganizationEventSpeaker(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.SpeakerDtos.EventSpeakerForCreationDto)">
             <summary>
             Links an speaker to the event
             </summary>
@@ -199,7 +199,7 @@
             <param name="followerParams"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationFollowersController.CreateOrganizationFollower(System.Guid,EventHub.EventManagement.Application.DTOs.FollowerDto.FollowerForCreationDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationFollowersController.CreateOrganizationFollower(System.Guid,EventHub.EventManagement.Application.DTOs.FollowerDtos.FollowerForCreationDto)">
             <summary>
             Creates a new organization follower
             </summary>
@@ -230,7 +230,7 @@
             <param name="organizationParams"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationsController.CreateOrgnization(EventHub.EventManagement.Application.DTOs.OrganizationDto.OrganizationForCreationDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationsController.CreateOrgnization(EventHub.EventManagement.Application.DTOs.OrganizationDtos.OrganizationForCreationDto)">
             <summary>
             Creates a new organization
             </summary>
@@ -244,7 +244,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationsController.UpdateOrganization(System.Guid,EventHub.EventManagement.Application.DTOs.OrganizationDto.OrganizationForUpdateDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationsController.UpdateOrganization(System.Guid,EventHub.EventManagement.Application.DTOs.OrganizationDtos.OrganizationForUpdateDto)">
             <summary>
             Updates the organization
             </summary>
@@ -269,7 +269,7 @@
             <param name="speakerParams"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationSpeakersController.CreateOrganizationSpeaker(System.Guid,EventHub.EventManagement.Application.DTOs.SpeakerDto.SpeakerForCreationDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationSpeakersController.CreateOrganizationSpeaker(System.Guid,EventHub.EventManagement.Application.DTOs.SpeakerDtos.SpeakerForCreationDto)">
             <summary>
             Creates a new speaker
             </summary>
@@ -277,7 +277,7 @@
             <param name="speakerForCreation"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationSpeakersController.UpdateOrganizationSpeaker(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.SpeakerDto.SpeakerForUpdateDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.OrganizationControllers.OrganizationSpeakersController.UpdateOrganizationSpeaker(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.SpeakerDtos.SpeakerForUpdateDto)">
             <summary>
             Updates the speaker
             </summary>
@@ -313,7 +313,7 @@
             <param name="attendantParams"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerEventAttendantsController.CreateProducerEventAttendant(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.AttendantDto.AttendantForCreationDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerEventAttendantsController.CreateProducerEventAttendant(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.AttendantDtos.AttendantForCreationDto)">
             <summary>
             Creates a new event attendant
             </summary>
@@ -348,7 +348,7 @@
             <param name="eventParams"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerEventsController.CreateProducerEvent(System.Guid,EventHub.EventManagement.Application.DTOs.EventDto.EventForCreationDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerEventsController.CreateProducerEvent(System.Guid,EventHub.EventManagement.Application.DTOs.EventDtos.EventForCreationDto)">
             <summary>
             Creates a new producer event
             </summary>
@@ -364,7 +364,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerEventsController.UpdateProducerEvent(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.EventDto.EventForUpdateDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerEventsController.UpdateProducerEvent(System.Guid,System.Guid,EventHub.EventManagement.Application.DTOs.EventDtos.EventForUpdateDto)">
             <summary>
             Updates the producer event
             </summary>
@@ -390,7 +390,7 @@
             <param name="followerParams"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerFollowersController.CreateProducerFollower(System.Guid,EventHub.EventManagement.Application.DTOs.FollowerDto.FollowerForCreationDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducerFollowersController.CreateProducerFollower(System.Guid,EventHub.EventManagement.Application.DTOs.FollowerDtos.FollowerForCreationDto)">
             <summary>
             Creates a new producer follower
             </summary>
@@ -421,7 +421,7 @@
             <param name="producerParams"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducersController.CreateProducer(EventHub.EventManagement.Application.DTOs.ProducerDto.ProducerForCreationDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducersController.CreateProducer(EventHub.EventManagement.Application.DTOs.ProducerDtos.ProducerForCreationDto)">
             <summary>
             Creates a new producer
             </summary>
@@ -435,7 +435,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducersController.UpdateProducer(System.Guid,EventHub.EventManagement.Application.DTOs.ProducerDto.ProducerForUpdateDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducersController.UpdateProducer(System.Guid,EventHub.EventManagement.Application.DTOs.ProducerDtos.ProducerForUpdateDto)">
             <summary>
             Updates the organization
             </summary>
@@ -450,21 +450,21 @@
             <param name="mediaType"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.TokenController.Refresh(EventHub.EventManagement.Application.DTOs.UserDto.TokenDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.TokenController.Refresh(EventHub.EventManagement.Application.DTOs.UserDtos.TokenDto)">
             <summary>
             creates a new access token and refresh token
             </summary>
             <param name="tokenDto"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.Register(EventHub.EventManagement.Application.DTOs.UserDto.UserForRegistrationDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.Register(EventHub.EventManagement.Application.DTOs.UserDtos.UserForRegistrationDto)">
             <summary>
             Provides signup function
             </summary>
             <param name="userForRegistration"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.Login(EventHub.EventManagement.Application.DTOs.UserDto.UserForAuthenticationDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.Login(EventHub.EventManagement.Application.DTOs.UserDtos.UserForAuthenticationDto)">
             <summary>
             Provides login function
             </summary>
@@ -485,7 +485,7 @@
             <param name="resetPasswordDto"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.UpdateUser(System.String,EventHub.EventManagement.Application.DTOs.UserDto.UserProfileDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.UpdateUser(System.String,EventHub.EventManagement.Application.DTOs.UserDtos.UserProfileDto)">
             <summary>
             Provide update user function
             </summary>
@@ -493,7 +493,7 @@
             <param name="user"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.ChangePassword(System.String,EventHub.EventManagement.Application.DTOs.UserDto.ChangePasswordDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.ChangePassword(System.String,EventHub.EventManagement.Application.DTOs.UserDtos.ChangePasswordDto)">
             <summary>
             Provide change user password function
             </summary>

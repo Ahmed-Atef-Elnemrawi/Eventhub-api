@@ -1,4 +1,4 @@
-﻿using EventHub.EventManagement.Application.DTOs.FollowerDto;
+﻿using EventHub.EventManagement.Application.DTOs.FollowerDtos;
 using FluentValidation;
 
 namespace EventHub.EventManagement.Application.Validation

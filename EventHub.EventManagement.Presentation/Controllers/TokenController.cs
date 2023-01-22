@@ -1,5 +1,5 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Service;
-using EventHub.EventManagement.Application.DTOs.UserDto;
+using EventHub.EventManagement.Application.DTOs.UserDtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EventHub.EventManagement.Presentation.Controllers

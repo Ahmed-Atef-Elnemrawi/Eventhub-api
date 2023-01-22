@@ -1,4 +1,4 @@
-﻿using EventHub.EventManagement.Application.DTOs.CategoryDto;
+﻿using EventHub.EventManagement.Application.DTOs.CategoryDtos;
 using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.LinkModels;
 

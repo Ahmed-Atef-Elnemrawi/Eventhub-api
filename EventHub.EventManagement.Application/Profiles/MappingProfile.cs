@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using EventHub.EventManagement.Application.DTOs.AttendantDto;
-using EventHub.EventManagement.Application.DTOs.CategoryDto;
-using EventHub.EventManagement.Application.DTOs.EventDto;
-using EventHub.EventManagement.Application.DTOs.FollowerDto;
-using EventHub.EventManagement.Application.DTOs.MediumDto;
-using EventHub.EventManagement.Application.DTOs.OrganizationDto;
-using EventHub.EventManagement.Application.DTOs.ProducerDto;
-using EventHub.EventManagement.Application.DTOs.SpeakerDto;
-using EventHub.EventManagement.Application.DTOs.UserDto;
+using EventHub.EventManagement.Application.DTOs.AttendantDtos;
+using EventHub.EventManagement.Application.DTOs.CategoryDtos;
+using EventHub.EventManagement.Application.DTOs.EventDtos;
+using EventHub.EventManagement.Application.DTOs.FollowerDtos;
+using EventHub.EventManagement.Application.DTOs.MediumDtos;
+using EventHub.EventManagement.Application.DTOs.OrganizationDtos;
+using EventHub.EventManagement.Application.DTOs.ProducerDtos;
+using EventHub.EventManagement.Application.DTOs.SpeakerDtos;
+using EventHub.EventManagement.Application.DTOs.UserDtos;
 using EventHub.EventManagement.Domain.Entities;
 using EventHub.EventManagement.Domain.Entities.EventEntities;
 using EventHub.EventManagement.Domain.Entities.OrganizationEntities;
@@ -16,7 +16,7 @@ using EventHub.EventManagement.Domain.Entities.UserEntities;
 
 namespace EventHub.EventManagement.Application.Profiles
 {
-    public class MappingProfile : Profile
+   public class MappingProfile : Profile
    {
       public MappingProfile()
       {

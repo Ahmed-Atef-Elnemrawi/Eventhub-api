@@ -1,11 +1,11 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Service.DataShaperService;
 using EventHub.EventManagement.Application.Contracts.Service.DataShapingService;
-using EventHub.EventManagement.Application.DTOs.AttendantDto;
-using EventHub.EventManagement.Application.DTOs.EventDto;
-using EventHub.EventManagement.Application.DTOs.FollowerDto;
-using EventHub.EventManagement.Application.DTOs.OrganizationDto;
-using EventHub.EventManagement.Application.DTOs.ProducerDto;
-using EventHub.EventManagement.Application.DTOs.SpeakerDto;
+using EventHub.EventManagement.Application.DTOs.AttendantDtos;
+using EventHub.EventManagement.Application.DTOs.EventDtos;
+using EventHub.EventManagement.Application.DTOs.FollowerDtos;
+using EventHub.EventManagement.Application.DTOs.OrganizationDtos;
+using EventHub.EventManagement.Application.DTOs.ProducerDtos;
+using EventHub.EventManagement.Application.DTOs.SpeakerDtos;
 
 namespace EventHub.EventManagement.Application.Service.DataShaper
 {

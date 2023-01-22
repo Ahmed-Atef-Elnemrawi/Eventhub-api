@@ -1,4 +1,4 @@
-﻿using EventHub.EventManagement.Application.DTOs.SpeakerDto;
+﻿using EventHub.EventManagement.Application.DTOs.SpeakerDtos;
 using EventHub.EventManagement.Application.Models.LinkModels;
 
 namespace EventHub.EventManagement.Application.Contracts.Service.OrganizationServices

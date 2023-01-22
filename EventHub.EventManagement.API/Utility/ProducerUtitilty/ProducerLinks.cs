@@ -1,4 +1,4 @@
-﻿using EventHub.EventManagement.Application.DTOs.ProducerDto;
+﻿using EventHub.EventManagement.Application.DTOs.ProducerDtos;
 using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.LinkModels;
 

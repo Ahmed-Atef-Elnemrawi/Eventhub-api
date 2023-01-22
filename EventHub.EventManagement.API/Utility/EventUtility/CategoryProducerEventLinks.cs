@@ -1,4 +1,4 @@
-﻿using EventHub.EventManagement.Application.DTOs.EventDto;
+﻿using EventHub.EventManagement.Application.DTOs.EventDtos;
 using EventHub.EventManagement.Application.Models.LinkModels;
 
 namespace EventHub.EventManagement.API.Utility.EventUtility

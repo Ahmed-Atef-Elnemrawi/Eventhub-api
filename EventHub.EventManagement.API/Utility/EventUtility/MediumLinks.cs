@@ -1,4 +1,4 @@
-﻿using EventHub.EventManagement.Application.DTOs.MediumDto;
+﻿using EventHub.EventManagement.Application.DTOs.MediumDtos;
 using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.LinkModels;
 

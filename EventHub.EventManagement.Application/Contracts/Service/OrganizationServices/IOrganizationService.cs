@@ -1,4 +1,4 @@
-﻿using EventHub.EventManagement.Application.DTOs.OrganizationDto;
+﻿using EventHub.EventManagement.Application.DTOs.OrganizationDtos;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Paging;
 

@@ -41,12 +41,12 @@ namespace EventHub.EventManagement.Persistance.Repositories
 
       public void RemoveUserPage(UserPage userPage)
       {
-         throw new NotImplementedException();
+         Delete(userPage);
       }
 
       public void UpdateUserPage(UserPage userPage)
       {
-         throw new NotImplementedException();
+         Update(userPage);
       }
    }
 }

@@ -3,7 +3,7 @@ using EventHub.EventManagement.Application.Contracts.Infrastructure;
 using EventHub.EventManagement.Application.Contracts.links;
 using EventHub.EventManagement.Application.Contracts.Persistance;
 using EventHub.EventManagement.Application.Contracts.Service.EventServices;
-using EventHub.EventManagement.Application.DTOs.MediumDto;
+using EventHub.EventManagement.Application.DTOs.MediumDtos;
 using EventHub.EventManagement.Application.Exceptions;
 using EventHub.EventManagement.Application.Models.LinkModels;
 

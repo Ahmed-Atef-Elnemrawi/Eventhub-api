@@ -1,5 +1,5 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Service;
-using EventHub.EventManagement.Application.DTOs.ProducerDto;
+using EventHub.EventManagement.Application.DTOs.ProducerDtos;
 using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;

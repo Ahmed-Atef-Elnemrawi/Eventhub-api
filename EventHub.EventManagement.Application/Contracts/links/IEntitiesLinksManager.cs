@@ -1,13 +1,13 @@
 ﻿
 using EventHub.EventManagement.Application.Contracts.Links;
-using EventHub.EventManagement.Application.DTOs.AttendantDto;
-using EventHub.EventManagement.Application.DTOs.CategoryDto;
-using EventHub.EventManagement.Application.DTOs.EventDto;
-using EventHub.EventManagement.Application.DTOs.FollowerDto;
-using EventHub.EventManagement.Application.DTOs.MediumDto;
-using EventHub.EventManagement.Application.DTOs.OrganizationDto;
-using EventHub.EventManagement.Application.DTOs.ProducerDto;
-using EventHub.EventManagement.Application.DTOs.SpeakerDto;
+using EventHub.EventManagement.Application.DTOs.AttendantDtos;
+using EventHub.EventManagement.Application.DTOs.CategoryDtos;
+using EventHub.EventManagement.Application.DTOs.EventDtos;
+using EventHub.EventManagement.Application.DTOs.FollowerDtos;
+using EventHub.EventManagement.Application.DTOs.MediumDtos;
+using EventHub.EventManagement.Application.DTOs.OrganizationDtos;
+using EventHub.EventManagement.Application.DTOs.ProducerDtos;
+using EventHub.EventManagement.Application.DTOs.SpeakerDtos;
 
 namespace EventHub.EventManagement.Application.Contracts.links
 {

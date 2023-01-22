@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using EventHub.EventManagement.Application.Contracts.Infrastructure;
 using EventHub.EventManagement.Application.Contracts.Service;
-using EventHub.EventManagement.Application.DTOs.UserDto;
+using EventHub.EventManagement.Application.DTOs.UserDtos;
 using EventHub.EventManagement.Application.Exceptions;
 using EventHub.EventManagement.Application.Models.ConfigurationModels;
 using EventHub.EventManagement.Domain.Entities.UserEntities;
@@ -15,7 +15,7 @@ using System.Text;
 
 namespace EventHub.EventManagement.Application.Service
 {
-    internal sealed class AuthenticationService : IAuthenticationService
+   internal sealed class AuthenticationService : IAuthenticationService
    {
       private readonly UserManager<User> _userManager;
       private readonly ILoggerManager _logger;
