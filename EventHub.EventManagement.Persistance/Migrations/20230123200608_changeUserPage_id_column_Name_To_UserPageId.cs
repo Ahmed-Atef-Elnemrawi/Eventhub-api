@@ -7,17 +7,18 @@
 namespace EventHub.EventManagement.Persistance.Migrations
 {
    /// <inheritdoc />
-   public partial class updateUserPageTableAddPageNamefield : Migration
+   public partial class changeUserPageidcolumnNameToUserPageId : Migration
    {
       /// <inheritdoc />
       protected override void Up(MigrationBuilder migrationBuilder)
       {
 
-         migrationBuilder.AddColumn<string>(
-             name: "PageName",
-             table: "UsersPages",
-             type: "nvarchar(max)",
-             nullable: true);
+
+         migrationBuilder.RenameColumn(
+             name: "Id",
+             table: "UserPage",
+             newName: "UserPageId");
+
 
       }
 
@@ -25,10 +26,10 @@ namespace EventHub.EventManagement.Persistance.Migrations
       protected override void Down(MigrationBuilder migrationBuilder)
       {
 
-
-         migrationBuilder.DropColumn(
-             name: "PageName",
-             table: "UsersPages");
+         migrationBuilder.RenameColumn(
+             name: "UserPageId",
+             table: "UserPage",
+             newName: "Id");
 
 
       }

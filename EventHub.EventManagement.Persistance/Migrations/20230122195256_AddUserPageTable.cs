@@ -13,23 +13,33 @@ namespace EventHub.EventManagement.Persistance.Migrations
       protected override void Up(MigrationBuilder migrationBuilder)
       {
 
+
          migrationBuilder.AddColumn<Guid>(
              name: "UserPageId",
              table: "AspNetUsers",
              type: "uniqueidentifier",
-             nullable: true);
+             nullable: false,
+             defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
 
          migrationBuilder.CreateTable(
              name: "UserPage",
              columns: table => new
              {
-                UserPageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                PageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                 OrganizationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                 ProducerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
              },
              constraints: table =>
              {
-                table.PrimaryKey("PK_UserPage", x => x.UserPageId);
+                table.PrimaryKey("PK_UserPage", x => x.Id);
+                table.ForeignKey(
+                       name: "FK_UserPage_AspNetUsers_UserId",
+                       column: x => x.UserId,
+                       principalTable: "AspNetUsers",
+                       principalColumn: "Id",
+                       onDelete: ReferentialAction.Cascade);
                 table.ForeignKey(
                        name: "FK_UserPage_Organizations_OrganizationId",
                        column: x => x.OrganizationId,
@@ -45,11 +55,6 @@ namespace EventHub.EventManagement.Persistance.Migrations
 
 
          migrationBuilder.CreateIndex(
-             name: "IX_AspNetUsers_UserPageId",
-             table: "AspNetUsers",
-             column: "UserPageId");
-
-         migrationBuilder.CreateIndex(
              name: "IX_UserPage_OrganizationId",
              table: "UserPage",
              column: "OrganizationId");
@@ -59,27 +64,19 @@ namespace EventHub.EventManagement.Persistance.Migrations
              table: "UserPage",
              column: "ProducerId");
 
-         migrationBuilder.AddForeignKey(
-             name: "FK_AspNetUsers_UserPage_UserPageId",
-             table: "AspNetUsers",
-             column: "UserPageId",
-             principalTable: "UserPage",
-             principalColumn: "UserPageId");
+         migrationBuilder.CreateIndex(
+             name: "IX_UserPage_UserId",
+             table: "UserPage",
+             column: "UserId",
+             unique: true);
       }
 
       /// <inheritdoc />
       protected override void Down(MigrationBuilder migrationBuilder)
       {
-         migrationBuilder.DropForeignKey(
-             name: "FK_AspNetUsers_UserPage_UserPageId",
-             table: "AspNetUsers");
-
          migrationBuilder.DropTable(
              name: "UserPage");
 
-         migrationBuilder.DropIndex(
-             name: "IX_AspNetUsers_UserPageId",
-             table: "AspNetUsers");
 
 
          migrationBuilder.DropColumn(

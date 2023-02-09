@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventHub.EventManagement.Persistance.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230122124636_configureUserPageTableName")]
-    partial class configureUserPageTableName
+    [Migration("20230209151511_add_facebook_and_twitter_and_linkedIn_columns_to_producer_Table")]
+    partial class addfacebookandtwitterandlinkedIncolumnstoproducerTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -317,6 +317,9 @@ namespace EventHub.EventManagement.Persistance.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Facebook")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
@@ -329,7 +332,13 @@ namespace EventHub.EventManagement.Persistance.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("LinkedIn")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Twitter")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProducerId");
@@ -441,8 +450,6 @@ namespace EventHub.EventManagement.Persistance.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("UserPageId");
-
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
@@ -455,8 +462,15 @@ namespace EventHub.EventManagement.Persistance.Migrations
                     b.Property<Guid?>("OrganizationId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("PageName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid?>("ProducerId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserPageId");
 
@@ -464,7 +478,10 @@ namespace EventHub.EventManagement.Persistance.Migrations
 
                     b.HasIndex("ProducerId");
 
-                    b.ToTable("UsersPages", (string)null);
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("UserPage");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -496,25 +513,25 @@ namespace EventHub.EventManagement.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f4ed89e5-aa9b-424d-ab95-09a6c6970ea5",
+                            Id = "0316e7c9-707b-49a0-8788-3c6df98f4da7",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "4d5d0816-6282-46b4-a35f-5299de32fbd8",
+                            Id = "cfd7a992-f5a4-48d2-a3f7-794695f3e352",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "6e07b332-f7cb-4509-8a1d-8479ac6a8bf9",
+                            Id = "070671f5-e0e7-4ae4-8d07-50bfd41e8824",
                             Name = "Producer",
                             NormalizedName = "PRODUCER"
                         },
                         new
                         {
-                            Id = "36f7e73d-25a5-4693-84fb-b9c7fae79297",
+                            Id = "5016d676-83ea-45a1-ae1b-dfa79390502e",
                             Name = "Organization",
                             NormalizedName = "ORGANIZATION"
                         });
@@ -739,15 +756,6 @@ namespace EventHub.EventManagement.Persistance.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EventHub.EventManagement.Domain.Entities.UserEntities.User", b =>
-                {
-                    b.HasOne("EventHub.EventManagement.Domain.Entities.UserEntities.UserPage", "UserPage")
-                        .WithMany()
-                        .HasForeignKey("UserPageId");
-
-                    b.Navigation("UserPage");
-                });
-
             modelBuilder.Entity("EventHub.EventManagement.Domain.Entities.UserEntities.UserPage", b =>
                 {
                     b.HasOne("EventHub.EventManagement.Domain.Entities.OrganizationEntities.Organization", "Organization")
@@ -758,9 +766,17 @@ namespace EventHub.EventManagement.Persistance.Migrations
                         .WithMany()
                         .HasForeignKey("ProducerId");
 
+                    b.HasOne("EventHub.EventManagement.Domain.Entities.UserEntities.User", "User")
+                        .WithOne("UserPage")
+                        .HasForeignKey("EventHub.EventManagement.Domain.Entities.UserEntities.UserPage", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Organization");
 
                     b.Navigation("Producer");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -861,6 +877,11 @@ namespace EventHub.EventManagement.Persistance.Migrations
             modelBuilder.Entity("EventHub.EventManagement.Domain.Entities.ProducerEntities.Producer", b =>
                 {
                     b.Navigation("Events");
+                });
+
+            modelBuilder.Entity("EventHub.EventManagement.Domain.Entities.UserEntities.User", b =>
+                {
+                    b.Navigation("UserPage");
                 });
 #pragma warning restore 612, 618
         }

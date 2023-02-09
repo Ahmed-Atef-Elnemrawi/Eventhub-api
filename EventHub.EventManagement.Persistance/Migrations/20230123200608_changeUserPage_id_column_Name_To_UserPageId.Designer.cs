@@ -4,6 +4,7 @@ using EventHub.EventManagement.Presistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventHub.EventManagement.Persistance.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20230123200608_changeUserPage_id_column_Name_To_UserPageId")]
+    partial class changeUserPageidcolumnNameToUserPageId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -314,9 +317,6 @@ namespace EventHub.EventManagement.Persistance.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Facebook")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
@@ -329,13 +329,7 @@ namespace EventHub.EventManagement.Persistance.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LinkedIn")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Twitter")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProducerId");
@@ -434,7 +428,7 @@ namespace EventHub.EventManagement.Persistance.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<Guid?>("UserPageId")
+                    b.Property<Guid>("UserPageId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -510,25 +504,25 @@ namespace EventHub.EventManagement.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0316e7c9-707b-49a0-8788-3c6df98f4da7",
+                            Id = "cf13fd69-bdbe-4154-8f16-2ff6efc7cde9",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "cfd7a992-f5a4-48d2-a3f7-794695f3e352",
+                            Id = "46d22531-98f1-453c-8ac6-8ce11176ef5a",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "070671f5-e0e7-4ae4-8d07-50bfd41e8824",
+                            Id = "4817caef-423e-4e18-9f41-fde67ed928dd",
                             Name = "Producer",
                             NormalizedName = "PRODUCER"
                         },
                         new
                         {
-                            Id = "5016d676-83ea-45a1-ae1b-dfa79390502e",
+                            Id = "5c3f4c01-e9d0-41e9-afa8-152ad13f520b",
                             Name = "Organization",
                             NormalizedName = "ORGANIZATION"
                         });
