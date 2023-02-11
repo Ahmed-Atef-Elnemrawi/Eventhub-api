@@ -73,4 +73,13 @@ namespace EventHub.EventManagement.Application.Exceptions
       {
       }
    }
+
+
+   public sealed class UserNotFound : EntityNotFoundException<User>
+   {
+      public UserNotFound(string keyName, object keyValue) : base(keyName, keyValue)
+      {
+      }
+   }
+
 }
