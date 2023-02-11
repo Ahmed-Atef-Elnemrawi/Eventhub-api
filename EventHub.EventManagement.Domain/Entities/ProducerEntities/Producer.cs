@@ -6,6 +6,7 @@ namespace EventHub.EventManagement.Domain.Entities.ProducerEntities
    public class Producer : ISortableEntity, ISearchableEntity
    {
       public Guid ProducerId { get; set; }
+      public Guid UserId { get; set; }
       public string? FirstName { get; set; }
       public string? LastName { get; set; }
       public Genre? Genre { get; set; }
