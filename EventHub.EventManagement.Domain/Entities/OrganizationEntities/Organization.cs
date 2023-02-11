@@ -5,6 +5,7 @@ namespace EventHub.EventManagement.Domain.Entities.OrganizationEntities
    public class Organization : ISortableEntity, ISearchableEntity
    {
       public Guid OrganizationId { get; set; }
+      public Guid UserId { get; set; }
       public string? Name { get; set; }
       public string? BusinessType { get; set; }
       public string? BusinessDescription { get; set; }
