@@ -4,6 +4,7 @@ using EventHub.EventManagement.Presistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventHub.EventManagement.Persistance.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20230211140229_add userId identifier column to organization Table")]
+    partial class adduserIdidentifiercolumntoorganizationTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -341,7 +344,7 @@ namespace EventHub.EventManagement.Persistance.Migrations
                     b.Property<string>("Twitter")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid>("serId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ProducerId");
@@ -516,25 +519,25 @@ namespace EventHub.EventManagement.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1aae6e02-269f-44f3-a59f-f1c8465ba621",
+                            Id = "8aeb7d0a-0b5f-4327-826c-cffb702ce51c",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "d81b7caa-90e3-48e0-b4f7-f19407ee7616",
+                            Id = "39e58e28-c5a9-4e91-9f99-8feb0b624864",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "214cbc80-7bd3-4940-8c3c-6b37705074ca",
+                            Id = "8580204c-8986-4ae4-837e-f7668b8259f4",
                             Name = "Producer",
                             NormalizedName = "PRODUCER"
                         },
                         new
                         {
-                            Id = "bf04f7c3-c7b5-4aed-b462-72a61e4d4212",
+                            Id = "69e4826e-40de-46b7-9e84-a701869e5ea3",
                             Name = "Organization",
                             NormalizedName = "ORGANIZATION"
                         });
