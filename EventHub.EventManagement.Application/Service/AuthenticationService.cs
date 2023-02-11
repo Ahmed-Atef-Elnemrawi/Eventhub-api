@@ -64,11 +64,10 @@ namespace EventHub.EventManagement.Application.Service
          {
             new Claim(ClaimTypes.NameIdentifier, _user?.Id!),
             new Claim(ClaimTypes.Name, _user?.UserName!),
-            new Claim(ClaimTypes.Country, _user?.LiveIn!),
          };
 
 
-         foreach (var role in await _userManager.GetRolesAsync(_user))
+         foreach (var role in await _userManager.GetRolesAsync(_user!))
             claims.Add(new Claim(ClaimTypes.Role, role));
 
          return claims;
@@ -87,19 +86,19 @@ namespace EventHub.EventManagement.Application.Service
       public async Task<IdentityResult> RegisterUser(UserForRegistrationDto userForCreation)
       {
          var user = _mapper.Map<User>(userForCreation);
-         var result = await _userManager.CreateAsync(user, userForCreation.Password);
+         var result = await _userManager.CreateAsync(user, userForCreation.Password!);
 
          if (result.Succeeded)
          {
-            await _userManager.AddToRolesAsync(user, userForCreation.Roles);
+            await _userManager.AddToRolesAsync(user, userForCreation.Roles!);
          }
          return result;
       }
 
       public async Task<bool> ValidateUser(UserForAuthenticationDto userForAuthentication)
       {
-         _user = await _userManager.FindByEmailAsync(userForAuthentication.Email);
-         var result = (_user != null && await _userManager.CheckPasswordAsync(_user, userForAuthentication.Password));
+         _user = await _userManager.FindByEmailAsync(userForAuthentication.Email!);
+         var result = (_user != null && await _userManager.CheckPasswordAsync(_user, userForAuthentication.Password!));
 
          if (!result)
             _logger.LogWarn($"{nameof(ValidateUser)}: Authentication failed. Worng user name or password.");
@@ -162,23 +161,8 @@ namespace EventHub.EventManagement.Application.Service
          return await CreateToken(populateExp: false);
       }
 
-      public async Task<AuthResponseDto> CreateAuthResponse(bool populateTokenExpiration)
-      {
-         var token = await CreateToken(populateTokenExpiration);
-         var userProfile = new UserProfileDto
-         {
-            FirstName = _user?.FirstName!,
-            LastName = _user?.LastName,
-            UserName = _user?.UserName!,
-            Age = _user!.Age,
-            Email = _user?.Email!,
-            Country = _user?.LiveIn,
-            PhoneNumber = _user?.PhoneNumber,
-            Genre = _user!.Genre,
-            ProfilePicture = _user?.ProfilePicture!
-         };
 
-         return new AuthResponseDto { TokenDto = token, UserProfile = userProfile };
-      }
+      //   return token;
+      //}
    }
 }
