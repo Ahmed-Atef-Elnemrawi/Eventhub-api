@@ -1,4 +1,5 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Infrastructure;
+using EventHub.EventManagement.Application.Contracts.links;
 using EventHub.EventManagement.Application.Contracts.Service;
 using EventHub.EventManagement.Application.DTOs;
 using EventHub.EventManagement.Application.DTOs.UserDto;
@@ -20,18 +21,49 @@ namespace EventHub.EventManagement.Presentation.Controllers
       private readonly IEmailSender _emailSender;
       private readonly UserManager<User> _userManager;
 
-      public UsersController(IServiceManager service, IEmailSender emailSender, UserManager<User> userManager)
+      public UsersController(IServiceManager service, IEmailSender emailSender, UserManager<User> userManager, IEntitiesLinkGeneratorManager linkGeneratorManager)
       {
          _service = service;
          _emailSender = emailSender;
          _userManager = userManager;
       }
+
+
+      [HttpGet("{id}", Name = "GetUser")]
+      [ProducesResponseType(200, Type = typeof(UserProfileDto))]
+      [ProducesResponseType(400)]
+      [ProducesResponseType(404)]
+      public async Task<IActionResult> GetUser([FromRoute] string id)
+      {
+         if (string.IsNullOrEmpty(id))
+            return BadRequest();
+
+         var user = await _userManager.FindByIdAsync(id);
+         if (user is null)
+            return NotFound();
+
+         var userToReturn = new UserProfileDto
+         {
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            UserName = user.UserName,
+            Email = user.Email,
+            Country = user.LiveIn,
+            Age = user.Age,
+            Genre = user.Genre,
+            PhoneNumber = user.PhoneNumber
+         };
+
+
+         return Ok(userToReturn);
+      }
+
       /// <summary>
       /// Provides signup function
       /// </summary>
       /// <param name="userForRegistration"></param>
       /// <returns></returns>
-      [HttpPost("signup", Name = "Register")]
+      [HttpPost("signup", Name = "SignUp")]
       [ProducesResponseType(201)]
       [ProducesResponseType(400)]
       public async Task<IActionResult> Register([FromBody] UserForRegistrationDto userForRegistration)
@@ -61,7 +93,7 @@ namespace EventHub.EventManagement.Presentation.Controllers
       /// <param name="userForAuthentication"></param>
       /// <returns></returns>
       [HttpPost("login", Name = "Login")]
-      [ProducesResponseType(200, Type = typeof(AuthResponseDto))]
+      [ProducesResponseType(200, Type = typeof(TokenDto))]
       [ProducesResponseType(401)]
       public async Task<IActionResult> Login([FromBody] UserForAuthenticationDto userForAuthentication)
       {
@@ -71,9 +103,11 @@ namespace EventHub.EventManagement.Presentation.Controllers
          if (!valideUser)
             return Unauthorized();
 
-         var authResponse = await _service.AuthenticationService.CreateAuthResponse(populateTokenExpiration: true);
+         var tokenDto = await _service
+            .AuthenticationService.CreateToken(populateExp: true);
 
-         return Ok(authResponse);
+
+         return Ok(tokenDto);
       }
 
       /// <summary>
@@ -140,22 +174,24 @@ namespace EventHub.EventManagement.Presentation.Controllers
          return Ok();
       }
 
+
+
       /// <summary>
       /// Provide update user function
       /// </summary>
-      /// <param name="userName"></param>
+      /// <param name="id"></param>
       /// <param name="user"></param>
       /// <returns></returns>
-      [HttpPut("{userName}", Name = "UpdateUser")]
+      [HttpPut("{id}", Name = "UpdateUser")]
       [ProducesResponseType(200)]
       [ProducesResponseType(400)]
       [ProducesResponseType(404)]
-      public async Task<IActionResult> UpdateUser([FromRoute] string userName, [FromBody] UserProfileDto user)
+      public async Task<IActionResult> UpdateUser([FromRoute] string id, [FromBody] UserProfileDto user)
       {
          if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-         var userEntity = await _userManager.FindByNameAsync(userName);
+         var userEntity = await _userManager.FindByIdAsync(id);
 
          if (userEntity is null)
             return NotFound();
@@ -178,23 +214,28 @@ namespace EventHub.EventManagement.Presentation.Controllers
       /// <summary>
       /// Provide change user password function
       /// </summary>
-      /// <param name="userName"></param>
+      /// <param name="id"></param>
       /// <param name="changePasswordDto"></param>
       /// <returns></returns>
-      [HttpPut("{userName}/changePassword", Name = "ChangePassword")]
+      [HttpPut("{id}/changePassword", Name = "ChangePassword")]
       [ProducesResponseType(200)]
       [ProducesResponseType(400)]
       [ProducesResponseType(404)]
-      public async Task<IActionResult> ChangePassword([FromRoute] string userName, [FromBody] ChangePasswordDto changePasswordDto)
+      public async Task<IActionResult> ChangePassword(
+         [FromRoute] string id,
+         [FromBody] ChangePasswordDto changePasswordDto)
       {
          if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-         var userEntity = await _userManager.FindByNameAsync(userName);
+         var userEntity = await _userManager.FindByIdAsync(id);
          if (userEntity is null)
             return NotFound();
 
-         var result = await _userManager.ChangePasswordAsync(userEntity, changePasswordDto.CurrentPassword!, changePasswordDto.NewPassword!);
+         var result = await _userManager.ChangePasswordAsync(
+            userEntity,
+            changePasswordDto.CurrentPassword!,
+            changePasswordDto.NewPassword!);
 
          if (!result.Succeeded)
          {
@@ -204,6 +245,20 @@ namespace EventHub.EventManagement.Presentation.Controllers
             }
             return BadRequest(ModelState);
          }
+         return NoContent();
+      }
+
+
+      [HttpDelete("{id}", Name = "RemoveUser")]
+      [ProducesResponseType(204)]
+      [ProducesResponseType(404)]
+      public async Task<IActionResult> RemoveUser(string id)
+      {
+         var user = await _userManager.FindByIdAsync(id);
+         if (user is null)
+            return NotFound();
+
+         await _userManager.DeleteAsync(user);
          return NoContent();
       }
    }
