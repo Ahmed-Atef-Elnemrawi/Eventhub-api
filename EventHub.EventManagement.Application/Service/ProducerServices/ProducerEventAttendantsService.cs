@@ -109,7 +109,7 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
 
          _repository
             .AttendantRepository
-            .RemoveAttendant(attendant);
+            .RemoveEventAttendant(attendant);
 
          await _repository.SaveAsync();
       }
@@ -134,12 +134,12 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
             throw new EventNotFound("id", eventId);
       }
 
-      private async Task<Attendant> GetAttendantAndCheckIfItExists
+      private async Task<EventAttendant> GetAttendantAndCheckIfItExists
          (Guid eventId, Guid attendantId, bool trackChanges)
       {
          var attendant = await _repository
             .AttendantRepository
-            .GetAttendantAsync(eventId, attendantId, trackChanges);
+            .GetEventAttendantAsync(attendantId, eventId);
 
          if (attendant is null)
             throw new AttendantNotFound("id", attendantId);
