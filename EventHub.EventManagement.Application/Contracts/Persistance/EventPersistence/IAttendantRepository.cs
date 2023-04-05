@@ -8,7 +8,9 @@ namespace EventHub.EventManagement.Application.Contracts.Persistance.EventPersis
    {
       Task<PagedList<Attendant>> GetAllAttendantsAsync(Guid eventId, AttendantParams attendantParams, bool trackChanges);
       Task<Attendant?> GetAttendantAsync(Guid eventId, Guid AttendantId, bool trackChanges);
+      Task<EventAttendant?> GetEventAttendantAsync(Guid attendantId, Guid eventId);
       void CreateAttendant(Guid eventId, Attendant attendant);
       void RemoveAttendant(Attendant attendant);
+      void RemoveEventAttendant(EventAttendant eventAttendant);
    }
 }

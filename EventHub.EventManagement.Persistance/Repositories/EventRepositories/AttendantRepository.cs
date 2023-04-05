@@ -18,9 +18,26 @@ namespace EventHub.EventManagement.Persistance.Repositories.EventRepositories
       public void CreateAttendant(Guid eventId, Attendant attendant)
       {
 
-         attendant.EventId = eventId;
-         Create(attendant);
+         var result = FindByCondition(a => a.AttendantId.Equals(attendant.AttendantId), false).SingleOrDefault();
 
+         if (result is null)
+            Create(attendant);
+
+         _dbContext.EventsAttendants?.Add(new EventAttendant
+         {
+            EventId = eventId,
+            AttendantId = attendant.AttendantId
+         });
+
+
+
+      }
+
+      public async Task<EventAttendant?> GetEventAttendantAsync(Guid attendantId, Guid eventId)
+      {
+         return await _dbContext.EventsAttendants!.Where(
+            a => a.AttendantId.Equals(attendantId)
+            && a.EventId.Equals(eventId)).SingleOrDefaultAsync();
       }
 
       public async Task<Attendant?> GetAttendantAsync
@@ -28,9 +45,10 @@ namespace EventHub.EventManagement.Persistance.Repositories.EventRepositories
       {
          return
             await FindByCondition(a =>
-            a.EventId.Equals(eventId) &&
+            a.Events!.Any(e => e.EventId.Equals(eventId)) &&
             a.AttendantId.Equals(AttendantId),
             trackChanges)
+            .Include(a => a.Events)
             .SingleOrDefaultAsync();
       }
 
@@ -39,14 +57,15 @@ namespace EventHub.EventManagement.Persistance.Repositories.EventRepositories
       {
          var attendants =
                await FindByCondition(a =>
-               a.EventId.Equals(eventId),
+               a.Events!.Any(e => e.EventId.Equals(eventId)),
                trackChanges).Search(attendantParams.SearchTerm)
                .Sort(attendantParams.SortBy)
                .Skip((attendantParams.PageNumber - 1) * attendantParams.PageSize)
                .Take(attendantParams.PageSize)
                .ToListAsync();
 
-         var count = await FindByCondition(a => a.EventId.Equals(eventId), trackChanges).CountAsync();
+         var count = await FindByCondition(a =>
+         a.Events!.Any(e => e.EventId.Equals(eventId)), trackChanges).CountAsync();
 
 
          return new PagedList<Attendant>
@@ -56,5 +75,10 @@ namespace EventHub.EventManagement.Persistance.Repositories.EventRepositories
 
       public void RemoveAttendant(Attendant attendant) =>
          Delete(attendant);
+
+      public void RemoveEventAttendant(EventAttendant eventAttendant)
+      {
+         _dbContext.EventsAttendants!.Remove(eventAttendant);
+      }
    }
 }
