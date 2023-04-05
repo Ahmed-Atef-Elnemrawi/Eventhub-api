@@ -99,7 +99,7 @@ namespace EventHub.EventManagement.Presentation.Controllers.OrganizationControll
             .CreateFollowerAsync(organizationId, followerForCreationDto, trackChanges: false);
 
          return CreatedAtRoute("GetOrganizationFollower",
-            new { organizationId, followerDto.Id },
+            new { organizationId, followerDto.FollowerId },
             followerDto);
       }
 
