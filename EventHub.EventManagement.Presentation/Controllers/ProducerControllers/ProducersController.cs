@@ -1,4 +1,5 @@
-﻿using EventHub.EventManagement.Application.Contracts.Service;
+﻿using AutoMapper;
+using EventHub.EventManagement.Application.Contracts.Service;
 using EventHub.EventManagement.Application.DTOs.ProducerDto;
 using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.LinkModels;
@@ -18,10 +19,12 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
    public class ProducersController : ControllerBase
    {
       private readonly IServiceManager _service;
+      private readonly IMapper _mapper;
 
-      public ProducersController(IServiceManager service)
+      public ProducersController(IServiceManager service, IMapper mapper)
       {
          _service = service;
+         _mapper = mapper;
       }
 
       /// <summary>
