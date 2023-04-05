@@ -14,6 +14,7 @@ namespace EventHub.EventManagement.Domain.Entities.EventEntities
       public string? Country { get; set; }
       public string? Discriminator { get; set; }
       public Guid CategoryId { get; set; }
+      public EventState EventState { get; set; }
       public Category? Category { get; set; }
       public ICollection<Attendant> Attendants { get; set; }
 
@@ -30,5 +31,12 @@ namespace EventHub.EventManagement.Domain.Entities.EventEntities
          return false;
 
       }
+   }
+
+   public enum EventState
+   {
+      Upcoming,
+      Ongoing,
+      Finished
    }
 }
