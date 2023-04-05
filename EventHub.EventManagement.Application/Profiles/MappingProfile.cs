@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EventHub.EventManagement.Application.DTOs;
 using EventHub.EventManagement.Application.DTOs.AttendantDto;
 using EventHub.EventManagement.Application.DTOs.CategoryDto;
 using EventHub.EventManagement.Application.DTOs.EventDto;
@@ -52,11 +53,13 @@ namespace EventHub.EventManagement.Application.Profiles
 
          CreateMap<ProducerEvent, EventForCreationDto>().ReverseMap();
          CreateMap<ProducerEvent, EventForUpdateDto>().ReverseMap();
-         CreateMap<ProducerEvent, EventDto>();
+         CreateMap<ProducerEvent, ProducerEventDto>();
 
          CreateMap<Speaker, SpeakerDto>().ReverseMap();
          CreateMap<Speaker, SpeakerForCreationDto>().ReverseMap();
          CreateMap<Speaker, SpeakerForUpdateDto>().ReverseMap();
+
+         CreateMap<UserPage, UserPageDto>().ReverseMap();
 
       }
    }
