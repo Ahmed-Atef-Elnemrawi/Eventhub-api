@@ -53,21 +53,21 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
       /// Gets the producer follower
       /// </summary>
       /// <param name="producerId"></param>
-      /// <param name="id"></param>
+      /// <param name="followerId"></param>
       /// <param name="followerParams"></param>
       /// <returns></returns>
-      [HttpGet("{id:guid}", Name = "GetProducerFollower")]
+      [HttpGet("{followerId:guid}", Name = "GetProducerFollower")]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
       [ProducesResponseType(200, Type = typeof(ShapedEntity))]
       [ProducesResponseType(404)]
       public async Task<IActionResult> GetProducerFollower
-         (Guid producerId, Guid id, [FromQuery] FollowerParams followerParams)
+         ([FromRoute] Guid producerId, [FromRoute] Guid followerId, [FromQuery] FollowerParams followerParams)
       {
          var linkParams = new FollowerLinkParams(followerParams, HttpContext);
 
          var linkResponse = await _service
             .ProducerFollowersService
-            .GetFollowerAsync(producerId, id, linkParams, trackChanges: false);
+            .GetFollowerAsync(producerId, followerId, linkParams, trackChanges: false);
 
          return linkResponse.HasLinks ?
              Ok(linkResponse.LinkedEntity) : Ok(linkResponse.ShapedEntity);
@@ -100,7 +100,7 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
 
          return CreatedAtRoute(
             "GetProducerFollower",
-            new { producerId, followerDto.Id }
+            new { producerId, followerDto.FollowerId }
             , followerDto);
       }
 
@@ -109,19 +109,29 @@ namespace EventHub.EventManagement.Presentation.Controllers.ProducerControllers
       /// Removes the producer follower
       /// </summary>
       /// <param name="producerId"></param>
-      /// <param name="id"></param>
+      /// <param name="followerId"></param>
       /// <returns></returns>
-      [HttpDelete("{id:guid}", Name = "RemoveProducerFollower")]
+      [HttpDelete("{followerId:guid}", Name = "RemoveProducerFollower")]
       [ProducesResponseType(204)]
       [ProducesResponseType(400)]
       [ProducesResponseType(404)]
-      public async Task<IActionResult> RemoveProducerFollower(Guid producerId, Guid id)
+      public async Task<IActionResult> RemoveProducerFollower(Guid producerId, [FromRoute] Guid followerId)
       {
          await _service
             .ProducerFollowersService
-            .RemoveFollowerAsync(producerId, id, trackChanges: false);
+            .RemoveFollowerAsync(producerId, followerId, trackChanges: false);
 
          return NoContent();
+      }
+
+
+      [HttpGet("followers-count", Name = "GetProducerFollowersCount")]
+      public async Task<IActionResult> GetProducerFollowersCount([FromRoute] Guid producerId)
+      {
+         var count = await _service.ProducerFollowersService
+             .GetProducerFollowersCountAsync(producerId, trackChanges: false);
+
+         return Ok(new { followersCount = count });
       }
    }
 }
