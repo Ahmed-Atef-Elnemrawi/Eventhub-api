@@ -386,7 +386,7 @@
             Gets the producer follower
             </summary>
             <param name="producerId"></param>
-            <param name="id"></param>
+            <param name="followerId"></param>
             <param name="followerParams"></param>
             <returns></returns>
         </member>
@@ -403,7 +403,7 @@
             Removes the producer follower
             </summary>
             <param name="producerId"></param>
-            <param name="id"></param>
+            <param name="followerId"></param>
             <returns></returns>
         </member>
         <member name="M:EventHub.EventManagement.Presentation.Controllers.ProducerControllers.ProducersController.GetAllProducers(EventHub.EventManagement.Application.RequestFeatures.Params.ProducerParams)">
@@ -485,11 +485,11 @@
             <param name="resetPasswordDto"></param>
             <returns></returns>
         </member>
-        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.UpdateUser(System.String,EventHub.EventManagement.Application.DTOs.UserDto.UserProfileDto)">
+        <member name="M:EventHub.EventManagement.Presentation.Controllers.UsersController.UpdateUser(System.String,EventHub.EventManagement.Application.DTOs.UserDto.UserProfileForUpdateDto)">
             <summary>
             Provide update user function
             </summary>
-            <param name="userName"></param>
+            <param name="id"></param>
             <param name="user"></param>
             <returns></returns>
         </member>
@@ -497,7 +497,7 @@
             <summary>
             Provide change user password function
             </summary>
-            <param name="userName"></param>
+            <param name="id"></param>
             <param name="changePasswordDto"></param>
             <returns></returns>
         </member>
