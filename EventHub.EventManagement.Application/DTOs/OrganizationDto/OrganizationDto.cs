@@ -3,6 +3,7 @@
    public record OrganizationDto
    {
       public Guid OrganizationId { get; init; }
+      public Guid UserId { get; init; }
       public string? Name { get; init; }
       public string? BusinessType { get; init; }
       public string? BusinessDescription { get; init; }
