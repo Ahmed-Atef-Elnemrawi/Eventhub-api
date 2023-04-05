@@ -12,7 +12,6 @@ public class Attendant : ISortableEntity, ISearchableEntity
    public string? City { get; set; }
    public string? PhoneNumber { get; set; }
    public string? Email { get; set; }
-   public Guid EventId { get; set; }
-   public Event? Event { get; set; }
+   public ICollection<Event>? Events { get; set; }
 
 }
