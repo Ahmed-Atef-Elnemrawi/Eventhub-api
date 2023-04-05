@@ -4,6 +4,7 @@ namespace EventHub.EventManagement.Application.DTOs.FollowerDto
 {
    public record FollowerForCreationDto
    {
+      public string? FollowerId { get; init; }
       public string? FirstName { get; init; }
       public string? LastName { get; init; }
       public Genre Genre { get; init; }
