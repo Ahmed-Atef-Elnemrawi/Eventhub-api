@@ -9,7 +9,7 @@ namespace EventHub.EventManagement.Application.Validation
       {
          RuleFor(e => e.Name)
             .NotEmpty().WithMessage("event name is required")
-            .Length(10, 1000).WithMessage("event name must be at least 10 characters");
+            .MinimumLength(3).WithMessage("event name must be at least 10 characters");
 
          RuleFor(e => e.CategoryId)
             .NotEmpty().WithMessage("category id is requried");
@@ -22,8 +22,8 @@ namespace EventHub.EventManagement.Application.Validation
             .NotEmpty().WithMessage("event description is required")
             .Length(10, 10000).WithName("description length");
 
-         RuleFor(e => e.Image)
-            .NotNull().WithMessage("event image is required");
+         //RuleFor(e => e.Image)
+         //   .NotNull().WithMessage("event image is required");
       }
    }
 }
