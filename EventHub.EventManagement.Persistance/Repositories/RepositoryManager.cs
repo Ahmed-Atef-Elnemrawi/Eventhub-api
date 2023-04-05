@@ -25,6 +25,9 @@ namespace EventHub.EventManagement.Persistance.Repositories
       private readonly Lazy<IProducerEventsRepository> _producerEventsRepository;
       private readonly Lazy<IProducerFollowersRepository> _prdoucerFollowersRepository;
       private readonly Lazy<IProducerRepository> _producerRepository;
+
+      private readonly Lazy<IUserPageRepository> _userPageRepository;
+
       private readonly RepositoryContext _dbContext;
 
 
@@ -81,6 +84,9 @@ namespace EventHub.EventManagement.Persistance.Repositories
             new Lazy<ISpeakerRepository>(() =>
             new OrganizationSpeakerRepository(_dbContext));
 
+         _userPageRepository =
+            new Lazy<IUserPageRepository>(() =>
+            new UserPageRepository(_dbContext));
 
       }
 
@@ -121,6 +127,8 @@ namespace EventHub.EventManagement.Persistance.Repositories
       public ISpeakerRepository SpeakerRepositoy =>
          _organizationSpeakersRepository.Value;
 
+      public IUserPageRepository UserPageRepository =>
+         _userPageRepository.Value;
 
       public async Task SaveAsync() =>
          await _dbContext.SaveChangesAsync();

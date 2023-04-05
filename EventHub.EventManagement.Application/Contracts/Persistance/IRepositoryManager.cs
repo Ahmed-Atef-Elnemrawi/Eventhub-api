@@ -21,6 +21,8 @@ namespace EventHub.EventManagement.Application.Contracts.Persistance
       IProducerFollowersRepository ProducerFollowersRepository { get; }
       IProducerRepository ProducerRepository { get; }
 
+      IUserPageRepository UserPageRepository { get; }
+
       Task SaveAsync();
    }
 }
