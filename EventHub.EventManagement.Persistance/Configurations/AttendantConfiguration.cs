@@ -12,6 +12,14 @@ namespace EventHub.EventManagement.Persistance.Configurations
             .ToTable("Attendants")
             .HasKey(p => p.AttendantId);
 
+
+         builder
+            .HasMany(p => p.Events)
+            .WithMany(p => p.Attendants)
+            .UsingEntity<EventAttendant>()
+            .ToTable("EventsAttendants")
+            .HasKey(p => new { p.EventId, p.AttendantId });
+
       }
    }
 }
