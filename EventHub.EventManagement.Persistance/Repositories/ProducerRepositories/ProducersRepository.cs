@@ -46,5 +46,17 @@ namespace EventHub.EventManagement.Persistance.Repositories.ProducerRepositories
       public void RemoveProducer(Producer producer) =>
          Delete(producer);
 
+      public async Task<List<Producer>> GetAllProducersAsync(Guid followerId, bool trackChanges)
+      {
+         return await FindByCondition(p => p.Followers.Any(f => f.FollowerId.Equals(followerId)),
+            trackChanges).ToListAsync();
+      }
+
+      public async Task<Producer?> GetProducerAsync(Guid followerId, Guid producerId, bool trackChanges)
+      {
+         return await FindByCondition(p => p.Followers.Any(f => f.FollowerId.Equals(followerId)),
+            trackChanges).SingleOrDefaultAsync(p => p.ProducerId.Equals(producerId));
+      }
+
    }
 }
