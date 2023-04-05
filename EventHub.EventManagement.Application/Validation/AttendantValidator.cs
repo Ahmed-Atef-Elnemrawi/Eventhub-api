@@ -15,18 +15,18 @@ namespace EventHub.EventManagement.Application.Validation
             .NotEmpty().WithMessage("last name is required")
             .Length(3, 15).WithMessage("name length should be a least 3 characters");
 
-         RuleFor(attendant => attendant.Gender)
+         RuleFor(attendant => attendant.Genre)
             .NotEmpty().WithMessage("genre is required")
             .IsInEnum();
 
-         RuleFor(attendant => attendant.LiveIn)
+         RuleFor(attendant => attendant.City)
             .NotEmpty().WithMessage("city is required");
 
          RuleFor(attendant => attendant.Email)
             .NotEmpty().WithMessage("email is required")
             .EmailAddress();
 
-         RuleFor(attendat => attendat.Phone)
+         RuleFor(attendat => attendat.PhoneNumber)
             .NotEmpty().WithMessage("phone number is required")
             .Matches("^(\\+\\d{1,2}\\s?)?1?\\-?\\.?\\s?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$");
 
