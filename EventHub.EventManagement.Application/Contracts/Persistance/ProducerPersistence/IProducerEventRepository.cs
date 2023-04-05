@@ -6,8 +6,10 @@ namespace EventHub.EventManagement.Application.Contracts.Persistance.ProducerPer
 {
    public interface IProducerEventsRepository
    {
-      Task<PagedList<ProducerEvent>> GetAllProducerEventsAsync(Guid producerId, EventParams eventParams, bool trackChanges);
+      Task<PagedListTypeEvent<ProducerEvent>> GetAllProducerEventsAsync(Guid producerId, EventParams eventParams, bool trackChanges);
       Task<ProducerEvent?> GetProducerEventAsync(Guid producerId, Guid eventId, bool trackChanges);
+      Task<PagedList<ProducerEvent>> GetAllEventsAsync(Guid attendantId, EventParams eventParams, bool trackChanges);
+      Task<List<DateOnly>> GetDistictAttendantEventsDateAsync(Guid attendantId, bool trackChanges);
       void CreateProducerEvent(Guid producerId, ProducerEvent producerEvent);
       void UpdateProducerEvent(ProducerEvent producerEvent);
       void RemoveProducerEvent(ProducerEvent producerEvent);
