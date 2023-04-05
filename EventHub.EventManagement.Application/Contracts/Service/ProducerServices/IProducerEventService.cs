@@ -6,7 +6,7 @@ namespace EventHub.EventManagement.Application.Contracts.Service.ProducerService
 {
    public interface IProducerEventService
    {
-      Task<(LinkResponse linkResponse, MetaData metaData)>
+      Task<(LinkResponse linkResponse, MetaDataTypeEvent metaData)>
          GetAllProducerEventsAsync(Guid producerId, EventLinkParams linkParameters, bool trackChanges);
 
       Task<LinkResponse>
@@ -19,6 +19,11 @@ namespace EventHub.EventManagement.Application.Contracts.Service.ProducerService
          (Guid producerId, Guid eventId, EventForUpdateDto eventForUpdate, bool trackChanges);
 
       Task RemoveProducerEventAsync(Guid producerId, Guid eventId, bool trackChanges);
+
+      Task<(LinkResponse response, MetaData metaData)>
+         GetAllEventsByAttendantAsync(Guid attendId, EventLinkParams linkParams, bool trackChanges);
+
+      Task<List<DateOnly>> GetDistinctAttendantEventsDatesAsync(Guid attendantId, bool trackChanges);
 
    }
 }

@@ -20,7 +20,10 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
 
 
       public ProducerEventService
-         (IRepositoryManager repository, ILoggerManager logger, IMapper mapper, IEntitiesLinkGeneratorManager linksManager)
+         (IRepositoryManager repository,
+          ILoggerManager logger,
+          IMapper mapper,
+          IEntitiesLinkGeneratorManager linksManager)
       {
          _repository = repository ?? throw new ArgumentNullException(nameof(repository));
          _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -49,7 +52,7 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
          return ProducerEventToReturn;
       }
 
-      public async Task<(LinkResponse linkResponse, MetaData metaData)>
+      public async Task<(LinkResponse linkResponse, MetaDataTypeEvent metaData)>
          GetAllProducerEventsAsync
          (Guid producerId, EventLinkParams linkParam, bool trackChanges)
       {
@@ -60,7 +63,7 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
             .GetAllProducerEventsAsync(producerId, linkParam.eventParams, trackChanges);
 
          var eventsDto = _mapper
-            .Map<IEnumerable<EventDto>>(eventsWithMetaData);
+            .Map<IEnumerable<ProducerEventDto>>(eventsWithMetaData);
 
 
          var linkResponse =
@@ -82,7 +85,7 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
             await GetProducerEventAndCheckIfItExists(producerId, eventId, trackChanges);
 
          var eventDto = _mapper
-            .Map<EventDto>(@event);
+            .Map<ProducerEventDto>(@event);
 
          var linkResponse = _entitiesLinkGenerator.ProducerEventLinks
             .TryGetEntityLinks(eventDto, linkParams.eventParams.Fields!, linkParams.HttpContext, producerId);
@@ -117,6 +120,30 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
 
          await _repository.SaveAsync();
       }
+
+      public async Task<(LinkResponse response, MetaData metaData)>
+         GetAllEventsByAttendantAsync(Guid attendId, EventLinkParams linkParams, bool trackChanges)
+      {
+         var eventWithMetaData = await _repository
+            .ProducerEventsRepository
+            .GetAllEventsAsync(attendId, linkParams.eventParams, trackChanges);
+
+         var eventsDto = _mapper
+            .Map<IEnumerable<ProducerEventDto>>(eventWithMetaData);
+
+         var response = _entitiesLinkGenerator.ProducerEventLinks
+            .TryGetEntitiesLinks(eventsDto, linkParams.eventParams.Fields!, linkParams.HttpContext);
+
+         return (response, metaData: eventWithMetaData.MetaData);
+      }
+
+
+      public async Task<List<DateOnly>> GetDistinctAttendantEventsDatesAsync(Guid attendantId, bool trackChanges)
+      {
+         return await _repository.ProducerEventsRepository.GetDistictAttendantEventsDateAsync(attendantId, trackChanges);
+      }
+
+
 
       private async Task CheckIfProducerExists(Guid producerId, bool trackChanges)
       {
