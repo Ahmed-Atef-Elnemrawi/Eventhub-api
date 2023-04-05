@@ -82,4 +82,12 @@ namespace EventHub.EventManagement.Application.Exceptions
       }
    }
 
+
+   public sealed class UserPageNotFound : EntityNotFoundException<UserPage>
+   {
+      public UserPageNotFound(string keyName, object keyValue) : base(keyName, keyValue)
+      {
+
+      }
+   }
 }
