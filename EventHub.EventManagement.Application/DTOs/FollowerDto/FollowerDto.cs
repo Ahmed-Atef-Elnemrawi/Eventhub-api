@@ -2,7 +2,7 @@
 {
    public record FollowerDto
    {
-      public Guid Id { get; init; }
+      public Guid FollowerId { get; init; }
       public string? FirstName { get; init; }
       public string? LastName { get; init; }
       public string? FullName { get; set; }
