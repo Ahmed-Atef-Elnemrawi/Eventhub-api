@@ -22,7 +22,11 @@ namespace EventHub.EventManagement.Application.Service.EventServices
       private readonly IDataShaperManager _dataShaper;
 
       public EventService
-         (IRepositoryManager repository, ILoggerManager logger, IMapper mapper, IEntitiesLinkGeneratorManager entitiesLinkGenerator, IDataShaperManager dataShaper)
+         (IRepositoryManager repository,
+          ILoggerManager logger,
+          IMapper mapper,
+          IEntitiesLinkGeneratorManager entitiesLinkGenerator,
+          IDataShaperManager dataShaper)
       {
          _repository = repository ?? throw new ArgumentNullException(nameof(repository));
          _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -91,7 +95,7 @@ namespace EventHub.EventManagement.Application.Service.EventServices
             .TryGetEntityLinks(producerEventDto,
                                linkParams.eventParams.Fields!,
                                linkParams.HttpContext,
-                               producerEventDto.ProducerId);
+                               producerEventDto.Producer!.ProducerId);
 
       }
 
@@ -118,7 +122,7 @@ namespace EventHub.EventManagement.Application.Service.EventServices
 
 
       public async Task<(IEnumerable<ShapedEntity> events, MetaData metaData)>
-         GetAllEventsAsync(EventParams eventParams, bool trackChanges)
+              GetAllEventsAsync(EventParams eventParams, bool trackChanges)
       {
          var eventWithMetaData = await _repository
             .EventRepository
