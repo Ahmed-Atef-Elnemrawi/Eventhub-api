@@ -18,7 +18,11 @@ namespace EventHub.EventManagement.Persistance.Repositories.ProducerRepositories
 
       public void CreateFollower(Guid producerId, Follower follower)
       {
-         Create(follower);
+         var result = FindByCondition(f => f.FollowerId.Equals(follower.FollowerId), false).SingleOrDefault();
+
+         if (result is null)
+            Create(follower);
+
          _dbContext.ProducersFollowers?.Add(
             new ProducerFollower
             {
@@ -27,10 +31,17 @@ namespace EventHub.EventManagement.Persistance.Repositories.ProducerRepositories
             });
       }
 
+      public async Task<ProducerFollower?> GetProducerFollowerAsync(Guid producerId, Guid followerId)
+      {
+         return await _dbContext.ProducersFollowers!.Where(
+             a => a.ProducerId.Equals(producerId)
+             && a.FollowerId.Equals(followerId)).SingleOrDefaultAsync();
+      }
+
       public async Task<Follower?> GetFollowerAsync(Guid producerId, Guid followerId, bool trackChanges) =>
          await FindByCondition(f => f.Producers
          .Any(p => p.ProducerId.Equals(producerId)) &&
-         f.FollowerId.Equals(followerId),
+         f.FollowerId!.Equals(followerId),
          trackChanges)
          .SingleOrDefaultAsync();
 
@@ -58,5 +69,13 @@ namespace EventHub.EventManagement.Persistance.Repositories.ProducerRepositories
       {
          Delete(follower);
       }
+
+      public void RemoveProducerFollower(ProducerFollower producerFollower) =>
+         _dbContext.ProducersFollowers?.Remove(producerFollower);
+
+
+      public async Task<int> GetProducerFollowersCountAsync(Guid producerId, bool trackChanges) =>
+            await FindByCondition(f => f.Producers
+            .Any(p => p.ProducerId == producerId), trackChanges).CountAsync();
    }
 }
