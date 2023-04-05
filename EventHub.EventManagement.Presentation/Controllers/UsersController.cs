@@ -48,15 +48,17 @@ namespace EventHub.EventManagement.Presentation.Controllers
             LastName = user.LastName,
             UserName = user.UserName,
             Email = user.Email,
-            Country = user.LiveIn,
+            LiveIn = user.LiveIn,
             Age = user.Age,
             Genre = user.Genre,
-            PhoneNumber = user.PhoneNumber
+            PhoneNumber = user.PhoneNumber,
+            UserPageId = user.UserPageId,
          };
 
 
          return Ok(userToReturn);
       }
+
 
       /// <summary>
       /// Provides signup function
@@ -186,7 +188,7 @@ namespace EventHub.EventManagement.Presentation.Controllers
       [ProducesResponseType(200)]
       [ProducesResponseType(400)]
       [ProducesResponseType(404)]
-      public async Task<IActionResult> UpdateUser([FromRoute] string id, [FromBody] UserProfileDto user)
+      public async Task<IActionResult> UpdateUser([FromRoute] string id, [FromBody] UserProfileForUpdateDto user)
       {
          if (!ModelState.IsValid)
             return BadRequest(ModelState);
@@ -203,8 +205,9 @@ namespace EventHub.EventManagement.Presentation.Controllers
          userEntity.PhoneNumber = user.PhoneNumber;
          userEntity.Genre = user.Genre;
          userEntity.Age = user.Age;
-         userEntity.LiveIn = user.Country;
+         userEntity.LiveIn = user.LiveIn;
          userEntity.ProfilePicture = user.ProfilePicture;
+         userEntity.UserPage = user.UserPage;
 
          await _userManager.UpdateAsync(userEntity);
          return NoContent();
