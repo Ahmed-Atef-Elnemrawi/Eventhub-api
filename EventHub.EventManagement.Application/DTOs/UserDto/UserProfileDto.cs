@@ -11,8 +11,9 @@ namespace EventHub.EventManagement.Application.DTOs.UserDto
       public string? Email { get; init; }
       public string? PhoneNumber { get; init; }
       public Genre Genre { get; init; }
-      public string? Country { get; init; }
+      public string? LiveIn { get; init; }
       public byte[]? ProfilePicture { get; init; }
+      public Guid? UserPageId { get; set; }
 
    }
 }
