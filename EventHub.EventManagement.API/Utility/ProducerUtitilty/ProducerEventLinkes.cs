@@ -4,7 +4,7 @@ using EventHub.EventManagement.Application.Models.LinkModels;
 
 namespace EventHub.EventManagement.API.Utility.ProducerUtitilty
 {
-   public class ProducerEventLinkes : EntityLinkes<EventDto>
+   public class ProducerEventLinkes : EntityLinkes<ProducerEventDto>
    {
       public ProducerEventLinkes(LinkGenerator linkGenerator) : base(linkGenerator)
       {

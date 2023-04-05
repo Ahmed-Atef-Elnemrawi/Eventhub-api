@@ -19,7 +19,7 @@ namespace EventHub.EventManagement.API.Utility
    {
       private readonly Lazy<IEntityLinks<EventDto>> _eventLinks;
       private readonly Lazy<IEntityLinks<EventDto>> _organizationEventLinks;
-      private readonly Lazy<IEntityLinks<EventDto>> _producerEventLinks;
+      private readonly Lazy<IEntityLinks<ProducerEventDto>> _producerEventLinks;
       private readonly Lazy<IEntityLinks<OrganizationDto>> _organizationLinks;
       private readonly Lazy<IEntityLinks<ProducerDto>> _producerLinks;
       private readonly Lazy<IEntityLinks<CategoryDto>> _categoryLinks;
@@ -31,7 +31,7 @@ namespace EventHub.EventManagement.API.Utility
       private readonly Lazy<IEntityLinks<SpeakerDto>> _organizationSpeakerLinks;
       private readonly Lazy<IEntityLinks<SpeakerDto>> _organizationEventSpeakerLinks;
       private readonly Lazy<IEntityLinks<EventDto>> _categoryOrganizationEventLinks;
-      private readonly Lazy<IEntityLinks<EventDto>> _categoryProducerEventLinks;
+      private readonly Lazy<IEntityLinks<ProducerEventDto>> _categoryProducerEventLinks;
 
 
 
@@ -43,13 +43,13 @@ namespace EventHub.EventManagement.API.Utility
          _categoryOrganizationEventLinks = new Lazy<IEntityLinks<EventDto>>(() =>
          new CategoryOrganizationEventLink(linkGenerator));
 
-         _categoryProducerEventLinks = new Lazy<IEntityLinks<EventDto>>(() =>
+         _categoryProducerEventLinks = new Lazy<IEntityLinks<ProducerEventDto>>(() =>
        new CategoryProducerEventLinks(linkGenerator));
 
          _organizationEventLinks = new Lazy<IEntityLinks<EventDto>>(() =>
           new OrganizationEventLinks(linkGenerator));
 
-         _producerEventLinks = new Lazy<IEntityLinks<EventDto>>(() =>
+         _producerEventLinks = new Lazy<IEntityLinks<ProducerEventDto>>(() =>
           new ProducerEventLinkes(linkGenerator));
 
          _producerLinks = new Lazy<IEntityLinks<ProducerDto>>(() =>
@@ -86,12 +86,12 @@ namespace EventHub.EventManagement.API.Utility
       public IEntityLinks<EventDto> CategoryOrganizationEventLinks =>
          _categoryOrganizationEventLinks.Value;
 
-      public IEntityLinks<EventDto> CategoryProducerEventLinks =>
+      public IEntityLinks<ProducerEventDto> CategoryProducerEventLinks =>
          _categoryProducerEventLinks.Value;
 
       public IEntityLinks<EventDto> EventLinks =>
          _eventLinks.Value;
-      public IEntityLinks<EventDto> ProducerEventLinks =>
+      public IEntityLinks<ProducerEventDto> ProducerEventLinks =>
          _producerEventLinks.Value;
 
       public IEntityLinks<OrganizationDto> OrganizationLinks =>

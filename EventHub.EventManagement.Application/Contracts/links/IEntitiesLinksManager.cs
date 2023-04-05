@@ -18,11 +18,11 @@ namespace EventHub.EventManagement.Application.Contracts.links
 
       IEntityLinks<CategoryDto> CategoryLinks { get; }
       IEntityLinks<EventDto> CategoryOrganizationEventLinks { get; }
-      IEntityLinks<EventDto> CategoryProducerEventLinks { get; }
+      IEntityLinks<ProducerEventDto> CategoryProducerEventLinks { get; }
 
       IEntityLinks<EventDto> EventLinks { get; }
       IEntityLinks<EventDto> OrganizationEventLinks { get; }
-      IEntityLinks<EventDto> ProducerEventLinks { get; }
+      IEntityLinks<ProducerEventDto> ProducerEventLinks { get; }
 
       IEntityLinks<FollowerDto> OrganizationFollowerLinks { get; }
       IEntityLinks<FollowerDto> ProducerFollowerLinks { get; }
