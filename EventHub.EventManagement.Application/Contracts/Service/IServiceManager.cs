@@ -23,5 +23,7 @@ namespace EventHub.EventManagement.Application.Contracts.Service
       IProducerFollowersService ProducerFollowersService { get; }
       IProducerEventAttendantsService ProducerEventAttendantsService { get; }
       IProducerService ProducerService { get; }
+
+      IUserPageService UserPageService { get; }
    }
 }

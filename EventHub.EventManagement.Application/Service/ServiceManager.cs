@@ -38,6 +38,8 @@ namespace EventHub.EventManagement.Application.Service
       private readonly Lazy<IProducerEventAttendantsService> _producerEventAttendantsService;
       private readonly Lazy<IProducerService> _producerService;
 
+      private readonly Lazy<IUserPageService> _userPageService;
+
       public ServiceManager
          (
          IRepositoryManager repository,
@@ -106,6 +108,10 @@ namespace EventHub.EventManagement.Application.Service
          _eventService =
             new Lazy<IEventService>(() =>
             new EventService(repository, logger, mapper, entitiesLinkGenerator, dataShaper));
+
+         _userPageService =
+            new Lazy<IUserPageService>(() =>
+            new UserPageService(repository, mapper, logger));
       }
 
 
@@ -150,6 +156,9 @@ namespace EventHub.EventManagement.Application.Service
 
       public IProducerEventAttendantsService ProducerEventAttendantsService =>
          _producerEventAttendantsService.Value;
+
+      public IUserPageService UserPageService =>
+         _userPageService.Value;
    }
 
 }
