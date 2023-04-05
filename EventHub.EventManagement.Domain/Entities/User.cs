@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventHub.EventManagement.Domain.Entities
 {
@@ -13,10 +14,10 @@ namespace EventHub.EventManagement.Domain.Entities
       public string? FullName => $"{FirstName}, {LastName}";
       public string? RefreshToken { get; set; }
       public DateTime? RefreshTokenExpiryTime { get; set; }
-      public override string ToString()
-      {
-         return $"Id:{Id}, Name:{FullName}, City:{LiveIn}, Email{Email}, Phone{PhoneNumber}";
-      }
+      [ForeignKey("UserPage")]
+      public Guid? UserPageId { get; set; }
+      public UserPage? UserPage { get; set; }
+
    }
 
    public enum Genre
