@@ -1,7 +1,11 @@
-﻿namespace EventHub.EventManagement.Application.DTOs.EventDto
+﻿
+
+namespace EventHub.EventManagement.Application.DTOs.EventDto
 {
    public record ProducerEventDto : EventDto
    {
-      public Guid ProducerId { get; set; }
+      public ProducerDto.ProducerDto? Producer { get; init; }
+      public CategoryDto.CategoryDto? Category { get; init; }
+
    }
 }
