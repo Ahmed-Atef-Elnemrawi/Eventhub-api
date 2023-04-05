@@ -19,20 +19,20 @@ namespace EventHub.EventManagement.Persistance.Repositories.RepositoriesExtensio
 
 
 
-      public static IQueryable<Event> FilterByDate
-         (this IQueryable<Event> collection, EventParams eventParams)
+      public static IQueryable<T> FilterByDate<T>
+         (this IQueryable<T> collection, EventParams eventParams) where T : Event
       {
          if (eventParams.UpComing != false)
-            return collection.Where(e => e.Date >= DateTime.Now);
+            return collection.Where(e => e.Date >= DateTime.Now).OrderBy(e => e.Date);
 
          if (eventParams.Last24Hours != false)
-            return collection.Where(e => e.CreatedDate > DateTime.Now.AddDays(-1));
+            return collection.Where(e => e.CreatedDate >= DateTime.Now.AddHours(-24)).OrderBy(e => e.Date);
 
          if (eventParams.LastWeek != false)
-            return collection.Where(e => e.CreatedDate > DateTime.Now.AddDays(-7));
+            return collection.Where(e => e.CreatedDate > DateTime.Now.AddDays(-7)).OrderBy(e => e.Date);
 
          if (eventParams.LastMonth != false)
-            return collection.Where(e => e.CreatedDate >= DateTime.Now.AddMonths(-1));
+            return collection.Where(e => e.CreatedDate >= DateTime.Now.AddMonths(-1)).OrderBy(e => e.Date);
 
          if (eventParams.Year > DateTime.MinValue.Year &&
             eventParams.Year < DateTime.MaxValue.Year &&
