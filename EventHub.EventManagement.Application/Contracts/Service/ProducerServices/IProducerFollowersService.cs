@@ -16,6 +16,8 @@ namespace EventHub.EventManagement.Application.Contracts.Service.ProducerService
          CreateFollowerAsync(Guid producerId, FollowerForCreationDto follower, bool trackChanges);
 
       Task RemoveFollowerAsync(Guid producerId, Guid followerId, bool trackChanges);
+      Task RemoveProducerFollowerAsync(Guid producerId, Guid followerId);
+      Task<int> GetProducerFollowersCountAsync(Guid producerId, bool trackChanges);
 
    }
 }

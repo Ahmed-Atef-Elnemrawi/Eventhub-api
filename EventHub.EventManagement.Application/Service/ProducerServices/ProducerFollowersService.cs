@@ -129,5 +129,23 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
          return follower;
 
       }
+
+      public async Task RemoveProducerFollowerAsync(Guid producerId, Guid followerId)
+      {
+         var producerFollower = await _repository.ProducerFollowersRepository
+            .GetProducerFollowerAsync(producerId, followerId);
+
+         if (producerFollower is null)
+            throw new FollowerNotFound("producerFollowerId", followerId);
+
+         _repository.ProducerFollowersRepository.RemoveProducerFollower(producerFollower);
+         await _repository.SaveAsync();
+      }
+
+      public Task<int> GetProducerFollowersCountAsync(Guid producerId, bool trackChanges)
+      {
+         return _repository.ProducerFollowersRepository
+            .GetProducerFollowersCountAsync(producerId, trackChanges);
+      }
    }
 }
