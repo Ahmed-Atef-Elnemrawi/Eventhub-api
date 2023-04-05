@@ -44,7 +44,8 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
          return producerToReturn;
       }
 
-      public async Task<LinkResponse> GetProducerAsync(Guid producerId, ProducerLinkParams linkParams, bool trackChanges)
+      public async Task<LinkResponse> GetProducerAsync
+         (Guid producerId, ProducerLinkParams linkParams, bool trackChanges)
       {
          var producer =
             await GetProducerAndCheckIfItExists(producerId, trackChanges);
@@ -99,6 +100,41 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
 
       }
 
+      public async Task<Producer> GetProducerAsync(Guid id, bool trackChanges)
+      {
+         var producerToReturn = await _repository.ProducerRepository.GetProducerAsync(id, trackChanges);
+         if (producerToReturn is null)
+            throw new ProducerNotFound("id", id);
+         return producerToReturn;
+      }
+
+
+      public async Task<LinkResponse> GetAllProducersAsync
+         (Guid followerId, ProducerLinkParams linkParams, bool trackChanges)
+      {
+         var producers = await _repository
+             .ProducerRepository.GetAllProducersAsync(followerId, trackChanges);
+
+
+         var producersDtos = _mapper.Map<List<ProducerDto>>(producers);
+
+         var linkResponse = _entitiesLinkGenerator.ProducerLinks.TryGetEntitiesLinks
+             (producersDtos, linkParams.producerParams.Fields!, linkParams.HttpContext);
+
+         return linkResponse;
+      }
+
+      public async Task<bool> CheckIfProducerExist
+         (Guid followerId, Guid producerId, bool trackChanges)
+      {
+         var producer = await _repository
+            .ProducerRepository
+            .GetProducerAsync(followerId, producerId, trackChanges);
+
+         return (producer != null);
+      }
+
+
       private async Task<Producer> GetProducerAndCheckIfItExists(Guid producerId, bool trackChanges)
       {
          var producer = await _repository
@@ -110,5 +146,6 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
 
          return producer;
       }
+
    }
 }
