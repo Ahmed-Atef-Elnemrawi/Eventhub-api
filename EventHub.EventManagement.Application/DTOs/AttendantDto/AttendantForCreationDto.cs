@@ -4,14 +4,14 @@ namespace EventHub.EventManagement.Application.DTOs.AttendantDto
 {
    public record AttendantForCreationDto
    {
+      public Guid AttendantId { get; init; }
       public string? FirstName { get; init; }
-      public string? LastName { get; set; }
-      public Genre Gender { get; set; }
-      public int Age { get; set; }
-      public string? Phone { get; set; }
-      public string? Email { get; set; }
-      public string? LiveIn { get; set; }
-      public string? FullName { get; set; }
+      public string? LastName { get; init; }
+      public Genre? Genre { get; init; }
+      public int Age { get; init; }
+      public string? City { get; init; }
+      public string? PhoneNumber { get; init; }
+      public string? Email { get; init; }
 
    }
 }
