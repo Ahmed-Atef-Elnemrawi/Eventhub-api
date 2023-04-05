@@ -29,6 +29,7 @@ namespace EventHub.EventManagement.Presistence
       public DbSet<ProducerEvent>? ProducerEvents { get; set; }
       public DbSet<ProducerFollower>? ProducersFollowers { get; set; }
       public DbSet<Speaker>? Speakers { get; set; }
+      public DbSet<EventAttendant>? EventsAttendants { get; set; }
 
 
       protected override void OnModelCreating(ModelBuilder builder)
@@ -47,7 +48,9 @@ namespace EventHub.EventManagement.Presistence
 
       }
 
-      public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+      public override Task<int> SaveChangesAsync(
+         bool acceptAllChangesOnSuccess,
+         CancellationToken cancellationToken = default)
       {
          foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
          {
@@ -61,6 +64,18 @@ namespace EventHub.EventManagement.Presistence
                   break;
 
             }
+         }
+
+         foreach (var @event in Events!.ToList())
+         {
+            if (@event.Date < DateTime.Now)
+               @event.EventState = EventState.Finished;
+
+            if (@event.Date > DateTime.Now)
+               @event.EventState = EventState.Upcoming;
+
+            if (@event.Date == DateTime.Now)
+               @event.EventState = EventState.Ongoing;
          }
          return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
       }
