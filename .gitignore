@@ -361,3 +361,19 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/EventHub.EventManagement.Application/Contracts/links/IEntityLink.cs
+/EventHub.EventManagement.Application/Contracts/Persistance/UserPagePersistence/IUserPageRepository.cs
+/EventHub.EventManagement.Application/Contracts/Persistance/IRepositoryManager.cs
+/EventHub.EventManagement.Application/Contracts/Service/DataShaperService/IDataShaperManager.cs
+/EventHub.EventManagement.Application/Contracts/Service/IAuthenticationService.cs
+/EventHub.EventManagement.Application/Contracts/Service/IServiceManager.cs
+/EventHub.EventManagement.Application/DTOs/UserDto/UserProfileDto.cs
+/EventHub.EventManagement.Application/Exceptions/EntityNotFoundException.cs
+/EventHub.EventManagement.Application/Service/DataShaper/DataShaperManager.cs
+/EventHub.EventManagement.Application/Service/AuthenticationService.cs
+/EventHub.EventManagement.Application/Service/ServiceManager.cs
+/EventHub.EventManagement.Application/Profiles/MappingProfile.cs
+/EventHub.EventManagement.Application/Models/LinkModels/LinkParameters.cs
+/EventHub.EventManagement.Domain/Entities/UserEntities/UserPage.cs
+
+**/EventHub.EventManagement.Persistance.Migrations/*
