@@ -10,6 +10,8 @@ namespace EventHub.EventManagement.Application.Contracts.Persistance.ProducerPer
       Task<ProducerEvent?> GetProducerEventAsync(Guid producerId, Guid eventId, bool trackChanges);
       Task<PagedList<ProducerEvent>> GetAllEventsAsync(Guid attendantId, EventParams eventParams, bool trackChanges);
       Task<List<DateOnly>> GetDistictAttendantEventsDateAsync(Guid attendantId, bool trackChanges);
+      Task<List<ProducerEvent>> GetCurrentDayEvents(Guid attendantId, bool trackChanges);
+      Task<int> GetCurrenctDayEventsCount(Guid attendantId, bool trackChanges);
       void CreateProducerEvent(Guid producerId, ProducerEvent producerEvent);
       void UpdateProducerEvent(ProducerEvent producerEvent);
       void RemoveProducerEvent(ProducerEvent producerEvent);
