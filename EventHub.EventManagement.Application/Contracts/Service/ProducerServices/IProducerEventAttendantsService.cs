@@ -16,5 +16,9 @@ namespace EventHub.EventManagement.Application.Contracts.Service.ProducerService
          (Guid producerId, Guid eventId, AttendantForCreationDto attendantForCreationDto, bool trackChanges);
 
       Task RemoveAttendantAsync(Guid producerId, Guid eventId, Guid attendantId, bool trackChanges);
+
+      Task<LinkResponse> GetAttendantCurrentDayEvents(Guid attendantId, EventLinkParams linkParams, bool trackChanges);
+
+      Task<int> GetAttendantCurrentDayEventsCount(Guid attendantId, bool trackChanges);
    }
 }
