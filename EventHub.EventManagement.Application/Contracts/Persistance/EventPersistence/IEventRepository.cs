@@ -8,11 +8,10 @@ namespace EventHub.EventManagement.Application.Contracts.Persistance.EventPersis
 {
    public interface IEventRepository
    {
-      Task<ProducerEvent?> GetCategoryProducerEventAsync(Guid categoryId, Guid eventId, bool trackChanges);
-      Task<OrganizationEvent?> GetCategoryOrganizationEventAsync(Guid categoryId, Guid eventId, bool trackChanges);
-      Task<Event?> GetEventAsync(Guid eventId, bool trackChanges);
-      Task<PagedList<Event>> GetCategoryEventsAsync(Guid CategoryId, EventParams eventParams, bool trackChanges);
-      Task<PagedList<Event>> GetAllEventsAsync(EventParams eventParams, bool trackChanges);
+      //Task<ProducerEvent?> GetCategoryProducerEventAsync(Guid categoryId, Guid eventId, bool trackChanges);
+      //Task<OrganizationEvent?> GetCategoryOrganizationEventAsync(Guid categoryId, Guid eventId, bool trackChanges);
+      Task<PagedListTypeEvent<ProducerEvent>> GetCategoryProducerEventsAsync(Guid CategoryId, EventParams eventParams, bool trackChanges);
+      Task<PagedListTypeEvent<ProducerEvent>> GetAllproducersEventsAsync(EventParams eventParams, bool trackChanges);
       int GetEventsCount();
    }
 }
