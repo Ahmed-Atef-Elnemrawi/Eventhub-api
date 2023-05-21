@@ -14,5 +14,12 @@ namespace EventHub.EventManagement.Persistance.Repositories.RepositoriesExtensio
          return collection;
       }
 
+      public static IQueryable<Producer> GetLatest(this IQueryable<Producer> collection, ProducerParams producerParams)
+      {
+         if (producerParams.Latest != false)
+            return collection.OrderBy(p => p.CreatedDate);
+         return collection;
+      }
+
    }
 }
