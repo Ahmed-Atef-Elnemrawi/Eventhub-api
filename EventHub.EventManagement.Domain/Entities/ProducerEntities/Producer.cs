@@ -19,6 +19,7 @@ namespace EventHub.EventManagement.Domain.Entities.ProducerEntities
       public string? LinkedIn { get; set; }
       public ICollection<Follower> Followers { get; set; }
       public ICollection<ProducerEvent> Events { get; set; }
+      public DateTime CreatedDate { get; set; }
 
       public Producer()
       {
