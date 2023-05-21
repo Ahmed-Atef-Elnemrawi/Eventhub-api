@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventHub.EventManagement.Persistance.Repositories.EventRepositories
 {
-   internal sealed class MediumRepository : BaseRepository<Medium>, IMediumRepository
+   public sealed class MediumRepository : BaseRepository<Medium>, IMediumRepository
    {
       public MediumRepository(RepositoryContext dbContext) : base(dbContext)
       {
