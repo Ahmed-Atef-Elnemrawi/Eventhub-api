@@ -5,11 +5,8 @@ using EventHub.EventManagement.Application.Contracts.Persistance;
 using EventHub.EventManagement.Application.Contracts.Service.DataShaperService;
 using EventHub.EventManagement.Application.Contracts.Service.EventServices;
 using EventHub.EventManagement.Application.DTOs.EventDto;
-using EventHub.EventManagement.Application.Exceptions;
-using EventHub.EventManagement.Application.Models;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Paging;
-using EventHub.EventManagement.Application.RequestFeatures.Params;
 
 namespace EventHub.EventManagement.Application.Service.EventServices
 {
@@ -35,16 +32,16 @@ namespace EventHub.EventManagement.Application.Service.EventServices
          _dataShaper = dataShaper;
       }
 
-      public async Task<(LinkResponse linkResponse, MetaData metaData)>
-         GetAllCategoryEventsAsync(Guid mediumId, Guid categoryId, EventLinkParams linkParams, bool trackChanges)
+      public async Task<(LinkResponse linkresponse, MetaDataTypeEvent metaData)>
+         GetAllCategoryProducerEventsAsync(Guid mediumId, Guid categoryId, EventLinkParams linkParams, bool trackChanges)
       {
 
          var eventsWithMetaData = await _repository
             .EventRepository
-            .GetCategoryEventsAsync(categoryId, linkParams.eventParams, trackChanges);
+            .GetCategoryProducerEventsAsync(categoryId, linkParams.eventParams, trackChanges);
 
          var eventsDto = _mapper
-            .Map<IEnumerable<EventDto>>(eventsWithMetaData);
+            .Map<IEnumerable<ProducerEventDto>>(eventsWithMetaData);
 
          var linkResponse = _entitiesLinkGenerator.EventLinks
             .TryGetEntitiesLinks(eventsDto,
@@ -56,85 +53,85 @@ namespace EventHub.EventManagement.Application.Service.EventServices
          return (linkResponse, metaData: eventsWithMetaData.MetaData);
       }
 
-      public async Task<LinkResponse>
-         GetCategoryEventAsync(Guid mediumId, Guid categoryId,
-         Guid eventId, EventLinkParams linkParams, bool trackChanges)
-      {
-         var category = await _repository
-            .CategoryRepository
-            .GetCategoryAsync(categoryId, trackChanges);
+      //public async Task<LinkResponse>
+      //   GetCategoryEventAsync(Guid mediumId, Guid categoryId,
+      //   Guid eventId, EventLinkParams linkParams, bool trackChanges)
+      //{
+      //   var category = await _repository
+      //      .CategoryRepository
+      //      .GetCategoryAsync(categoryId, trackChanges);
 
-         if (category is null)
-            throw new CategoryNotFound("id", categoryId);
+      //   if (category is null)
+      //      throw new CategoryNotFound("id", categoryId);
 
-         var producerEvent = await _repository
-            .EventRepository
-            .GetCategoryProducerEventAsync(categoryId, eventId, trackChanges);
+      //   var producerEvent = await _repository
+      //      .EventRepository
+      //      .GetCategoryProducerEventAsync(categoryId, eventId, trackChanges);
 
-         var organizationEvent = await _repository
-            .EventRepository
-            .GetCategoryOrganizationEventAsync(categoryId, eventId, trackChanges);
+      //   var organizationEvent = await _repository
+      //      .EventRepository
+      //      .GetCategoryOrganizationEventAsync(categoryId, eventId, trackChanges);
 
-         if (producerEvent is null && organizationEvent is null)
-            throw new EventNotFound("id", eventId);
+      //   if (producerEvent is null && organizationEvent is null)
+      //      throw new EventNotFound("id", eventId);
 
-         var producerEventDto = _mapper.Map<ProducerEventDto>(producerEvent);
-         var organizationEventDto = _mapper.Map<OrganizationEventDto>(organizationEvent);
-
-
-         if (organizationEvent is not null)
-         {
-            return _entitiesLinkGenerator.CategoryOrganizationEventLinks
-           .TryGetEntityLinks(organizationEventDto,
-                              linkParams.eventParams.Fields!,
-                              linkParams.HttpContext,
-                              organizationEventDto.OrganizationId);
-
-         }
-         return _entitiesLinkGenerator.CategoryProducerEventLinks
-            .TryGetEntityLinks(producerEventDto,
-                               linkParams.eventParams.Fields!,
-                               linkParams.HttpContext,
-                               producerEventDto.Producer!.ProducerId);
-
-      }
+      //   var producerEventDto = _mapper.Map<ProducerEventDto>(producerEvent);
+      //   var organizationEventDto = _mapper.Map<OrganizationEventDto>(organizationEvent);
 
 
+      //   if (organizationEvent is not null)
+      //   {
+      //      return _entitiesLinkGenerator.CategoryOrganizationEventLinks
+      //     .TryGetEntityLinks(organizationEventDto,
+      //                        linkParams.eventParams.Fields!,
+      //                        linkParams.HttpContext,
+      //                        organizationEventDto.OrganizationId);
 
+      //   }
+      //   return _entitiesLinkGenerator.CategoryProducerEventLinks
+      //      .TryGetEntityLinks(producerEventDto,
+      //                         linkParams.eventParams.Fields!,
+      //                         linkParams.HttpContext,
+      //                         producerEventDto.Producer!.ProducerId);
 
-      public async Task<ShapedEntity> GetEventAsync(Guid eventId, string fields, bool trackChanges)
-      {
-         var eventEntity = await _repository
-            .EventRepository
-            .GetEventAsync(eventId, trackChanges);
-
-         if (eventEntity is null)
-            throw new EventNotFound("id", eventId);
-
-         var eventToReturn = _mapper
-            .Map<EventDto>(eventEntity);
-
-
-         return _dataShaper.EventDataShaper.ShapeData(eventToReturn, fields);
-      }
+      //}
 
 
 
 
-      public async Task<(IEnumerable<ShapedEntity> events, MetaData metaData)>
-              GetAllEventsAsync(EventParams eventParams, bool trackChanges)
+      //public async Task<ShapedEntity> GetEventAsync(Guid eventId, string fields, bool trackChanges)
+      //{
+      //   var eventEntity = await _repository
+      //      .EventRepository
+      //      .GetEventAsync(eventId, trackChanges);
+
+      //   if (eventEntity is null)
+      //      throw new EventNotFound("id", eventId);
+
+      //   var eventToReturn = _mapper
+      //      .Map<EventDto>(eventEntity);
+
+
+      //   return _dataShaper.EventDataShaper.ShapeData(eventToReturn, fields);
+      //}
+
+
+
+
+      public async Task<(LinkResponse linkResponse, MetaDataTypeEvent metaData)>
+         GetAllProducersEventsAsync(EventLinkParams linkParams, bool trackChanges)
       {
          var eventWithMetaData = await _repository
             .EventRepository
-            .GetAllEventsAsync(eventParams, trackChanges);
+            .GetAllproducersEventsAsync(linkParams.eventParams, trackChanges);
 
          var eventsDto = _mapper
-            .Map<IEnumerable<EventDto>>(eventWithMetaData);
+            .Map<IEnumerable<ProducerEventDto>>(eventWithMetaData);
 
-         var shapedData = _dataShaper
-            .EventDataShaper.ShapeData(eventsDto, eventParams.Fields);
+         var response = _entitiesLinkGenerator.ProducerEventLinks
+         .TryGetEntitiesLinks(eventsDto, linkParams.eventParams.Fields!, linkParams.HttpContext);
 
-         return (events: shapedData, metaData: eventWithMetaData.MetaData);
+         return (response, metaData: eventWithMetaData.MetaData);
       }
 
 
