@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventHub.EventManagement.Persistance.Repositories.ProducerRepositories
 {
-   internal sealed class ProducerEventRepositroy : BaseRepository<ProducerEvent>, IProducerEventsRepository
+   public sealed class ProducerEventRepositroy : BaseRepository<ProducerEvent>, IProducerEventsRepository
    {
       public ProducerEventRepositroy(RepositoryContext dbContext) : base(dbContext)
       {
@@ -27,6 +27,8 @@ namespace EventHub.EventManagement.Persistance.Repositories.ProducerRepositories
          var events =
              await FindByCondition(e => e.ProducerId.Equals(producerId),
              trackChanges)
+             .Include(e => e.Producer)
+             .Include(e => e.Category)
             .Search(eventParams.SearchTerm)
             .Sort(eventParams.SortBy)
             .FilterByDate(eventParams)
@@ -101,5 +103,30 @@ namespace EventHub.EventManagement.Persistance.Repositories.ProducerRepositories
          .ToListAsync();
       }
 
+      public async Task<List<ProducerEvent>> GetCurrentDayEvents(Guid attendantId, bool trackChanges)
+      {
+         var events = await FindByCondition(e =>
+         e.Attendants.Any(a => a.AttendantId.Equals(attendantId))
+         , trackChanges)
+            .OrderBy(e => e.Name)
+            .OfType<ProducerEvent>()
+            .Where(e => e.Date.Date.Equals(DateTime.Now.Date))
+            .Include(e => e.Producer)
+            .Include(e => e.Category)
+            .ToListAsync();
+
+         var count = await FindByCondition(e =>
+         e.Attendants.Any(a => attendantId.Equals(attendantId)), trackChanges).CountAsync();
+
+         return new PagedList<ProducerEvent>(events, count, 0, 0);
+      }
+
+      public async Task<int> GetCurrenctDayEventsCount(Guid attendantId, bool trackChanges)
+      {
+         return await FindByCondition(e =>
+         e.Attendants.Any(a => a.AttendantId.Equals(attendantId)), trackChanges)
+            .CountAsync(e => e.Date.Equals(DateTime.Now.Date));
+
+      }
    }
 }

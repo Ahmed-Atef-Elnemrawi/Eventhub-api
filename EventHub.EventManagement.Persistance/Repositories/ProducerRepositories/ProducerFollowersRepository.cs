@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventHub.EventManagement.Persistance.Repositories.ProducerRepositories
 {
-   internal sealed class ProducerFollowersRepository : BaseRepository<Follower>, IProducerFollowersRepository
+   public sealed class ProducerFollowersRepository : BaseRepository<Follower>, IProducerFollowersRepository
    {
       public ProducerFollowersRepository(RepositoryContext dbContext) : base(dbContext)
       {

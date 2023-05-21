@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventHub.EventManagement.Persistance.Repositories.ProducerRepositories
 {
-   internal sealed class ProducersRepository : BaseRepository<Producer>, IProducerRepository
+   public sealed class ProducersRepository : BaseRepository<Producer>, IProducerRepository
    {
       public ProducersRepository(RepositoryContext dbContext) : base(dbContext)
       {
@@ -30,6 +30,7 @@ namespace EventHub.EventManagement.Persistance.Repositories.ProducerRepositories
             .Filter(producderParams)
             .Search(producderParams.SearchTerm)
             .Sort(producderParams.SortBy)
+            .GetLatest(producderParams)
             .Skip((producderParams.PageNumber - 1) * producderParams.PageSize)
             .Take(producderParams.PageSize)
             .ToListAsync();

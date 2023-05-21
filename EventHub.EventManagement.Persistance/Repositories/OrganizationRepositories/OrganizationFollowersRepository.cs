@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventHub.EventManagement.Persistance.Repositories.OrganizationRepositories
 {
-   internal sealed class OrganizationFollowersRepository : BaseRepository<Follower>, IOrganizationFollowersRepsoitory
+   public sealed class OrganizationFollowersRepository : BaseRepository<Follower>, IOrganizationFollowersRepsoitory
    {
       public OrganizationFollowersRepository(RepositoryContext dbContext) : base(dbContext)
       {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventHub.EventManagement.Persistance.Repositories.OrganizationRepositories
 {
-   internal sealed class OrganizationSpeakerRepository : BaseRepository<Speaker>, ISpeakerRepository
+   public sealed class OrganizationSpeakerRepository : BaseRepository<Speaker>, ISpeakerRepository
    {
       public OrganizationSpeakerRepository(RepositoryContext dbContext) : base(dbContext)
       {
