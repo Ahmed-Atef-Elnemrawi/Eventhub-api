@@ -16,6 +16,6 @@
       public string? Facebook { get; init; }
       public string? Twitter { get; init; }
       public string? LinkedIn { get; init; }
-      public int FollowersCount { get; init; }
+      public int FollowersCount { get; set; }
    }
 }
