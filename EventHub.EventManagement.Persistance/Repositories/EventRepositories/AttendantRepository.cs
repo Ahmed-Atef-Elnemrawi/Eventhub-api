@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventHub.EventManagement.Persistance.Repositories.EventRepositories
 {
-   internal sealed class AttendantRepository : BaseRepository<Attendant>, IAttendantRepository
+   public sealed class AttendantRepository : BaseRepository<Attendant>, IAttendantRepository
    {
       public AttendantRepository(RepositoryContext dbContext) : base(dbContext)
       {
