@@ -5,7 +5,7 @@ using EventHub.EventManagement.Presistence.Repositories;
 
 namespace EventHub.EventManagement.Persistance.Repositories.OrganizationRepositories
 {
-   internal sealed class OrganizationEventSpeakerRepository
+   public sealed class OrganizationEventSpeakerRepository
       : BaseRepository<OrganizationEventSpeaker>, IOrganizationEventSpeakersRepository
    {
       public OrganizationEventSpeakerRepository
