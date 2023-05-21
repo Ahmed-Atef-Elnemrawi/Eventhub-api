@@ -4,6 +4,7 @@ using EventHub.EventManagement.Application.Contracts.links;
 using EventHub.EventManagement.Application.Contracts.Persistance;
 using EventHub.EventManagement.Application.Contracts.Service.ProducerServices;
 using EventHub.EventManagement.Application.DTOs.AttendantDto;
+using EventHub.EventManagement.Application.DTOs.EventDto;
 using EventHub.EventManagement.Application.Exceptions;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Paging;
@@ -112,6 +113,22 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
             .RemoveEventAttendant(attendant);
 
          await _repository.SaveAsync();
+      }
+
+      public async Task<LinkResponse> GetAttendantCurrentDayEvents
+         (Guid attendantId, EventLinkParams linkParams, bool trackChanges)
+      {
+         var producerEvents = await _repository.ProducerEventsRepository.GetCurrentDayEvents(attendantId, trackChanges);
+         var producerEventsDtos = _mapper.Map<List<ProducerEventDto>>(producerEvents);
+         var linkResponse = _entitiesLinkGenerator.ProducerEventLinks
+            .TryGetEntitiesLinks(producerEventsDtos, linkParams.eventParams.Fields!, linkParams.HttpContext);
+
+         return linkResponse;
+      }
+
+      public async Task<int> GetAttendantCurrentDayEventsCount(Guid attendantId, bool trackChanges)
+      {
+         return await _repository.ProducerEventsRepository.GetCurrenctDayEventsCount(attendantId, trackChanges);
       }
 
       private async Task CheckIfProducerExists(Guid producerId, bool trackChanges)
