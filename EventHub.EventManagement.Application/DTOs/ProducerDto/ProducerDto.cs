@@ -4,17 +4,18 @@
    public record ProducerDto
    {
       public Guid ProducerId { get; init; }
-      public string? FirstName { get; set; }
-      public string? LastName { get; set; }
-      public string? Genre { get; set; }
-      public int Age { get; set; }
-      public string? LiveIn { get; set; }
-      public string? PhoneNumber { get; set; }
-      public string? Email { get; set; }
-      public string? JobTitle { get; set; }
-      public string? Bio { get; set; }
-      public string? Facebook { get; set; }
-      public string? Twitter { get; set; }
-      public string? LinkedIn { get; set; }
+      public string? FirstName { get; init; }
+      public string? LastName { get; init; }
+      public string? Genre { get; init; }
+      public int Age { get; init; }
+      public string? LiveIn { get; init; }
+      public string? PhoneNumber { get; init; }
+      public string? Email { get; init; }
+      public string? JobTitle { get; init; }
+      public string? Bio { get; init; }
+      public string? Facebook { get; init; }
+      public string? Twitter { get; init; }
+      public string? LinkedIn { get; init; }
+      public int FollowersCount { get; init; }
    }
 }
