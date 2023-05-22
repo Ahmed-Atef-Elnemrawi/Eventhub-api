@@ -1,5 +1,6 @@
 ﻿using EventHub.EventManagement.Application.Contracts.Service;
 using EventHub.EventManagement.Application.Models;
+using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Params;
 using EventHub.EventManagement.Presentation.ActionFilter;
 using Microsoft.AspNetCore.Mvc;
@@ -30,31 +31,19 @@ namespace EventHub.EventManagement.Presentation.Controllers.EventControllers
       [ProducesResponseType(404)]
       public async Task<IActionResult> GetEvents([FromQuery] EventParams eventParams)
       {
-         var (events, metaData) = await _service
+         var linkParams = new EventLinkParams(eventParams, HttpContext);
+
+         var (response, metaData) = await _service
             .EventService
-            .GetAllEventsAsync(eventParams, trackChanges: false);
+            .GetAllProducersEventsAsync(linkParams, trackChanges: false);
 
          Response.Headers.Add("X-Pagination",
             JsonSerializer.Serialize(metaData));
 
-         return Ok(events);
+         return response.HasLinks
+            ? Ok(response.LinkedEntities)
+            : Ok(response.ShapedEntities);
       }
-      /// <summary>
-      /// Gets the event
-      /// </summary>
-      /// <param name="id"></param>
-      /// <param name="fields">comma separated string fields</param>
-      /// <returns></returns>
-      [HttpGet("{id:guid}")]
-      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
-      [ProducesResponseType(404)]
-      public async Task<IActionResult> GetEvent(Guid id, [FromQuery] string fields)
-      {
-         var eventToReturn = await _service
-            .EventService
-            .GetEventAsync(id, fields, trackChanges: false);
 
-         return Ok(eventToReturn);
-      }
    }
 }
