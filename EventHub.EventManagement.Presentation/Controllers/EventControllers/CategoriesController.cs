@@ -79,7 +79,7 @@ namespace EventHub.EventManagement.Presentation.Controllers.EventControllers
          var linkParams = new EventLinkParams(eventParams, HttpContext);
          var (linkResponse, metaData) = await _service
             .EventService
-            .GetAllCategoryEventsAsync(mediumId, categoryId, linkParams, trackChanges: false);
+            .GetAllCategoryProducerEventsAsync(mediumId, categoryId, linkParams, trackChanges: false);
 
          Response.Headers.Add("X-Pagination",
             JsonSerializer.Serialize(metaData));
@@ -139,29 +139,6 @@ namespace EventHub.EventManagement.Presentation.Controllers.EventControllers
       //   return NoContent();
       //}
 
-      /// <summary>
-      /// Gets the category event
-      /// </summary>
-      /// <param name="mediumId"></param>
-      /// <param name="categoryId"></param>
-      /// <param name="id"></param>
-      /// <param name="eventParams"></param>
-      /// <returns></returns>
-      [HttpGet("{categoryId}/events/{id:guid}", Name = "GetCategoryEvent")]
-      [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
-      [ProducesResponseType(200, Type = typeof(ShapedEntity))]
-      [ProducesResponseType(404)]
-      public async Task<IActionResult> GetCategoryEvent
-         (Guid mediumId, Guid categoryId, Guid id, [FromQuery] EventParams eventParams)
-      {
-         var linkParams = new EventLinkParams(eventParams, HttpContext);
-         var linkResponse = await _service
-            .EventService
-            .GetCategoryEventAsync(mediumId, categoryId, id, linkParams, trackChanges: false);
 
-         return linkResponse.HasLinks ?
-            Ok(linkResponse.LinkedEntity) : Ok(linkResponse.ShapedEntity);
-
-      }
    }
 }
