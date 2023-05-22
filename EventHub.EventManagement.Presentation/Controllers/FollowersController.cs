@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EventHub.EventManagement.Presentation.Controllers
 {
    [ApiVersion("1.0")]
-   [Route("api/v{v:apiversion}/followers/{followerId}/producers")]
+   [Route("api/v{v:apiversion}/followers/{followerId}")]
    [ApiController]
    public class FollowersController : ControllerBase
    {
@@ -22,8 +22,8 @@ namespace EventHub.EventManagement.Presentation.Controllers
       [ProducesResponseType(200, Type = typeof(LinkResponse))]
       [ProducesResponseType(400)]
       [ProducesResponseType(404)]
-      [HttpGet(Name = "getProducersByFollowerId")]
-      public async Task<IActionResult> GetProducersByFollwerId
+      [HttpGet("who-Im-follow", Name = "getWhoImFollow")]
+      public async Task<IActionResult> GetWhoImFollow
          ([FromRoute] Guid followerId, [FromQuery] ProducerParams producerParams)
       {
 
@@ -38,8 +38,8 @@ namespace EventHub.EventManagement.Presentation.Controllers
             Ok(linkResponse.LinkedEntities) : Ok(linkResponse.ShapedEntities);
       }
 
-      [ProducesResponseType(200)]
-      [HttpGet("{producerId:guid}")]
+      [ProducesResponseType(200, Type = typeof(bool))]
+      [HttpGet("is-I-follow/{producerId:guid}")]
       public async Task<IActionResult> ChechIfUserFollowsProducer
          (Guid followerId, [FromRoute] Guid producerId)
       {
@@ -55,7 +55,7 @@ namespace EventHub.EventManagement.Presentation.Controllers
       }
 
       [ProducesResponseType(204)]
-      [HttpDelete("{producerId:guid}")]
+      [HttpDelete("unfollow/{producerId:guid}")]
       public async Task<IActionResult> DeleteProducerByFollowerId(Guid producerId, Guid followerId)
       {
          await _service.ProducerFollowersService.RemoveProducerFollowerAsync(producerId, followerId);
