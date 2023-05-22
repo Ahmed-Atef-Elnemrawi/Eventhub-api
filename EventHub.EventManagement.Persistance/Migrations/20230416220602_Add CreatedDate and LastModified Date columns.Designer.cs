@@ -4,6 +4,7 @@ using EventHub.EventManagement.Presistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventHub.EventManagement.Persistance.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20230416220602_Add CreatedDate and LastModified Date columns")]
+    partial class AddCreatedDateandLastModifiedDatecolumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,7 +73,7 @@ namespace EventHub.EventManagement.Persistance.Migrations
 
                     b.HasIndex("MediumId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("EventHub.EventManagement.Domain.Entities.EventEntities.Event", b =>
@@ -120,7 +123,7 @@ namespace EventHub.EventManagement.Persistance.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Events", (string)null);
+                    b.ToTable("Events");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Event");
 
@@ -153,7 +156,7 @@ namespace EventHub.EventManagement.Persistance.Migrations
 
                     b.HasKey("MediumId");
 
-                    b.ToTable("Mediums", (string)null);
+                    b.ToTable("Mediums");
 
                     b.HasData(
                         new
@@ -242,7 +245,7 @@ namespace EventHub.EventManagement.Persistance.Migrations
 
                     b.HasKey("OrganizationId");
 
-                    b.ToTable("Organizations", (string)null);
+                    b.ToTable("Organizations");
                 });
 
             modelBuilder.Entity("EventHub.EventManagement.Domain.Entities.OrganizationEntities.OrganizationEventSpeaker", b =>
@@ -488,7 +491,7 @@ namespace EventHub.EventManagement.Persistance.Migrations
 
                     b.HasKey("UserPageId");
 
-                    b.ToTable("UserPage", (string)null);
+                    b.ToTable("UserPage");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
