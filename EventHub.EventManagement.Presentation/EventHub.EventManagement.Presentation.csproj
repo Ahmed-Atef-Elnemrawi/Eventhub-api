@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EventHub.EventManagement.Application\EventHub.EventManagement.Application.csproj" />
+    <ProjectReference Include="..\EventHub.EventManagement.Persistance\EventHub.EventManagement.Persistance.csproj" />
   </ItemGroup>
 
 </Project>
