@@ -7,9 +7,7 @@ using EventHub.EventManagement.Application.DTOs.ProducerDto;
 using EventHub.EventManagement.Application.Exceptions;
 using EventHub.EventManagement.Application.Models.LinkModels;
 using EventHub.EventManagement.Application.RequestFeatures.Paging;
-using EventHub.EventManagement.Domain.Entities;
 using EventHub.EventManagement.Domain.Entities.ProducerEntities;
-using Microsoft.AspNetCore.Identity;
 
 namespace EventHub.EventManagement.Application.Service.ProducerServices
 {
@@ -19,16 +17,14 @@ namespace EventHub.EventManagement.Application.Service.ProducerServices
       private readonly ILoggerManager _logger;
       private readonly IMapper _mapper;
       private readonly IEntitiesLinkGeneratorManager _entitiesLinkGenerator;
-      private readonly UserManager<User> _userManager;
 
       public ProducerService
-         (IRepositoryManager repository, ILoggerManager logger, IMapper mapper, IEntitiesLinkGeneratorManager entitiesLinkGenerator, UserManager<User> userManager)
+         (IRepositoryManager repository, ILoggerManager logger, IMapper mapper, IEntitiesLinkGeneratorManager entitiesLinkGenerator)
       {
          _repository = repository ?? throw new ArgumentNullException(nameof(repository));
          _logger = logger ?? throw new ArgumentNullException(nameof(logger));
          _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
          _entitiesLinkGenerator = entitiesLinkGenerator ?? throw new ArgumentNullException(nameof(entitiesLinkGenerator));
-         _userManager = userManager;
       }
 
       public async Task<ProducerDto> CreateProducerAsync(ProducerForCreationDto producer)
