@@ -16,7 +16,7 @@ namespace EventHub.EventManagement.Application.Validation
 
          RuleFor(e => e.Date)
             .NotEmpty().WithMessage("event date is required")
-            .Must(e => e > DateTime.UtcNow).WithMessage("event date must be greater from now");
+            .Must(e => e >= DateTime.UtcNow).WithMessage("event date must be greater from now");
 
          RuleFor(e => e.Description)
             .NotEmpty().WithMessage("event description is required")
