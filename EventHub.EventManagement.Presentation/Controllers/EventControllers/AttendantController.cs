@@ -22,7 +22,7 @@ namespace EventHub.EventManagement.Presentation.Controllers.EventControllers
       [ProducesResponseType(200)]
       [ProducesResponseType(400)]
       [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
-      [HttpGet("{attendantId:guid}/producer-events", Name = "GetAttendantEvents")]
+      [HttpGet("{attendantId:guid}/events-I-attend", Name = "GetAttendantEvents")]
       public async Task<IActionResult> GetAttendantEvents(Guid attendantId, [FromQuery] EventParams eventParams)
       {
          var linkParams = new EventLinkParams(eventParams, HttpContext);
@@ -43,7 +43,8 @@ namespace EventHub.EventManagement.Presentation.Controllers.EventControllers
 
       [ProducesResponseType(200)]
       [ProducesResponseType(404)]
-      [HttpGet("{attendantId:guid}/distinct-producer-event-dates", Name = "getDistinctEventDates")]
+      [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+      [HttpGet("{attendantId:guid}/distinct-events-I-attend-dates", Name = "getDistinctEventDates")]
       public async Task<IActionResult> GetDistinctAttendantEventsDates([FromRoute] Guid attendantId)
       {
          var dateTimes = await _service.ProducerEventService
