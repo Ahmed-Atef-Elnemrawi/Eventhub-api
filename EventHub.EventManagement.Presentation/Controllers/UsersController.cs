@@ -13,7 +13,8 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace EventHub.EventManagement.Presentation.Controllers
 {
-   [Route("api/users")]
+   [ApiVersion("1.0")]
+   [Route("api/v{v:apiVersion}/users")]
    [ApiController]
    public class UsersController : ControllerBase
    {
